@@ -1,0 +1,399 @@
+/****************FOOTER CAMBIO COLORES**********************/
+.page-template-inicio .titulo-contacto{ color: #ffffff !important; }
+.page-template-inicio .t-contacto{ color: #ffffff !important; }
+.page-template-inicio .wpcf7-list-item-label{ color: #ffffff !important; }
+.page-template-inicio .formulario-modal .wpcf7-list-item-label{ color: #333 !important; }
+
+
+/****************FOOTER CAMBIO COLORES DESPENSA**********************/
+.page-template-despensa .titulo-contacto{ color: #006aaf !important; }
+.page-template-despensa .t-contacto{ color: #ffffff !important; }
+.page-template-despensa #enviar input { background: #006aaf; }
+.page-template-despensa footer.bg-marino { background-color: #006aaf; }
+.page-template-despensa .wpcf7-list-item-label{ color: #ffffff !important; }
+.page-template-despensa .formulario-modal .wpcf7-list-item-label{ color: #333 !important; }
+.page-template-combustible footer .t-celeste-1 { color: #006aaf !important; }
+
+/****************FOOTER CAMBIO COMBUSTIBLE**********************/
+.page-template-combustible .titulo-contacto{ color: #22aa11 !important; }
+.page-template-combustible .t-contacto{ color: #333333 !important; }
+.page-template-combustible #enviar input { background: #22aa11; }
+.page-template-combustible footer.bg-marino { background-color: #22aa11; }
+.page-template-combustible footer .t-celeste-1 { color: #22aa11 !important; }
+.page-template-combustible .bg-contacto-inicio { background-color: #e3e3e3;}
+.page-template-combustible .bg-contacto-inicio .t-blanco{ color: #333333 !important;}
+
+/****************FOOTER CAMBIO VIATICOS Y GASTOS**********************/
+.page-template-viaticos-gastos .titulo-contacto{ color: #ffffff !important; }
+.page-template-viaticos-gastos .t-contacto{ color: #ffffff !important; }
+.page-template-viaticos-gastos .wpcf7-list-item-label{ color: #ffffff !important; }
+.page-template-viaticos-gastos .formulario-modal .wpcf7-list-item-label{ color: #333 !important; }
+
+/****************FOOTER CAMBIO travex **********************/
+.page-template-travex .titulo-contacto{ color: #ffffff !important; }
+.page-template-travex .t-contacto{ color: #ffffff !important; }
+.page-template-travex #enviar input { background: #0033a5; }
+.page-template-travex footer.bg-marino { background-color: #161865; }
+.page-template-travex .wpcf7-list-item-label{ color: #ffffff !important; }
+.page-template-travex .formulario-modal .wpcf7-list-item-label{ color: #333 !important; }
+
+/****************FOOTER CAMBIO PREMIOS**********************/
+.page-template-premios .titulo-contacto{ color: #ff8e08 !important; }
+.page-template-premios .t-contacto{ color: #ffffff !important; }
+.page-template-premios #enviar input { background: #ff8e08; }
+.page-template-premios footer.bg-marino { background-color: #ff5500; }
+.page-template-premios footer .t-celeste-1 { color: #ff8e08 !important; }
+.page-template-premios .wpcf7-list-item-label{ color: #ffffff !important; }
+.page-template-premios .formulario-modal .wpcf7-list-item-label{ color: #333 !important; }
+
+.page-template-llave-mano .bg-contacto-inicio{
+  display: none !important;
+}
+
+.page-template-comercios-afiliados-combustible .bg-contacto-inicio .t-contacto{
+  color: #fff !important;
+}
+.page-template-comercios-afiliados-combustible .bg-contacto-inicio .titulo-contacto{
+  color: #fff !important;
+}
+.page-template-comercios-afiliados-combustible .bg-contacto-inicio span{
+  color: #fff !important;
+}
+.page-template-inicio2 .bg-contacto-inicio span, .page-template-inicio2 .bg-contacto-inicio h3, .page-template-inicio2 .bg-contacto-inicio p {
+  color: #fff !important;
+}
+.page-template-comercios-afiliados .bg-contacto-inicio span, .page-template-comercios-afiliados .bg-contacto-inicio h3, .page-template-comercios-afiliados .bg-contacto-inicio p {
+  color: #fff !important;
+}
+.page-template-saldo .bg-contacto-inicio span, .page-template-saldo .bg-contacto-inicio h3, .page-template-saldo .bg-contacto-inicio p {
+  color: #fff !important;
+}
+
+
+.mw-450{
+  max-width: 450px;
+}
+/****************FOOTER CAMBIO COLORES**********************/
+.btn-1{
+  padding: 8px 30px;
+  background-color: #1665f0;
+  color: #fff !important;
+  border: 0px;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 40px;
+  transition: .3s;
+}
+.btn-1:hover{
+  background-color: #0033a5;
+  transition: .3s;
+}
+.btn-2{
+  padding: 8px 30px;
+  background-color: #242b35;
+  color: #fff !important;
+  border: 0px;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 40px;
+  transition: .3s;
+}
+.btn-3:hover{
+  background-color: #1665f0;
+  transition: .3s;
+}
+.btn-3{
+  padding: 8px 30px;
+  background-color: #ffffff;
+  color: #1665f0 !important;
+  border: 0px;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 40px;
+  transition: .3s;
+}
+.btn-3:hover{
+  background-color: #1665f0;
+  color: #fff !important;
+  transition: .3s;
+}
+.btn-4{
+  padding: 8px 30px;
+  background-color: #ff4e00;
+  color: #ffffff !important;
+  border: 0px;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 40px;
+  transition: .3s;
+}
+.btn-4:hover{
+  background-color: #ff4e00;
+  color: #000000 !important;
+  transition: .3s;
+}
+
+.bg-header{
+  background-color: #242b35;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.bg-header.inicio{
+  background-image: url(https://onecard.mx/wp-content/uploads/bg-header-inicio.jpg);
+}
+.bg-header.despensa{
+  background-image: url(https://onecard.mx/wp-content/uploads/bg-header-despensa.jpg);
+}
+.bg-header.combustible{
+  background-image: url(https://onecard.mx/wp-content/uploads/bg-header-combustible.jpg);
+}
+.bg-header.empresarial{
+  background-image: url(https://onecard.mx/wp-content/uploads/bg-header-empresarial.jpg);
+}
+.bg-header.travex{
+  background-image: url(https://onecard.mx/wp-content/uploads/bg-header-travex.png);
+}
+.bg-header.premios{
+  background-image: url(https://onecard.mx/wp-content/uploads/bg-header-premios.jpg);
+}
+.azul-header{
+  background-color: #0033a5;
+  color: #fff;
+  display: inline-block;
+  padding: 5px 27px 5px 5px;
+  font-size: 25px;
+  text-transform: uppercase;
+  border-radius: 0px 30px 30px 0px;
+}
+
+.bg-tarjetas{
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(https://onecard.mx/wp-content/uploads/bg-tarjetas-inicio-1.png);
+}
+
+.logo-footer{
+  width: 130px;
+}
+.bg-contacto-inicio{
+  background-color: #232a34;
+  background-position: left -170px center;
+  background-repeat: no-repeat;
+  background-image: url(https://onecard.mx/wp-content/uploads/logo-grande-oscuro.png);
+}
+.bg-testimonios-inicio{
+  background-color: #232a34;
+  background-repeat: no-repeat;
+  background-image: url(https://onecard.mx/wp-content/uploads/bg-testimonios-inicio.png);
+  background-size: cover;
+}
+.barra-azul-40{
+  width: 100px;
+  height: 2px;
+  background-color: #0033a5;
+  margin: 0 auto;
+}
+.bg-areas-inicio{
+  background-color: #0033a5;
+  background-position: right -170px center;
+  background-repeat: no-repeat;
+  background-image: url(https://onecard.mx/wp-content/uploads/logo-grande-oscuro.png);
+}
+li#menu-item-94 {
+    background-color: #1665f0;
+    border-radius: 40px;
+    color: #ffffff !important;
+    margin-left: 5px;
+}
+li#menu-item-260 {
+    background-color: #1665f0;
+    border-radius: 40px;
+    color: #ffffff !important;
+    margin-left: 5px;
+}
+.bg-ventajas-combustible{
+  background-image: url(https://onecard.mx/wp-content/uploads/bg-ventajas-combustible.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+.bg-ventajas-premios{
+  background-image: url(https://onecard.mx/wp-content/uploads/bg-ventajas-premios.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+#ladatel{
+  position: absolute;
+z-index: 2;
+height: 40px;
+padding-top: 9px;
+padding-left: 15px;
+top: 25px;
+color: #0033a5;
+font-weight: 500;
+}
+#telefono{
+  padding-left: 50px !important;
+}
+
+.modal-content {
+    border: 0px !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+}
+
+.error404 header, .error404 footer, .error404 #movil-contacto, .error404 #movil-whatsapp, .error404 .bg-contacto-inicio{
+  display: none !important;
+}
+.page-template-default .bg-contacto-inicio{
+  display: none !important;
+}
+
+.formulario-modal label{
+      color: #333 !important;
+}
+.page-template-productos-servicios .bg-contacto-inicio, .page-template-gracias .bg-contacto-inicio, .page-template-gracias #movil-whatsapp, .page-template-gracias #movil-contacto{
+  display: none !important;
+}
+
+
+.page-template-contacto .contact-form label{
+ color: #333 !important;
+}
+.page-template-contacto .contact-form p{
+ margin-bottom: 0px !important;
+}
+.page-template-contacto .bg-contacto-inicio{
+ display: none !important;
+}
+
+.page-template-quienes-somos .bg-contacto-inicio{
+  display: none !important;
+}
+
+.bg-banner-travex{
+  background-image: url(https://onecard.mx/wp-content/uploads/banner-travex-naranja.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bg-banner-viaticos{
+  background-image: url(https://onecard.mx/wp-content/uploads/banner-naranja-viaticos.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.pum-theme-267 .pum-content, .pum-theme-cutting-edge .pum-content {
+    color: #0a0a0a;
+    font-family: inherit;
+    font-weight: 100;
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+}
+
+
+
+
+.formulario-head input{
+  width: 100%;
+  height: 40px;
+  padding: 20px !important;
+  border-radius: 3px !important;
+}
+.formulario-head textarea{
+  width: 100%;
+  height: 120px;
+  padding: 20px !important;
+  min-height: 120px;
+  max-height: 120px;
+  border-radius: 3px !important;
+}
+.formulario-head .enviar-head input{
+  background-color: #006aaf !important;
+    color: #ffffff;
+    border: none !important;
+    padding: 10px 50px!important;
+    width: inherit;
+    font-size: 17px;
+}
+
+.formulario-head .ajax-loader{
+  display: none !important;
+}
+.formulario-head p{
+  display: none !important;
+}
+.formulario-head .wpcf7-not-valid-tip{
+  display: none !important;
+}
+.wpcf7-validation-errors{
+  border: 2px solid #242b35 !important;
+background-color: #242b35 !important;
+color: #fff !important;
+margin: 5px 0px 0px 0px!important;
+}
+
+
+.wpcf7-spinner{display: none !important;}
+
+.page-id-353 header{display: none !important;}
+.page-id-353 footer{display: none !important;}
+.page-id-353 .bg-contacto-inicio h3{color: #fff !important;}
+.page-id-353 .bg-contacto-inicio p{color: #fff !important;}
+.page-id-353 .bg-contacto-inicio span{color: #fff !important;}
+
+.page-id-281 header{display: none !important;}
+.page-id-281 footer{display: none !important;}
+.page-id-281 .bg-contacto-inicio h3{color: #fff !important;}
+.page-id-281 .bg-contacto-inicio p{color: #fff !important;}
+.page-id-281 .bg-contacto-inicio span{color: #fff !important;}
+
+.page-id-279 header{display: none !important;}
+.page-id-279 footer{display: none !important;}
+.page-id-279 .bg-contacto-inicio h3{color: #fff !important;}
+.page-id-279 .bg-contacto-inicio p{color: #fff !important;}
+.page-id-279 .bg-contacto-inicio span{color: #fff !important;}
+
+.page-template-codigo-etica .bg-contacto-inicio{
+  display: none !important;
+}
+
+/***
+* Banner
+**/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap");
+.banner {
+  background: #000000 url(https://onecard.mx/wp-content/uploads/banner-bg.png) no-repeat center center;
+  background-size: cover;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  text-align: center;
+  padding: 35px;
+}
+.banner.combustible {
+  background-image: url(https://onecard.mx/wp-content/uploads/banner-bg_combustible.png);
+}
+.banner.premios {
+  background-image: url(https://onecard.mx/wp-content/uploads/banner-bg_premios.png);
+}
+.banner-body {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.banner-titulo {
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.banner-text {
+  font-size: 32px;
+  font-weight: 700;
+}

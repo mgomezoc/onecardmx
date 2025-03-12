@@ -1,0 +1,64 @@
+# 🚀 Ignorar archivos del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+*.tmp
+
+# 🛠️ Ignorar configuraciones de IDEs y editores
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# 🏗️ Ignorar dependencias y archivos generados
+node_modules/
+vendor/
+composer.lock
+package-lock.json
+yarn.lock
+
+# 🔒 Ignorar archivos de configuración y credenciales sensibles
+wp-config.php
+wp-config*.php
+.env
+.env.local
+.env.*.local
+
+# 🚀 Ignorar bases de datos locales
+*.sql
+*.sqlite
+*.db
+
+# 📁 Ignorar archivos de WordPress innecesarios
+wp-content/debug.log
+wp-content/upgrade/
+wp-content/aiowps_backups/
+wp-content/backup-db/
+wp-content/backups/
+wp-content/cache/
+wp-content/uploads/
+wp-content/mu-plugins/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+wp-content/object-cache.php
+
+# 🔥 Ignorar archivos de logs y errores
+error_log
+php_errors.log
+logs/
+laragon.log
+
+# 🚀 Ignorar archivos de seguridad y respaldo
+.htaccess
+.htpasswd
+*.bak
+*.swp
+*.swo
+*.zip
+*.tar.gz
+*.rar
+
+# 🏠 Ignorar configuraciones de Laragon
+laragon/
+*.ini

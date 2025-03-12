@@ -1,0 +1,127 @@
+/************************************** MEDIA *******************************/
+@media (max-width: 599px) {
+  .hidden-xs {
+    display: none !important;
+  }
+  .text-left{
+    text-align: center !important;
+	}
+  .text-right{
+    text-align: center !important;
+  }
+	#menu-principal ul {
+    display: grid !important;
+		padding: 0px;
+		text-align: center;
+	}
+	#menu-principal li {
+		padding: 0px !important;
+	}
+	#menu-principal a {
+    display: block;
+		padding: 10px;
+	}
+  .contact-form .wpcf7-validation-errors, .contact-form .wpcf7-acceptance-missing {
+  	display: none !important;
+  }
+  ul.sub-menu {
+  	position: relative;
+  	opacity: 1;
+  	padding: 0px 0px 0px 0px !important;
+  	display: initial !important;
+  }
+  #menu-principal{
+    padding-bottom: 10px;
+  }
+  .azul-header {
+    background-color: transparent !important;
+  }
+  .h-600 {
+    min-height: 40px;
+  }
+  #menu-item-94 {
+      background-color: #313842 !important;
+      border-radius: 0px !important;
+      margin-top: 10px;
+      margin-left: 0px !important;
+      color: transparent !important;
+      border-top: 1px solid #ccc;
+  }
+  #menu-principal .sub-menu {
+    background-color: transparent;
+    max-width: initial;
+}
+.neg-bot-80{
+  margin-bottom: 0px;
+}
+.align-items-start-xs-sm{
+  align-items: center !important;
+}
+
+}
+@media (min-width: 600px) and (max-width: 991px) {
+  .hidden-sm {
+    display: none !important;
+  }
+  .text-left{
+   text-align: center !important;
+  }
+  .text-right{
+    text-align: center !important;
+  }
+  .contact-form .wpcf7-validation-errors, .contact-form .wpcf7-acceptance-missing {
+  	display: none !important;
+  }
+  #menu-principal ul {
+    display: grid !important;
+		padding: 0px;
+		text-align: center;
+	}
+	#menu-principal li {
+		padding: 0px !important;
+	}
+	#menu-principal a {
+    display: block;
+		padding: 10px;
+	}
+  ul.sub-menu {
+  	position: relative;
+  	opacity: 1;
+  	padding: 0px 0px 0px 0px !important;
+  	display: initial !important;
+  }
+  #menu-principal{
+    padding-bottom: 10px;
+  }
+  #menu-item-94 {
+      background-color: #313842 !important;
+      border-radius: 0px !important;
+      margin-top: 10px;
+      margin-left: 0px !important;
+      color: transparent !important;
+      border-top: 1px solid #ccc;
+  }
+  #menu-principal .sub-menu {
+    background-color: transparent;
+    max-width: initial;
+}
+.neg-bot-80{
+  margin-bottom: 0px;
+}
+.align-items-start-xs-sm{
+  align-items: center !important;
+}
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .hidden-md {
+    display: none !important;
+  }
+
+
+}
+@media (min-width: 1200px) {
+  .hidden-lg {
+    display: none !important;
+  }
+
+}
