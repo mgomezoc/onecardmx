@@ -5,8 +5,6 @@
  *
  * This is the template that displays all of the <head> section and everything up until <div id="content">
  *
- * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
- *
  * @package adfactory
  */
 
@@ -22,18 +20,40 @@
 	<!--BOOTSTRAP 4.3-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-
 	<!--GOOGLE FONTS MONTSERRAT-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,500,700&display=swap" rel="stylesheet">
-
-
-
 
 	<!--ESTILOS-->
 	<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/generales.css">
 	<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/estilos-1.css">
 	<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/media.css">
 
+	<!-- Meta Pixel Code (OneCard - Todas las páginas) -->
+	<script>
+		! function(f, b, e, v, n, t, s) {
+			if (f.fbq) return;
+			n = f.fbq = function() {
+				n.callMethod ?
+					n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+			};
+			if (!f._fbq) f._fbq = n;
+			n.push = n;
+			n.loaded = !0;
+			n.version = '2.0';
+			n.queue = [];
+			t = b.createElement(e);
+			t.async = !0;
+			t.src = v;
+			s = b.getElementsByTagName(e)[0];
+			s.parentNode.insertBefore(t, s)
+		}(window, document, 'script',
+			'https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '1134490787849389');
+		fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none"
+			src="https://www.facebook.com/tr?id=1134490787849389&ev=PageView&noscript=1" /></noscript>
+	<!-- End Meta Pixel Code -->
 
 	<?php wp_head(); ?>
 
@@ -63,6 +83,7 @@
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBKK74W"
 			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
+
 	<div id="page" class="site">
 		<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e('Skip to content', 'adfactory'); ?></a>
 
