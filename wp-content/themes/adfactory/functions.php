@@ -212,5 +212,19 @@ function redirect_cf7()
 			location = 'https://onecard.mx/gracias/';
 		}, false);
 	</script>
-<?php
+	<?php
 }
+
+
+// Agregar Meta Pixel de conversión solo en páginas con formularios
+function onecard_conversion_pixel()
+{
+	if (is_page(array('contacto', 'cotizacion', 'formulario-leads'))) { // Cambia los slugs por los de tus páginas de conversión
+	?>
+		<script>
+			fbq('track', 'Lead');
+		</script>
+<?php
+	}
+}
+add_action('wp_footer', 'onecard_conversion_pixel');
