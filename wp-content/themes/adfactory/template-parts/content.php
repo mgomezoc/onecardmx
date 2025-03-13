@@ -3,60 +3,33 @@
 /**
  * Template part for displaying posts
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
- *
  * @package adfactory
  */
-
 ?>
 
+<div class="container mt-5" style="background:url(https://onecard.mx/wp-content/uploads/bg-tarjetas-inicio-1.png) no-repeat center center fixed; background-size: cover">;
+	<div class="row justify-content-center">
+		<div class="col-lg-8">
+			<article id="post-<?php the_ID(); ?>" <?php post_class('card border-0 shadow-sm mb-5'); ?>>
+				<?php if (has_post_thumbnail()) : ?>
+					<img class="card-img-top rounded-3" src="<?php the_post_thumbnail_url('large'); ?>" alt="<?php the_title(); ?>">
+				<?php endif; ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php
-		if (is_singular()) :
-			the_title('<h1 class="entry-title">', '</h1>');
-		else :
-			the_title('<h2 class="entry-title"><a href="' . esc_url(get_permalink()) . '" rel="bookmark">', '</a></h2>');
-		endif;
+				<div class="card-body">
+					<header class="entry-header mb-3 bg-white" style="box-shadow: none;">
+						<h1 class="entry-title fw-bold text-dark">
+							<?php the_title(); ?>
+						</h1>
+						<div class="entry-meta text-muted small">
+							📅 <?php echo get_the_date(); ?> | ✍️ <?php the_author(); ?>
+						</div>
+					</header><!-- .entry-header -->
 
-		if ('post' === get_post_type()) :
-		?>
-			<div class="entry-meta">
-				<?php
-				adfactory_posted_on();
-				adfactory_posted_by();
-				?>
-			</div><!-- .entry-meta -->
-		<?php endif; ?>
-	</header><!-- .entry-header -->
-
-	<?php adfactory_post_thumbnail(); ?>
-
-
-	<div class="entry-content">
-		<?php
-		the_content(sprintf(
-			wp_kses(
-				/* translators: %s: Name of current post. Only visible to screen readers */
-				__('Continue reading<span class="screen-reader-text"> "%s"</span>', 'adfactory'),
-				array(
-					'span' => array(
-						'class' => array(),
-					),
-				)
-			),
-			get_the_title()
-		));
-
-		wp_link_pages(array(
-			'before' => '<div class="page-links">' . esc_html__('Pages:', 'adfactory'),
-			'after'  => '</div>',
-		));
-		?>
-	</div><!-- .entry-content -->
-
-	<footer class="entry-footer">
-		<?php adfactory_entry_footer(); ?>
-	</footer><!-- .entry-footer -->
-</article><!-- #post-<?php the_ID(); ?> -->
+					<div class="entry-content">
+						<?php the_content(); ?> <!-- 🔹 Muestra todo el contenido completo del post -->
+					</div><!-- .entry-content -->
+				</div>
+			</article>
+		</div>
+	</div>
+</div>
