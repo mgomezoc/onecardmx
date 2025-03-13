@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The header for our theme
  *
@@ -12,8 +13,9 @@
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
+
 <head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta charset="<?php bloginfo('charset'); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
@@ -27,7 +29,7 @@
 
 
 
- <!--ESTILOS-->
+	<!--ESTILOS-->
 	<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/generales.css">
 	<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/estilos-1.css">
 	<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/media.css">
@@ -35,46 +37,57 @@
 
 	<?php wp_head(); ?>
 
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KBKK74W');</script>
-<!-- End Google Tag Manager -->
+	<!-- Google Tag Manager -->
+	<script>
+		(function(w, d, s, l, i) {
+			w[l] = w[l] || [];
+			w[l].push({
+				'gtm.start': new Date().getTime(),
+				event: 'gtm.js'
+			});
+			var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s),
+				dl = l != 'dataLayer' ? '&l=' + l : '';
+			j.async = true;
+			j.src =
+				'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+			f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KBKK74W');
+	</script>
+	<!-- End Google Tag Manager -->
 
 </head>
 
 <body <?php body_class(); ?>>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBKK74W"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-<div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'adfactory' ); ?></a>
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBKK74W"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	<div id="page" class="site">
+		<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e('Skip to content', 'adfactory'); ?></a>
 
-	<header id="masthead" class="bg-oscuro fixed-top">
+		<header id="masthead" class="bg-oscuro fixed-top">
 			<nav class="navbar navbar-expand-lg  container">
-			  <span id="logo" class="logo-principal"> <?php the_custom_logo(); ?> </span>
+				<span id="logo" class="logo-principal"> <?php the_custom_logo(); ?> </span>
 
-					<div id="nav-icon3" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-					  <span></span>
-					  <span></span>
-					  <span></span>
-					  <span></span>
-					</div>
+				<div id="nav-icon3" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
 
-			  <div class="collapse navbar-collapse" id="navbarNav">
+				<div class="collapse navbar-collapse" id="navbarNav">
 					<div id="menu-principal" class="ml-auto">
 						<?php
-						wp_nav_menu( array(
+						wp_nav_menu(array(
 							'theme_location' => 'menu-1',
 							'menu_id'        => 'primary-menu',
-						) );
+						));
 						?>
 					</div>
-			  </div>
+				</div>
 			</nav>
-	</header><!-- #masthead -->
+		</header><!-- #masthead -->
 
-	<div id="content" class="site-content">
+		<div id="content" class="site-content">
