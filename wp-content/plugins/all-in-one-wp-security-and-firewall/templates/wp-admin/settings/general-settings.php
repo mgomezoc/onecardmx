@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die('No direct access.'); ?>
 <div class="aio_grey_box">
-	<p><?php _e('For information, updates and documentation, please visit the', 'all-in-one-wp-security-and-firewall'); ?> <a href="https://aiosplugin.com" target="_blank"><?php echo htmlspecialchars('All In One WP Security & Firewall Plugin'); ?></a> <?php _e('Page', 'all-in-one-wp-security-and-firewall'); ?>.</p>
+	<p><?php _e('For information, updates and documentation, please visit', 'all-in-one-wp-security-and-firewall'); ?> <a href="https://teamupdraft.com/all-in-one-security/?utm_source=aios-plugin&utm_medium=referral&utm_campaign=paac&utm_content=documentation-from-settings&utm_creative_format=notice" target="_blank"><?php echo htmlspecialchars('All-In-One Security'); ?></a> <?php _e('Page', 'all-in-one-wp-security-and-firewall'); ?>.</p>
 </div>
 <?php
 if (!is_super_admin()) {
@@ -9,11 +9,11 @@ if (!is_super_admin()) {
 } else {
 ?>
 <div class="postbox">
-	<h3 class="hndle"><label for="title"><?php _e('WP Security plugin', 'all-in-one-wp-security-and-firewall'); ?></label></h3>
+	<h3 class="hndle"><label for="title"><?php _e('All-In-One Security', 'all-in-one-wp-security-and-firewall'); ?></label></h3>
 	<div class="inside">
 		<p>
 			<?php
-			_e('Thank you for using the AIOS security plugin.', 'all-in-one-wp-security-and-firewall');
+			_e('Thank you for using the All-In-One Security plugin.', 'all-in-one-wp-security-and-firewall');
 			?>
 			&nbsp;
 			<?php
@@ -42,8 +42,7 @@ if (!is_super_admin()) {
 <div class="postbox">
 	<h3 class="hndle"><label for="title"><?php _e('Disable security features', 'all-in-one-wp-security-and-firewall'); ?></label></h3>
 	<div class="inside">
-		<form method="post" action="">
-			<?php wp_nonce_field('aiowpsec-disable-all-features'); ?>
+		<form method="post" action="" id="aiowpsec-disable-all-features-form">
 			<div class="aio_blue_box">
 				<?php
 				echo '<p>'.__('If you think that some plugin functionality on your site is broken due to a security feature you enabled in this plugin, then use the following option to turn off all the security features of this plugin.', 'all-in-one-wp-security-and-firewall').'</p>';
@@ -58,11 +57,10 @@ if (!is_super_admin()) {
 <div class="postbox">
 	<h3 class="hndle"><label for="title"><?php _e('Disable all firewall rules', 'all-in-one-wp-security-and-firewall'); ?></label></h3>
 	<div class="inside">
-		<form method="post" action="">
-			<?php wp_nonce_field('aiowpsec-disable-all-firewall-rules'); ?>
+		<form method="post" action="" id="aiowpsec-disable-all-firewall-rules-form">
 			<div class="aio_blue_box">
 				<?php
-				echo '<p>'.__('This feature will disable all firewall rules which are currently active in this plugin and it will also delete these rules from your .htacess file. Use it if you think one of the firewall rules is causing an issue on your site.', 'all-in-one-wp-security-and-firewall').'</p>';
+				echo '<p>'.__('This feature will disable all firewall rules which are currently active in this plugin and it will also delete these rules from your .htaccess file.', 'all-in-one-wp-security-and-firewall') . ' ' . __('Use it if you think one of the firewall rules is causing an issue on your site.', 'all-in-one-wp-security-and-firewall').'</p>';
 				?>
 			</div>
 			<div class="submit">
@@ -74,20 +72,19 @@ if (!is_super_admin()) {
 <div class="postbox">
 	<h3 class="hndle"><label for="title"><?php _e('Reset settings', 'all-in-one-wp-security-and-firewall'); ?></label></h3>
 	<div class="inside">
-		<form method="post" action="">
+		<form method="post" action="" id="aiowpsec-reset-settings-form">
 			<div class="aio_blue_box">
 				<?php
-				echo '<p>'.htmlspecialchars(__('This feature will delete all of your settings related to the All In One WP Security & Firewall Plugin.', 'all-in-one-wp-security-and-firewall')).'</p>';
+				echo '<p>'.htmlspecialchars(__('This feature will delete all of your settings related to the All-In-One Security plugin.', 'all-in-one-wp-security-and-firewall')).'</p>';
 				echo '<p>'.__('This feature will reset/empty all the database tables of the security plugin also.', 'all-in-one-wp-security-and-firewall').'</p>';
-				echo '<p>'.htmlspecialchars(__('Use this feature if you were locked out by the All In One WP Security & Firewall Plugin and/or you are having issues logging in when that plugin is activated.', 'all-in-one-wp-security-and-firewall')).'</p>';
-				echo '<p>'.htmlspecialchars(__('In addition to the settings it will also delete any directives which were added to the .htaccess file by the All In One WP Security & Firewall Plugin.', 'all-in-one-wp-security-and-firewall')).'</p>';
-				echo '<p>'.sprintf(htmlspecialchars(__('%1$sNOTE: %2$sAfter deleting the settings you will need to re-configure the All In One WP Security & Firewall Plugin.', 'all-in-one-wp-security-and-firewall')), '<strong>', '</strong>').'</p>';
+				echo '<p>'.htmlspecialchars(__('Use this feature if you were locked out by the All-In-One Security plugin and/or you are having issues logging in when that plugin is activated.', 'all-in-one-wp-security-and-firewall')).'</p>';
+				echo '<p>'.htmlspecialchars(__('In addition to the settings it will also delete any directives which were added to the .htaccess file by the All-In-One Security Plugin.', 'all-in-one-wp-security-and-firewall')).'</p>';
+				echo '<p>'.sprintf(htmlspecialchars(__('%1$sNOTE: %2$sAfter deleting the settings you will need to re-configure the All-In-One Security plugin.', 'all-in-one-wp-security-and-firewall')), '<strong>', '</strong>').'</p>';
 				?>
 			</div>
 			<div class="submit">
 				<input type="submit" name="aiowps_reset_settings" value="<?php _e('Reset settings', 'all-in-one-wp-security-and-firewall'); ?>" class="button">
 			</div>
-			<?php wp_nonce_field('aiowps-reset-settings-nonce'); ?>
 		</form>
 	</div>
 </div> <!-- end postbox-->
@@ -97,8 +94,7 @@ if (!is_super_admin()) {
 <div class="postbox">
 	<h3 class="hndle"><label for="title"><?php _e('Debug settings', 'all-in-one-wp-security-and-firewall'); ?></label></h3>
 	<div class="inside">
-		<form method="post" action="">
-			<?php wp_nonce_field('aiowpsec-save-debug-settings'); ?>
+		<form method="post" action="" id="aiowpsec-save-debug-settings-form">
 			<div class="aio_blue_box">
 				<?php
 				echo '<p>'.__('This setting allows you to enable/disable debug for this plugin.', 'all-in-one-wp-security-and-firewall').'</p>';
@@ -108,12 +104,12 @@ if (!is_super_admin()) {
 				<tr valign="top">
 					<th scope="row"><?php _e('Enable debug', 'all-in-one-wp-security-and-firewall'); ?>:</th>
 					<td>
-						<input id="aiowps_enable_debug" name="aiowps_enable_debug" type="checkbox"<?php if ($aio_wp_security->configs->get_value('aiowps_enable_debug')=='1') echo ' checked="checked"'; ?> value="1"/>
-						<label for="aiowps_enable_debug" class="description"><?php _e('Check this if you want to enable debug. You should keep this option disabled after you have finished debugging the issue.', 'all-in-one-wp-security-and-firewall'); ?></label>
+						<div class="aiowps_switch_container">
+							<?php AIOWPSecurity_Utility_UI::setting_checkbox(__('Enable debug mode.', 'all-in-one-wp-security-and-firewall') . ' ' . __('You should keep this option disabled after you have finished debugging the issue.', 'all-in-one-wp-security-and-firewall'), 'aiowps_enable_debug', '1' == $aio_wp_security->configs->get_value('aiowps_enable_debug')); ?>
+						</div>
 					</td>
 				</tr>
 			</table>
-			<input type="submit" name="aiowps_save_debug_settings" value="<?php _e('Save debug settings', 'all-in-one-wp-security-and-firewall'); ?>" class="button">
 		</form>
 	</div>
 </div> <!-- end postbox-->

@@ -41,8 +41,13 @@ class URE_Ajax_Processor {
     
     
     protected function get_required_cap() {
-        
-        if ( $this->action=='grant_roles' || $this->action=='get_user_roles' ) {
+        $promote_users_actions = array(
+            'grant_roles',
+            'get_user_roles',
+            'add_role_to_user',
+            'revoke_role_from_user'
+        );
+        if ( in_array( $this->action, $promote_users_actions ) ) {
             $cap = 'promote_users';
         } else {
             $cap = URE_Own_Capabilities::get_key_capability();
@@ -56,7 +61,7 @@ class URE_Ajax_Processor {
     protected function valid_nonce() {
         
         if ( !isset( $_REQUEST['wp_nonce'] ) || !wp_verify_nonce( $_REQUEST['wp_nonce'], 'user-role-editor' ) ) {
-            echo json_encode( array('result'=>'error', 'message'=>'URE: Wrong or expired request') );
+            echo wp_json_encode( array('result'=>'error', 'message'=>'URE: Wrong or expired request') );
             return false;
         } else {
             return true;
@@ -70,7 +75,7 @@ class URE_Ajax_Processor {
         
         $capability = $this->get_required_cap();                
         if ( !current_user_can( $capability ) ) {
-            echo json_encode( array('result'=>'error', 'message'=>'URE: Insufficient permissions') );
+            echo wp_json_encode( array('result'=>'error', 'message'=>'URE: Insufficient permissions') );
             return false;
         } else {
             return true;
@@ -234,7 +239,26 @@ class URE_Ajax_Processor {
         
     }
     // end of grant_roles()
+
     
+    protected function add_role_to_user() {
+        
+        $answer = URE_Grant_Roles::add_role();
+        
+        return $answer;
+        
+    }
+    // end of add_role_to_user()
+
+    
+    protected function revoke_role_from_user() {
+        
+        $answer = URE_Grant_Roles::revoke_role();
+        
+        return $answer;
+        
+    }
+    // end of add_role_to_user()
     
     protected function get_user_roles() {
         
@@ -329,6 +353,12 @@ class URE_Ajax_Processor {
             case 'grant_roles':
                 $answer = $this->grant_roles();
                 break;
+            case 'add_role_to_user':
+                $answer = $this->add_role_to_user();
+                break;
+            case 'revoke_role_from_user':
+                $answer = $this->revoke_role_from_user();
+                break;
             case 'get_user_roles':
                 $answer = $this->get_user_roles();
                 break;
@@ -362,7 +392,7 @@ class URE_Ajax_Processor {
         
         $answer = $this->_dispatch();
         
-        $json_answer = json_encode($answer);
+        $json_answer = wp_json_encode($answer);
         echo $json_answer;
         die;
 

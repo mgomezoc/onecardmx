@@ -1,9 +1,9 @@
 === User Role Editor ===
 Contributors: shinephp
-Tags: user, role, editor, security, access, permission, capability
+Tags: user, role, editor, security, access
 Requires at least: 4.4
-Tested up to: 6.2
-Stable tag: 4.63.3
+Tested up to: 6.7.1
+Stable tag: 4.64.4
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -81,10 +81,13 @@ https://translate.wordpress.org/projects/wp-plugins/user-role-editor/
 
 
 == Changelog =
-= [4.63.3] 12.03.2023 =
-* Fix: PHP version 8.2 showed warning: Creation of dynamic property User_Role_Editor::$settings_page_hook is deprecated : wp-content/plugins/user-role-editor/includes/classes/user-role-editor.php:603
-* Fix: PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, int given in wp-content/plugins/user-role-editor/includes/classes/view.php:81
-* Fix: PHP Parse error: syntax error, unexpected ‘:’, expecting ‘;’ or ‘{‘: wp-content/plugins/user-role-editor/includes/classes/base-lib.php on line 119, type declarations were removed for compatibility with older PHP versions. 
+= [4.64.4] 15.12.2024 =
+* Security Fix: Users - "Add Role", "Revoke Role" buttons: Cross-Site request forgery to privilege escalation was possible due to missed nonce validation. This issue was discovered and responsibly reported by vgo0.
+
+= [4.64.3] 03.12.2024 =
+* Update: Marked as compatible with WordPress 6.7.1
+* Fix: PHP Notice:  "Function _load_textdomain_just_in_time was called incorrectly. Translation loading for the <code>user-role-editor</code> domain was triggered too early." was fixed (shown only for those who used own .mo translation file installed).
+* Fix: Miscellaneous translation functionality (l18n) usage enhancements were applied.
 
 File changelog.txt contains the full list of changes.
 
@@ -96,10 +99,5 @@ I am ready to answer on your questions about plugin usage. Use [plugin page comm
 
 == Upgrade Notice ==
 
-= [4.63.3] 12.03.2023 =
-* Fix: PHP version 8.2 showed warning: Creation of dynamic property User_Role_Editor::$settings_page_hook is deprecated : wp-content/plugins/user-role-editor/includes/classes/user-role-editor.php:603
-* Fix: PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, int given in wp-content/plugins/user-role-editor/includes/classes/view.php:81
-* Fix: PHP Parse error: syntax error, unexpected ‘:’, expecting ‘;’ or ‘{‘: wp-content/plugins/user-role-editor/includes/classes/base-lib.php on line 119, type declarations were removed for compatibility with older PHP versions. 
-
-
-
+= [4.64.4] 15.12.2024 =
+* Security Fix: Users - "Add Role", "Revoke Role" buttons: Cross-Site request forgery to privilege escalation was possible due to missed nonce validation. This issue was discovered and responsibly reported by vgo0.

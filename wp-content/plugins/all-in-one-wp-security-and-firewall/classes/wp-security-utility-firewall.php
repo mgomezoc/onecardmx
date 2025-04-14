@@ -53,7 +53,8 @@ class AIOWPSecurity_Utility_Firewall {
 	 */
 	public static function is_firewall_page() {
 		global $pagenow;
-		return ('admin.php' == $pagenow && isset($_GET['page']) && false !== strpos($_GET['page'], AIOWPSEC_MENU_SLUG_PREFIX.'_firewall'));
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- PCP warning. No nonce.
+		return ('admin.php' == $pagenow && isset($_GET['page']) && false !== strpos(sanitize_title(wp_unslash($_GET['page'])), AIOWPSEC_MENU_SLUG_PREFIX.'_firewall'));
 	}
 
 	/**
@@ -108,15 +109,22 @@ class AIOWPSecurity_Utility_Firewall {
 	 * @return string - returns the directive if set, or empty string if not set
 	 */
 	public static function get_already_set_directive($source = '') {
-
+		global $aio_wp_security;
 		if (!empty($source)) {
 			clearstatcache();
 			if (file_exists($source) && is_readable($source)) {
-					
-				$vals = @parse_ini_file($source); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- ignore this
-	
-				if (false !== $vals && isset($vals['auto_prepend_file'])) {
-					return $vals['auto_prepend_file'];
+				try {
+					$vals = @parse_ini_file($source); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- ignore this
+
+					if (false !== $vals && isset($vals['auto_prepend_file'])) {
+						return $vals['auto_prepend_file'];
+					}
+				} catch (Exception $exception) {
+					$aio_wp_security->debug_logger->log_debug($exception->getMessage(), 4);
+					return '';
+				} catch (Error $error) {
+					$aio_wp_security->debug_logger->log_debug($error->getMessage(), 4);
+					return '';
 				}
 			}
 		} else {
@@ -223,7 +231,7 @@ class AIOWPSecurity_Utility_Firewall {
 		clearstatcache();
 		$muplugin_path = $firewall_files['muplugin'];
 		if (file_exists($muplugin_path)) {
-			@unlink($muplugin_path); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- ignore this
+			@wp_delete_file($muplugin_path); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged -- ignore this
 		}
 
 		$aio_wp_security->configs->set_value('aios_firewall_dismiss', false, true);

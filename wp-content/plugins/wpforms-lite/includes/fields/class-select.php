@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Dropdown field.
  *
@@ -12,7 +16,7 @@ class WPForms_Field_Select extends WPForms_Field {
 	 *
 	 * @since 1.6.3
 	 */
-	const CHOICES_VERSION = '9.0.1';
+	const CHOICES_VERSION = '10.2.0';
 
 	/**
 	 * Classic (old) style.
@@ -41,6 +45,7 @@ class WPForms_Field_Select extends WPForms_Field {
 
 		// Define field type information.
 		$this->name     = esc_html__( 'Dropdown', 'wpforms-lite' );
+		$this->keywords = esc_html__( 'choice', 'wpforms-lite' );
 		$this->type     = 'select';
 		$this->icon     = 'fa-caret-square-o-down';
 		$this->order    = 70;
@@ -60,6 +65,10 @@ class WPForms_Field_Select extends WPForms_Field {
 				'value'   => '',
 				'default' => '',
 			],
+		];
+
+		$this->default_settings = [
+			'choices' => $this->defaults,
 		];
 
 		// Define additional field properties.
@@ -92,7 +101,7 @@ class WPForms_Field_Select extends WPForms_Field {
 
 		// Define data.
 		$form_id  = absint( $form_data['id'] );
-		$field_id = absint( $field['id'] );
+		$field_id = wpforms_validate_field_id( $field['id'] );
 		$choices  = $field['choices'];
 		$dynamic  = wpforms_get_field_dynamic_choices( $field, $form_id, $form_data );
 
@@ -193,6 +202,16 @@ class WPForms_Field_Select extends WPForms_Field {
 
 		// Choices.
 		$this->field_option( 'choices', $field );
+
+		// AI Feature.
+		$this->field_option(
+			'ai_modal_button',
+			$field,
+			[
+				'value' => esc_html__( 'Generate Choices', 'wpforms-lite' ),
+				'type'  => 'choices',
+			]
+		);
 
 		// Description.
 		$this->field_option( 'description', $field );
@@ -468,11 +487,14 @@ class WPForms_Field_Select extends WPForms_Field {
 
 		// Build the select options.
 		foreach ( $choices as $key => $choice ) {
+			$label = $this->get_choices_label( $choice['label']['text'] ?? '', $key, $field );
+			$value = isset( $choice['attr']['value'] ) && ! wpforms_is_empty_string( $choice['attr']['value'] ) ? $choice['attr']['value'] : $label;
+
 			printf(
 				'<option value="%s" %s>%s</option>',
-				esc_attr( $choice['attr']['value'] ),
+				esc_attr( $value ),
 				selected( true, ! empty( $choice['default'] ), false ),
-				esc_html( $choice['label']['text'] )
+				esc_html( $label )
 			);
 		}
 
@@ -485,7 +507,7 @@ class WPForms_Field_Select extends WPForms_Field {
 	 * @since 1.8.2
 	 *
 	 * @param int          $field_id     Field ID.
-	 * @param string|array $field_submit Submitted field value (selected option).
+	 * @param string|array $field_submit Submitted field value (raw data).
 	 * @param array        $form_data    Form data and settings.
 	 */
 	public function validate( $field_id, $field_submit, $form_data ) {
@@ -529,7 +551,7 @@ class WPForms_Field_Select extends WPForms_Field {
 			'name'      => $name,
 			'value'     => '',
 			'value_raw' => $value_raw,
-			'id'        => absint( $field_id ),
+			'id'        => wpforms_validate_field_id( $field_id ),
 			'type'      => $this->type,
 		];
 
@@ -604,7 +626,7 @@ class WPForms_Field_Select extends WPForms_Field {
 		}
 
 		// Push field details to be saved.
-		wpforms()->process->fields[ $field_id ] = $data;
+		wpforms()->obj( 'process' )->fields[ $field_id ] = $data;
 	}
 
 	/**
@@ -626,7 +648,7 @@ class WPForms_Field_Select extends WPForms_Field {
 			}
 		}
 
-		if ( $has_modern_select || wpforms()->frontend->assets_global() ) {
+		if ( $has_modern_select || wpforms()->obj( 'frontend' )->assets_global() ) {
 			$min = wpforms_get_min_suffix();
 
 			wp_enqueue_style(
@@ -657,7 +679,7 @@ class WPForms_Field_Select extends WPForms_Field {
 			}
 		}
 
-		if ( $has_modern_select || wpforms()->frontend->assets_global() ) {
+		if ( $has_modern_select || wpforms()->obj( 'frontend' )->assets_global() ) {
 			$this->enqueue_choicesjs_once( $forms );
 		}
 	}
@@ -717,22 +739,27 @@ class WPForms_Field_Select extends WPForms_Field {
 	}
 
 	/**
-	 * Get field name for ajax error message.
+	 * Get field name for an ajax error message.
 	 *
 	 * @since 1.6.3
 	 *
-	 * @param string $name  Field name for error triggered.
-	 * @param array  $field Field settings.
-	 * @param array  $props List of properties.
-	 * @param string $error Error message.
+	 * @param string|mixed $name Field name for error triggered.
+	 * @param array $field Field settings.
+	 * @param array $props List of properties.
+	 * @param string|string[] $error Error message.
 	 *
 	 * @return string
+	 * @noinspection PhpMissingReturnTypeInspection
+	 * @noinspection ReturnTypeCanBeDeclaredInspection
 	 */
 	public function ajax_error_field_name( $name, $field, $props, $error ) {
+
+		$name = (string) $name;
 
 		if ( ! isset( $field['type'] ) || 'select' !== $field['type'] ) {
 			return $name;
 		}
+
 		if ( ! empty( $field['multiple'] ) ) {
 			$input = isset( $props['inputs'] ) ? end( $props['inputs'] ) : [];
 

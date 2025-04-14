@@ -16,7 +16,7 @@
  */
 function wpforms_display( $form_id = false, $title = false, $desc = false ) {
 
-	$frontend = wpforms()->get( 'frontend' );
+	$frontend = wpforms()->obj( 'frontend' );
 
 	if ( empty( $frontend ) ) {
 		return;
@@ -74,7 +74,7 @@ function wpforms_get_form_preview_url( $form_id, $new_window = false ) {
  */
 function wpforms_decode( $data ) {
 
-	if ( ! $data || empty( $data ) ) {
+	if ( empty( $data ) ) {
 		return false;
 	}
 
@@ -106,24 +106,24 @@ function wpforms_encode( $data = false ) {
 }
 
 /**
- * Decode json-encoded string if it is in json format.
+ * Decode json-encoded string if it is in JSON format.
  *
  * @since 1.7.5
  *
- * @param string $string      A string.
- * @param bool   $associative Decode to the associative array if true. Decode to object if false.
+ * @param string $encoded_string A string.
+ * @param bool   $associative    Decode to the associative array if true. Decode to object if false.
  *
  * @return array|string
  */
-function wpforms_json_decode( $string, $associative = false ) {
+function wpforms_json_decode( $encoded_string, $associative = false ) {
 
-	$string = html_entity_decode( $string );
+	$encoded_string = html_entity_decode( $encoded_string );
 
-	if ( ! wpforms_is_json( $string ) ) {
-		return $string;
+	if ( ! wpforms_is_json( $encoded_string ) ) {
+		return $encoded_string;
 	}
 
-	return json_decode( $string, $associative );
+	return json_decode( $encoded_string, $associative );
 }
 
 /**
@@ -131,35 +131,33 @@ function wpforms_json_decode( $string, $associative = false ) {
  *
  * @since 1.0.0
  *
- * @param string $key     Setting name.
- * @param mixed  $default Default value to return if the setting is not available.
- * @param string $option  Option key, defaults to `wpforms_settings` in the `wp_options` table.
+ * @param string $key           Setting name.
+ * @param mixed  $default_value Default value to return if the setting is not available.
+ * @param string $option        Option key, defaults to `wpforms_settings` in the `wp_options` table.
  *
  * @return mixed
  */
-function wpforms_setting( $key, $default = false, $option = 'wpforms_settings' ) {
+function wpforms_setting( $key, $default_value = false, $option = 'wpforms_settings' ) {
 
 	$key     = wpforms_sanitize_key( $key );
 	$options = get_option( $option, false );
-	$value   = is_array( $options ) && ! empty( $options[ $key ] ) ? wp_unslash( $options[ $key ] ) : $default;
+	$value   = is_array( $options ) && ! empty( $options[ $key ] ) ? wp_unslash( $options[ $key ] ) : $default_value;
 
 	/**
 	 * Allows plugin setting to be modified.
 	 *
 	 * @since 1.7.8
 	 *
-	 * @param mixed  $value   Setting value.
-	 * @param string $key     Setting key.
-	 * @param mixed  $default Setting default value.
-	 * @param string $option  Settings option name.
+	 * @param mixed  $value         Setting value.
+	 * @param string $key           Setting key.
+	 * @param mixed  $default_value Setting default value.
+	 * @param string $option        Settings option name.
 	 */
-	$value = apply_filters( 'wpforms_setting', $value, $key, $default, $option );
-
-	return $value;
+	return apply_filters( 'wpforms_setting', $value, $key, $default_value, $option );
 }
 
 /**
- * Update plugin settings option and allow it to be filterable.
+ * Update the plugin settings option and allow it to be filterable.
  *
  * The purpose of this function is to save settings when the "Save Settings" button is clicked.
  * If you are programmatically saving setting in the database in cases not triggered by user,
@@ -167,11 +165,13 @@ function wpforms_setting( $key, $default = false, $option = 'wpforms_settings' )
  *
  * @since 1.6.6
  *
- * @param array $settings A plugin settings array that is saved into options table.
+ * @param array $settings A plugin settings array that is saved into option table.
  *
  * @return bool
  */
 function wpforms_update_settings( $settings ) {
+
+	$old_settings = (array) get_option( 'wpforms_settings', [] );
 
 	/**
 	 * Allows plugin settings to be modified before persisting in the database.
@@ -190,17 +190,19 @@ function wpforms_update_settings( $settings ) {
 	 * The `$updated` parameter allows to check whether the update was actually successful.
 	 *
 	 * @since 1.6.1
+	 * @since 1.8.4 The `$old_settings` parameter was added.
 	 *
-	 * @param array  $settings An array of plugin settings.
-	 * @param bool   $updated  Whether an option was updated or not.
+	 * @param array $settings     An array of plugin settings.
+	 * @param bool  $updated      Whether an option was updated or not.
+	 * @param array $old_settings An old array of plugin settings.
 	 */
-	do_action( 'wpforms_settings_updated', $settings, $updated );
+	do_action( 'wpforms_settings_updated', $settings, $updated, $old_settings );
 
 	return $updated;
 }
 
 /**
- * Check if form provided contains the specified field type.
+ * Check an if form provided contains the specified field type.
  *
  * @since 1.0.5
  *
@@ -210,7 +212,7 @@ function wpforms_update_settings( $settings ) {
  *
  * @return bool
  */
-function wpforms_has_field_type( $type, $form, $multiple = false ) {
+function wpforms_has_field_type( $type, $form, $multiple = false ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 	$form_data = '';
 	$field     = false;
@@ -250,7 +252,7 @@ function wpforms_has_field_type( $type, $form, $multiple = false ) {
 }
 
 /**
- * Check if form provided contains a field which a specific setting.
+ * Check if the form provided contains a field which a specific setting.
  *
  * @since 1.4.5
  *
@@ -260,7 +262,7 @@ function wpforms_has_field_type( $type, $form, $multiple = false ) {
  *
  * @return bool
  */
-function wpforms_has_field_setting( $setting, $form, $multiple = false ) {
+function wpforms_has_field_setting( $setting, $form, $multiple = false ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 	$form_data = '';
 	$field     = false;
@@ -303,30 +305,29 @@ function wpforms_has_field_setting( $setting, $form, $multiple = false ) {
  * Retrieve actual fields from a form.
  *
  * Non-posting elements such as section divider, page break, and HTML are
- * automatically excluded. Optionally a white list can be provided.
+ * automatically excluded. Optionally, a whitelist can be provided.
  *
  * @since 1.0.0
  *
  * @param mixed $form      Form data.
  * @param array $allowlist A list of allowed fields.
  *
- * @return mixed boolean or array
+ * @return mixed boolean false or array
  */
-function wpforms_get_form_fields( $form = false, $allowlist = [] ) {
+function wpforms_get_form_fields( $form = false, $allowlist = [] ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded, Generic.Metrics.NestingLevel.MaxExceeded
 
 	// Accept form (post) object or form ID.
 	if ( is_object( $form ) ) {
 		$form = wpforms_decode( $form->post_content );
 	} elseif ( is_numeric( $form ) ) {
-		$form = wpforms()->get( 'form' )->get(
-			$form,
+		$form = wpforms()->obj( 'form' )->get(
+			absint( $form ),
 			[
 				'content_only' => true,
 			]
 		);
 	}
 
-	// White list of field types to allow.
 	$allowed_form_fields = [
 		'address',
 		'checkbox',
@@ -356,7 +357,14 @@ function wpforms_get_form_fields( $form = false, $allowlist = [] ) {
 		'url',
 	];
 
-	$allowed_form_fields = apply_filters( 'wpforms_get_form_fields_allowed', $allowed_form_fields );
+	/**
+	 * Filter the list of allowed form fields.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $allowed_form_fields List of allowed form fields.
+	 */
+	$allowed_form_fields = (array) apply_filters( 'wpforms_get_form_fields_allowed', $allowed_form_fields );
 
 	if ( ! is_array( $form ) || empty( $form['fields'] ) ) {
 		return false;
@@ -367,6 +375,17 @@ function wpforms_get_form_fields( $form = false, $allowlist = [] ) {
 	$form_fields = $form['fields'];
 
 	foreach ( $form_fields as $id => $form_field ) {
+		// Remove repeater field and its children.
+		if ( $form_field['type'] === 'repeater' ) {
+			foreach ( (array) $form_field['columns'] as $column ) {
+				$column_fields = $column['fields'] ?? [];
+
+				foreach ( $column_fields as $field_id ) {
+					unset( $form_fields[ $field_id ] );
+				}
+			}
+		}
+
 		if ( ! in_array( $form_field['type'], $allowlist, true ) ) {
 			unset( $form_fields[ $id ] );
 		}
@@ -403,6 +422,13 @@ function wpforms_get_conditional_logic_form_fields_supported() {
 		'url',
 	];
 
+	/**
+	 * Filter the list of form fields supported by conditional logic.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param array $fields_supported List of form fields supported by conditional logic.
+	 */
 	return apply_filters( 'wpforms_get_conditional_logic_form_fields_supported', $fields_supported );
 }
 
@@ -467,15 +493,17 @@ function wpforms_get_captcha_settings() {
  * Process smart tags.
  *
  * @since 1.7.1
+ * @since 1.8.7 Added `$context` parameter.
  *
  * @param string $content   Content.
  * @param array  $form_data Form data.
  * @param array  $fields    List of fields.
  * @param string $entry_id  Entry ID.
+ * @param string $context   Context.
  *
  * @return string
  */
-function wpforms_process_smart_tags( $content, $form_data, $fields = [], $entry_id = '' ) {
+function wpforms_process_smart_tags( $content, $form_data, $fields = [], $entry_id = '', $context = '' ) {
 
 	// Skip it if variables have invalid format.
 	if ( ! is_string( $content ) || ! is_array( $form_data ) || ! is_array( $fields ) ) {
@@ -486,13 +514,62 @@ function wpforms_process_smart_tags( $content, $form_data, $fields = [], $entry_
 	 * Process smart tags.
 	 *
 	 * @since 1.4.0
+	 * @since 1.8.7 Added $context parameter.
 	 *
 	 * @param string $content   Content.
 	 * @param array  $form_data Form data.
 	 * @param array  $fields    List of fields.
 	 * @param string $entry_id  Entry ID.
+	 * @param string $context   Context.
 	 *
 	 * @return string
 	 */
-	return apply_filters( 'wpforms_process_smart_tags',  $content, $form_data, $fields, $entry_id );
+	return apply_filters( 'wpforms_process_smart_tags',  $content, $form_data, $fields, $entry_id, $context );
+}
+
+/**
+ * Check if form data slashing enabled.
+ *
+ * @since 1.9.0
+ *
+ * @return bool
+ */
+function wpforms_is_form_data_slashing_enabled() {
+
+	static $enabled = null;
+
+	if ( $enabled !== null ) {
+		return $enabled;
+	}
+
+	/**
+	 * Filter to enable form data slashing.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param bool $enabled Form data slashing enabled.
+	 */
+	$enabled = (bool) apply_filters( 'wpforms_enable_form_data_slashing', $enabled );
+	$enabled = defined( 'WPFORMS_ENABLE_FORM_DATA_SLASHING' ) ? WPFORMS_ENABLE_FORM_DATA_SLASHING : $enabled;
+
+	return $enabled;
+}
+
+/**
+ * Check is frontend JS should be loaded in the header.
+ *
+ * @since 1.9.0
+ *
+ * @return bool
+ */
+function wpforms_is_frontend_js_header_force_load(): bool {
+
+	/**
+	 * Allow loading JS in header on various pages.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param bool $force_load Force loading JS in header, default `false`.
+	 */
+	return (bool) apply_filters( 'wpforms_frontend_js_header_force_load', false );
 }

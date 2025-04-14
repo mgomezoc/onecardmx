@@ -84,6 +84,8 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 				parse_str($args[1], $args);
 				$url = esc_url(add_query_arg($args, AIOWPSecurity_Process_Renamed_Login_Page::new_login_url()));
 				$url = html_entity_decode($url);
+			} elseif (isset($_SERVER['REQUEST_URI']) && stripos(urldecode($_SERVER['REQUEST_URI']), 'wp-admin/install.php')) {
+				return $url;
 			} else {
 				$url = AIOWPSecurity_Process_Renamed_Login_Page::new_login_url();
 			}
@@ -110,6 +112,12 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 		//Normally this is done by wp-login.php file but we cannot use that since the login page has been renamed
 		$action = isset($_GET['action']) ? strip_tags($_GET['action']) : '';
 		if (isset($_POST['post_password']) && 'postpass' == $action) {
+
+			// Check if the captcha is enabled for the password protected pages and process validation if the login page was renamed
+			if ('1' == $aio_wp_security->configs->get_value('aiowps_enable_password_protected_captcha')) {
+				$aio_wp_security->captcha_obj->validate_password_protected_password_form_with_captcha();
+			}
+
 			require_once ABSPATH . 'wp-includes/class-phpass.php';
 			$hasher = new PasswordHash(8, true);
 
@@ -134,11 +142,11 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 		if (is_admin() && !is_user_logged_in() && basename($_SERVER["SCRIPT_FILENAME"]) !== 'admin-post.php') {
 			//Fix to prevent fatal error caused by some themes and Yoast SEO
 			do_action('aiowps_before_wp_die_renamed_login');
-			wp_die(__('Not available.', 'all-in-one-wp-security-and-firewall'), 403);
+			wp_die(__('You do not have permission to access this page.', 'all-in-one-wp-security-and-firewall') .  ' ' . __('Please log in and try again.', 'all-in-one-wp-security-and-firewall'), 403);
 		}
 
 		//case where someone attempting to reach wp-login
-		if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'wp-login.php') && !is_user_logged_in()) {
+		if (isset($_SERVER['REQUEST_URI']) && stripos(urldecode($_SERVER['REQUEST_URI']), 'wp-login.php') && !is_user_logged_in()) {
 
 			// Handle export personal data request for rename login case
 			if (isset($_GET['request_id'])) {
@@ -148,7 +156,7 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 					$key = sanitize_text_field(wp_unslash($_GET['confirm_key']));
 					$result = wp_validate_user_request_key($request_id, $key);
 				} else {
-					$result = new WP_Error('invalid_key', __('Invalid key'));
+					$result = new WP_Error('invalid_key', __('Invalid key', 'all-in-one-wp-security-and-firewall'));
 				}
 
 				if (is_wp_error($result)) {
@@ -156,7 +164,7 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 				} elseif (!empty($result)) {
 					_wp_privacy_account_request_confirmed($request_id);
 					$message = _wp_privacy_account_request_confirmed_message($request_id);
-					login_header(__('User action confirmed.'), $message);
+					login_header(__('User action confirmed.', 'all-in-one-wp-security-and-firewall'), $message);
 					login_footer();
 					exit;
 				}
@@ -171,7 +179,7 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 		}
 
 		//case where someone attempting to reach the standard register or signup pages
-		if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'wp-register.php') || isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'wp-signup.php')) {
+		if (isset($_SERVER['REQUEST_URI']) && stripos(urldecode($_SERVER['REQUEST_URI']), 'wp-register.php') || isset($_SERVER['REQUEST_URI']) && stripos(urldecode($_SERVER['REQUEST_URI']), 'wp-signup.php')) {
 			//Check if the maintenance (lockout) mode is active - if so prevent access to site by not displaying 404 page!
 			if ($aio_wp_security->configs->get_value('aiowps_site_lockout') == '1') {
 				AIOWPSecurity_WP_Loaded_Tasks::site_lockout_tasks();
@@ -185,21 +193,24 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 		if (self::is_renamed_login_page_requested($login_slug)) {
 			if (empty($action) && is_user_logged_in()) {
 				//if user is already logged in but tries to access the renamed login page, send them to the dashboard
-				// or to requested redirect-page, filterd in 'login_redirect'.
+				// or to requested redirect-page, filtered in 'login_redirect'.
 				if (isset($_REQUEST['redirect_to'])) {
-				  $redirect_to = wp_sanitize_redirect($_REQUEST['redirect_to']);
-				  $redirect_to = wp_validate_redirect($redirect_to, apply_filters('wp_safe_redirect_fallback', admin_url(), 302));
-				  $requested_redirect_to = $redirect_to;
+					$redirect_to = wp_sanitize_redirect($_REQUEST['redirect_to']);
+					$redirect_to = wp_validate_redirect($redirect_to, apply_filters('wp_safe_redirect_fallback', admin_url(), 302));
+					$requested_redirect_to = $redirect_to;
 				} else {
-				  $redirect_to = admin_url();
-				  $requested_redirect_to = '';
+					$redirect_to = admin_url();
+					$requested_redirect_to = '';
 				}
 				$redirect_to = apply_filters('login_redirect', $redirect_to, $requested_redirect_to, wp_get_current_user());
 				AIOWPSecurity_Utility::redirect_to_url($redirect_to);
 			} else {
 				global $wp_version;
 				do_action('aiowps_rename_login_load');
-				AIOWPSecurity_Utility_IP::check_login_whitelist_and_forbid();
+				// logout action called by WooCommerce does not apply the login whitelist which shows a 403 error for the customer
+				if (!(isset($_GET['action']) && 'logout' == $_GET['action'])) {
+					AIOWPSecurity_Utility_IP::check_login_whitelist_and_forbid();
+				}
 
 				status_header(200);
 				if (version_compare($wp_version, '5.7', '>=')) {
@@ -251,9 +262,9 @@ class AIOWPSecurity_Process_Renamed_Login_Page {
 		$home_url_with_slug = home_url($login_slug, 'relative');
 
 		/*
-		 * Compatibility fix for WPML plugin
+		 * Compatibility fix for WPML, TranslatePress plugin
 		 */
-		if (function_exists('wpml_object_id')) {
+		if (function_exists('wpml_object_id') || function_exists('trp_enable_translatepress')) {
 			$home_url_with_slug = home_url($login_slug);
 			$parsed_home_url_with_slug = parse_url($home_url_with_slug);
 			$home_url_with_slug = $parsed_home_url_with_slug['path']; //this will return just the path minus the protocol and host

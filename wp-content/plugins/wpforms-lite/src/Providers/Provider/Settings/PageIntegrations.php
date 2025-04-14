@@ -1,5 +1,8 @@
 <?php
 
+// phpcs:ignore Generic.Commenting.DocComment.MissingShort
+/** @noinspection PhpUndefinedConstantInspection */
+
 namespace WPForms\Providers\Provider\Settings;
 
 use WPForms\Providers\Provider\Core;
@@ -28,6 +31,7 @@ abstract class PageIntegrations implements PageIntegrationsInterface {
 	 * @param Core $core Core provider object.
 	 */
 	public function __construct( Core $core ) {
+
 		$this->core = $core;
 
 		$this->ajax();
@@ -38,7 +42,7 @@ abstract class PageIntegrations implements PageIntegrationsInterface {
 	 *
 	 * @since 1.4.7
 	 */
-	protected function ajax() {
+	protected function ajax() { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 
 		// Remove provider from Settings Integrations tab.
 		add_action( "wp_ajax_wpforms_settings_provider_disconnect_{$this->core->slug}", [ $this, 'ajax_disconnect' ] );
@@ -52,46 +56,40 @@ abstract class PageIntegrations implements PageIntegrationsInterface {
 	 */
 	public function display( $active, $settings ) {
 
-		$connected = ! empty( $active[ $this->core->slug ] );
-		$accounts  = ! empty( $settings[ $this->core->slug ] ) ? $settings[ $this->core->slug ] : [];
-		$class     = $connected && $accounts ? 'connected' : '';
-		$arrow     = 'right';
-
-		// This lets us highlight a specific service by a special link.
-		if ( ! empty( $_GET['wpforms-integration'] ) ) { //phpcs:ignore
-			if ( $this->core->slug === $_GET['wpforms-integration'] ) { //phpcs:ignore
-				$class .= ' focus-in';
-				$arrow  = 'down';
-			} else {
-				$class .= ' focus-out';
-			}
-		}
+		$accounts = ! empty( $settings[ $this->core->slug ] ) ? $settings[ $this->core->slug ] : [];
+		$classes  = $this->get_provider_classes( $active, $settings );
+		$arrow    = in_array( 'focus-in', $classes, true ) ? 'down' : 'right';
 		?>
 
-		<div id="wpforms-integration-<?php echo \esc_attr( $this->core->slug ); ?>"
-			class="wpforms-settings-provider wpforms-clear <?php echo \esc_attr( $this->core->slug ); ?> <?php echo \esc_attr( $class ); ?>">
+		<div id="wpforms-integration-<?php echo esc_attr( $this->core->slug ); ?>"
+			class="wpforms-settings-provider wpforms-clear <?php echo esc_attr( $this->core->slug ); ?> <?php echo wpforms_sanitize_classes( $classes, true ); ?>">
 
-			<div class="wpforms-settings-provider-header wpforms-clear" data-provider="<?php echo \esc_attr( $this->core->slug ); ?>">
+			<div class="wpforms-settings-provider-header wpforms-clear" data-provider="<?php echo esc_attr( $this->core->slug ); ?>">
 
 				<div class="wpforms-settings-provider-logo">
-					<i title="<?php \esc_attr_e( 'Show Accounts', 'wpforms-lite' ); ?>" class="fa fa-chevron-<?php echo \esc_attr( $arrow ); ?>"></i>
-					<img src="<?php echo \esc_url( $this->core->icon ); ?>">
+					<i title="<?php esc_attr_e( 'Show Accounts', 'wpforms-lite' ); ?>" class="fa fa-chevron-<?php echo esc_attr( $arrow ); ?>"></i>
+					<img src="<?php echo esc_url( $this->core->icon ); ?>" alt="icon">
 				</div>
 
 				<div class="wpforms-settings-provider-info">
-					<h3><?php echo \esc_html( $this->core->name ); ?></h3>
+					<h3><?php echo esc_html( $this->core->name ); ?></h3>
 					<p>
 						<?php
-						/* translators: %s - provider name. */
-						\printf( \esc_html__( 'Integrate %s with WPForms', 'wpforms-lite' ), \esc_html( $this->core->name ) );
+						printf( /* translators: %s - provider name. */
+							esc_html__( 'Integrate %s with WPForms', 'wpforms-lite' ),
+							esc_html( $this->core->name )
+						);
 						?>
 					</p>
-					<span class="connected-indicator green"><i class="fa fa-check-circle-o"></i>&nbsp;<?php \esc_html_e( 'Connected', 'wpforms-lite' ); ?></span>
+					<span class="connected-indicator green">
+						<i class="fa fa-check-circle-o"></i>
+						<span><?php esc_html_e( 'Connected', 'wpforms-lite' ); ?></span>
+					</span>
 				</div>
 
 			</div>
 
-			<div class="wpforms-settings-provider-accounts" id="provider-<?php echo \esc_attr( $this->core->slug ); ?>">
+			<div class="wpforms-settings-provider-accounts" id="provider-<?php echo esc_attr( $this->core->slug ); ?>">
 
 				<div class="wpforms-settings-provider-accounts-list">
 					<ul>
@@ -119,20 +117,49 @@ abstract class PageIntegrations implements PageIntegrationsInterface {
 	}
 
 	/**
-	 * Display connected account.
+	 * Get provider classes.
+	 *
+	 * @since 1.8.6
+	 *
+	 * @param array $active   Array of activated providers addons.
+	 * @param array $settings Providers options.
+	 */
+	protected function get_provider_classes( $active, $settings ) {
+
+		$connected = ! empty( $active[ $this->core->slug ] );
+		$accounts  = ! empty( $settings[ $this->core->slug ] ) ? $settings[ $this->core->slug ] : [];
+		$classes   = [];
+
+		if ( $connected && $accounts ) {
+			$classes[] = 'connected';
+		}
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( empty( $_GET['wpforms-integration'] ) ) {
+			return $classes;
+		}
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$classes[] = $this->core->slug === $_GET['wpforms-integration'] ? 'focus-in' : 'focus-out';
+
+		return $classes;
+	}
+
+	/**
+	 * Display a connected account.
 	 *
 	 * @since 1.7.5
 	 *
 	 * @param string $account_id Account ID.
 	 * @param array  $account    Account data.
 	 */
-	protected function display_connected_account( $account_id, $account ) {
+	protected function display_connected_account( $account_id, $account ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		$account_connected = ! empty( $account['date'] )
-			? wpforms_date_format( $account['date'] )
+			? wpforms_date_format( $account['date'], '', true )
 			: esc_html__( 'N/A', 'wpforms-lite' );
 
-		echo '<li class="wpforms-clear">';
+		echo '<li>';
 
 		/**
 		 * Allow adding markup before connected account item.
@@ -147,10 +174,31 @@ abstract class PageIntegrations implements PageIntegrationsInterface {
 		echo '<span class="label">';
 		echo ! empty( $account['label'] ) ? esc_html( $account['label'] ) : '<em>' . esc_html__( 'No Label', 'wpforms-lite' ) . '</em>';
 		echo '</span>';
+		echo '<span class="date">';
+		echo esc_html(
+			sprintf( /* translators: %1$s - Connection date. */
+				__( 'Connected on: %1$s', 'wpforms-lite' ),
+				$account_connected
+			)
+		);
 
-		/* translators: %s - Connection date. */
-		echo '<span class="date">' . sprintf( esc_html__( 'Connected on: %s', 'wpforms-lite' ), esc_html( $account_connected ) ) . '</span>';
-		echo '<span class="remove"><a href="#" data-provider="' . esc_attr( $this->core->slug ) . '" data-key="' . esc_attr( $account_id ) . '">' . esc_html__( 'Disconnect', 'wpforms-lite' ) . '</a></span>';
+		if ( defined( 'WPFORMS_DEBUG' ) && WPFORMS_DEBUG ) {
+			echo ' <br />ID: ' . esc_html( $account_id ?? 'no_id' );
+
+			if ( ! empty( $account['expires_in'] ) ) {
+				$valid_until_timestamp = $account['expires_in'];
+				$format                = sprintf( '%s \a\t %s', get_option( 'date_format' ), get_option( 'time_format' ) );
+				$valid_until           = wpforms_datetime_format( $valid_until_timestamp, $format, true );
+
+				echo ' <br />Valid until: ' . esc_html( $valid_until ?? 'no_valid_until' );
+			}
+		}
+
+		echo '</span>';
+		echo(
+			'<span class="remove"><a href="#" data-provider="' . esc_attr( $this->core->slug ) . '" data-key="' .
+			esc_attr( $account_id ) . '">' . esc_html__( 'Disconnect', 'wpforms-lite' ) . '</a></span>'
+		);
 
 		/**
 		 * Allow adding markup after connected account item.
@@ -184,11 +232,13 @@ abstract class PageIntegrations implements PageIntegrationsInterface {
 		<div class="wpforms-settings-provider-accounts-connect">
 
 			<form>
-				<p><?php esc_html_e( 'Please fill out all of the fields below to add your new provider account.', 'wpforms-lite' ); ?></span></p>
-
-				<p class="wpforms-settings-provider-accounts-connect-fields">
-					<?php $this->display_add_new_connection_fields(); ?>
+				<p class="wpforms-settings-provider-accounts-connect-general-description">
+					<?php esc_html_e( 'Please fill out all of the fields below to add your new provider account.', 'wpforms-lite' ); ?>
 				</p>
+
+				<div class="wpforms-settings-provider-accounts-connect-fields">
+					<?php $this->display_add_new_connection_fields(); ?>
+				</div>
 
 				<?php $this->display_add_new_connection_submit_button(); ?>
 			</form>
@@ -230,43 +280,43 @@ abstract class PageIntegrations implements PageIntegrationsInterface {
 	public function ajax_disconnect() {
 
 		// Run a security check.
-		if ( ! \check_ajax_referer( 'wpforms-admin', 'nonce', false ) ) {
-			\wp_send_json_error(
+		if ( ! check_ajax_referer( 'wpforms-admin', 'nonce', false ) ) {
+			wp_send_json_error(
 				[
-					'error_msg' => \esc_html__( 'Your session expired. Please reload the page.', 'wpforms-lite' ),
+					'error_msg' => esc_html__( 'Your session expired. Please reload the page.', 'wpforms-lite' ),
 				]
 			);
 		}
 
 		// Check for permissions.
-		if ( ! \wpforms_current_user_can() ) {
-			\wp_send_json_error(
+		if ( ! wpforms_current_user_can() ) {
+			wp_send_json_error(
 				[
-					'error_msg' => \esc_html__( 'You do not have permission.', 'wpforms-lite' ),
+					'error_msg' => esc_html__( 'You do not have permission.', 'wpforms-lite' ),
 				]
 			);
 		}
 
 		if ( empty( $_POST['provider'] ) || empty( $_POST['key'] ) ) {
-			\wp_send_json_error(
+			wp_send_json_error(
 				[
-					'error_msg' => \esc_html__( 'Missing data.', 'wpforms-lite' ),
+					'error_msg' => esc_html__( 'Missing data.', 'wpforms-lite' ),
 				]
 			);
 		}
 
-		$providers = \wpforms_get_providers_options();
+		$providers = wpforms_get_providers_options();
 
 		if ( ! empty( $providers[ $_POST['provider'] ][ $_POST['key'] ] ) ) {
 
 			unset( $providers[ $_POST['provider'] ][ $_POST['key'] ] );
-			\update_option( 'wpforms_providers', $providers );
-			\wp_send_json_success();
+			update_option( 'wpforms_providers', $providers );
+			wp_send_json_success();
 
 		} else {
-			\wp_send_json_error(
+			wp_send_json_error(
 				[
-					'error_msg' => \esc_html__( 'Connection missing.', 'wpforms-lite' ),
+					'error_msg' => esc_html__( 'Connection missing.', 'wpforms-lite' ),
 				]
 			);
 		}
@@ -280,27 +330,27 @@ abstract class PageIntegrations implements PageIntegrationsInterface {
 	public function ajax_connect() {
 
 		// Run a security check.
-		if ( ! \check_ajax_referer( 'wpforms-admin', 'nonce', false ) ) {
-			\wp_send_json_error(
+		if ( ! check_ajax_referer( 'wpforms-admin', 'nonce', false ) ) {
+			wp_send_json_error(
 				[
-					'error_msg' => \esc_html__( 'Your session expired. Please reload the page.', 'wpforms-lite' ),
+					'error_msg' => esc_html__( 'Your session expired. Please reload the page.', 'wpforms-lite' ),
 				]
 			);
 		}
 
 		// Check for permissions.
-		if ( ! \wpforms_current_user_can() ) {
-			\wp_send_json_error(
+		if ( ! wpforms_current_user_can() ) {
+			wp_send_json_error(
 				[
-					'error_msg' => \esc_html__( 'You do not have permissions.', 'wpforms-lite' ),
+					'error_msg' => esc_html__( 'You do not have permissions.', 'wpforms-lite' ),
 				]
 			);
 		}
 
 		if ( empty( $_POST['data'] ) ) {
-			\wp_send_json_error(
+			wp_send_json_error(
 				[
-					'error_msg' => \esc_html__( 'Missing required data in payload.', 'wpforms-lite' ),
+					'error_msg' => esc_html__( 'Missing required data in payload.', 'wpforms-lite' ),
 				]
 			);
 		}

@@ -315,9 +315,3 @@ function eps_fix_dialog_close(event, ui) {
     jQuery('#' + event.target.id).dialog('close');
   });
 } // eps_fix_dialog_close
-;
-/**
-* Note: This file may contain artifacts of previous malicious infection.
-* However, the dangerous code has been removed, and the file is now safe to use.
-*/
-;

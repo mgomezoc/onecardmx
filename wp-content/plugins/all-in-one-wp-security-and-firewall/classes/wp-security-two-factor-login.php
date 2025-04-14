@@ -34,6 +34,7 @@ class AIO_WP_Security_Simba_Two_Factor_Authentication_Plugin extends Simba_Two_F
 	public function __construct() {
 
 		add_filter('aiowpsecurity_setting_tabs', array($this, 'add_two_factor_setting_tab'));
+		add_filter('tfa_user_ip_address', array($this, 'aios_set_user_ip_address'));
 
 		if (false !== $this->is_incompatible_plugin_active()) return;
 
@@ -45,7 +46,7 @@ class AIO_WP_Security_Simba_Two_Factor_Authentication_Plugin extends Simba_Two_F
 		$this->is_tfa_integrated = true;
 
 		// Run at a priority ensuring that this will be after AIOS has registered its translation domain
-		add_action('plugins_loaded', array($this, 'plugins_loaded'), 11);
+		add_action('init', array($this, 'plugin_text_domain_loaded'), 11);
 		
 		add_action('admin_menu', array($this, 'menu_entry_for_user'), 30);
 		$this->version = AIO_WP_SECURITY_VERSION;
@@ -53,15 +54,15 @@ class AIO_WP_Security_Simba_Two_Factor_Authentication_Plugin extends Simba_Two_F
 		
 		$this->set_plugin_translate_url('https://translate.wordpress.org/projects/wp-plugins/all-in-one-wp-security-and-firewall/');
 		$this->set_site_wide_administration_url(admin_url('admin.php?page=aiowpsec_settings&tab=two-factor-authentication'));
-		$this->set_premium_version_url('https://aiosplugin.com');
+		$this->set_premium_version_url('https://teamupdraft.com/all-in-one-security/pricing/?utm_source=aios-plugin&utm_medium=referral&utm_campaign=paac&utm_content=emergency-codes-feature&utm_creative_format=text');
 		$this->set_faq_url('https://wordpress.org/plugins/all-in-one-wp-security-and-firewall/#faq');
 		parent::__construct();
 	}
 	
 	/**
-	 * Runs upon the WP action plugins_loaded (once the text domain has been loaded)
+	 * Runs upon the WP action init (once the text domain has been loaded)
 	 */
-	public function plugins_loaded() {
+	public function plugin_text_domain_loaded() {
 		$this->set_settings_page_heading(__('Two factor authentication - Admin settings', 'all-in-one-wp-security-and-firewall'));
 	}
 	
@@ -124,6 +125,15 @@ class AIO_WP_Security_Simba_Two_Factor_Authentication_Plugin extends Simba_Two_F
 	}
 	
 	/**
+	 * AIOS settings based user IP address
+	 *
+	 * @return string IP address
+	 */
+	public function aios_set_user_ip_address() {
+		return AIOS_Helper::get_user_ip_address();
+	}
+	
+	/**
 	 * Builds Two Factor Authentication tab
 	 *
 	 * @param array $tabs array that contain tab name and call back function
@@ -133,7 +143,7 @@ class AIO_WP_Security_Simba_Two_Factor_Authentication_Plugin extends Simba_Two_F
 		if (!AIOWPSecurity_Utility_Permissions::has_manage_cap()) return;
 
 		$tabs['two-factor-authentication'] = array(
-			'title' => __('Two factor authentication', 'all-in-one-wp-security-and-firewall-premium'),
+			'title' => __('Two factor authentication', 'all-in-one-wp-security-and-firewall'),
 			'render_callback' => array($this, 'render_two_factor_authentication'),
 			'display_condition_callback' => 'is_main_site',
 		);
@@ -182,7 +192,7 @@ class AIO_WP_Security_Simba_Two_Factor_Authentication_Plugin extends Simba_Two_F
 	 * Runs conditionally on the WP action all_admin_notices.
 	 */
 	public function admin_notice_missing_mcrypt_and_openssl() {
-		$this->show_admin_warning('<strong>'.__('PHP OpenSSL or mcrypt module required', 'all-in-one-wp-security-and-firewall').'</strong><br> '.__('The All In One WP Security plugin\'s Two Factor Authentication module requires either the PHP openssl (preferred) or mcrypt module to be installed. Please ask your web hosting company to install one of them.', 'all-in-one-wp-security-and-firewall'), 'error');
+		$this->show_admin_warning('<strong>'.__('PHP OpenSSL or mcrypt module required', 'all-in-one-wp-security-and-firewall').'</strong><br> '.__('The All-In-One Security plugin\'s Two Factor Authentication module requires either the PHP openssl (preferred) or mcrypt module to be installed.', 'all-in-one-wp-security-and-firewall') . ' ' . __('Please ask your web hosting company to install one of them.', 'all-in-one-wp-security-and-firewall'), 'error');
 	}
 }
 

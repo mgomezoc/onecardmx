@@ -127,16 +127,11 @@ if (!class_exists('EPS_Redirects_Plugin_Options')) {
 
       foreach ($this->settings as $section => $args) {
 
-        register_setting(
-          $this->setting_slug($section),
-          $this->setting_slug($section),
-          array($this, 'sanitize_inputs')
-        );
+        register_setting($this->setting_slug($section), $this->setting_slug($section), array($this, 'sanitize_inputs')); //phpcs:ignore
 
         add_settings_section(
           $this->setting_slug($section),
           $args['title'],
-          // array( $this, 'section_'.$section.'_callback'),
           array($this, 'section_callback'),
           $this->plugin->config('option_slug')  . '_' . $section
         );
@@ -202,8 +197,9 @@ if (!class_exists('EPS_Redirects_Plugin_Options')) {
      */
     function section_callback($args)
     {
-      if (isset($_GET['tab'])) {
-        $tab = sanitize_text_field($_GET['tab']);
+      //phpcs:ignore because no nonce needed since the page can be linked to directly
+      if (isset($_GET['tab'])) { //phpcs:ignore
+        $tab = sanitize_text_field($_GET['tab']); //phpcs:ignore
       } else {
         $sections = array_keys($this->settings);
         $tab = $sections[0];
@@ -264,7 +260,8 @@ if (!class_exists('EPS_Redirects_Plugin_Options')) {
      */
     public function do_admin_page()
     {
-      $current_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : false;
+      //phpcs:ignore because no nonce needed since the page can be linked to directly
+      $current_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : false; //phpcs:ignore
       if (!$current_tab) {
         $sections = $this->settings;
         $current_tab = key($sections);
@@ -345,7 +342,7 @@ public function get_tab($tab = 'general')
       do_action($tab . '_admin_tab', $this->settings[$tab]);
     } else {
       ?>
-<form method="post" action="<?php echo admin_url('options.php'); ?>">
+<form method="post" action="<?php echo esc_url(admin_url('options.php')); ?>">
   <?php
 
     settings_fields($this->setting_slug($tab));

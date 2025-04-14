@@ -2,12 +2,14 @@
 
 namespace WPForms\Forms\Fields\PaymentCheckbox;
 
+use WPForms_Field;
+
 /**
  * Checkbox payment field.
  *
  * @since 1.8.2
  */
-class Field extends \WPForms_Field {
+class Field extends WPForms_Field {
 
 	/**
 	 * Primary class constructor.
@@ -18,6 +20,7 @@ class Field extends \WPForms_Field {
 
 		// Define field type information.
 		$this->name     = esc_html__( 'Checkbox Items', 'wpforms-lite' );
+		$this->keywords = esc_html__( 'product, store, ecommerce, pay, payment', 'wpforms-lite' );
 		$this->type     = 'payment-checkbox';
 		$this->icon     = 'fa-check-square-o';
 		$this->order    = 50;
@@ -49,6 +52,10 @@ class Field extends \WPForms_Field {
 			],
 		];
 
+		$this->default_settings = [
+			'choices' => $this->defaults,
+		];
+
 		$this->hooks();
 	}
 
@@ -70,55 +77,6 @@ class Field extends \WPForms_Field {
 	}
 
 	/**
-	 * Return images, if any, for HTML supported values.
-	 *
-	 * @since 1.8.2
-	 *
-	 * @param string $value     Field value.
-	 * @param array  $field     Field settings.
-	 * @param array  $form_data Form data and settings.
-	 * @param string $context   Value display context.
-	 *
-	 * @return string
-	 */
-	public function field_html_value( $value, $field, $form_data = [], $context = '' ) {
-
-		// Only use HTML formatting for checkbox fields, with image choices
-		// enabled, and exclude the entry table display. Lastly, provides a
-		// filter to disable fancy display.
-		if (
-			! empty( $field['value'] ) &&
-			$field['type'] === $this->type &&
-			! empty( $field['images'] ) &&
-			$context !== 'entry-table' &&
-			$this->filter_field_html_value_images( $context )
-		) {
-
-			$items  = [];
-			$values = explode( "\n", $field['value'] );
-
-			foreach ( $values as $key => $val ) {
-
-				if ( ! empty( $field['images'][ $key ] ) ) {
-					$items[] = sprintf(
-						'<span %s><img src="%s" %s></span>%s',
-						'style="max-width:200px;display:block;margin:0 0 5px 0;"',
-						esc_url( $field['images'][ $key ] ),
-						'style="max-width:100%;display:block;margin:0;"',
-						$val
-					);
-				} else {
-					$items[] = $val;
-				}
-			}
-
-			return implode( '<br><br>', $items );
-		}
-
-		return $value;
-	}
-
-	/**
 	 * Define additional field properties.
 	 *
 	 * @since 1.8.2
@@ -136,8 +94,8 @@ class Field extends \WPForms_Field {
 		$field_id = absint( $field['id'] );
 		$choices  = $field['choices'];
 
-		// Remove primary input.
-		unset( $properties['inputs']['primary'] );
+		// Remove primary input, unset for attribute for label.
+		unset( $properties['inputs']['primary'], $properties['label']['attr']['for'] );
 
 		// Set input container (ul) properties.
 		$properties['input_container'] = [
@@ -150,8 +108,7 @@ class Field extends \WPForms_Field {
 		// Set input properties.
 		foreach ( $choices as $key => $choice ) {
 
-			// Choice labels should not be left blank, but if they are we
-			// provide a basic value.
+			// Choice labels should not be left blank, but if they are, we provide a basic value.
 			$label = $choice['label'];
 
 			if ( $label === '' ) {
@@ -188,9 +145,9 @@ class Field extends \WPForms_Field {
 					'amount' => wpforms_format_amount( wpforms_sanitize_amount( $choice['value'] ) ),
 				],
 				'id'         => "wpforms-{$form_id}-field_{$field_id}_{$key}",
-				'icon'       => isset( $choice['icon'] ) ? $choice['icon'] : '',
-				'icon_style' => isset( $choice['icon_style'] ) ? $choice['icon_style'] : '',
-				'image'      => isset( $choice['image'] ) ? $choice['image'] : '',
+				'icon'       => $choice['icon'] ?? '',
+				'icon_style' => $choice['icon_style'] ?? '',
+				'image'      => $choice['image'] ?? '',
 				'required'   => ! empty( $field['required'] ) ? 'required' : '',
 				'default'    => isset( $choice['default'] ),
 			];
@@ -215,7 +172,7 @@ class Field extends \WPForms_Field {
 				}
 			}
 		} elseif ( ! empty( $field['choices_icons'] ) ) {
-			$properties = wpforms()->get( 'icon_choices' )->field_properties( $properties, $field );
+			$properties = wpforms()->obj( 'icon_choices' )->field_properties( $properties, $field );
 		}
 
 		// Add selected class for choices with defaults.
@@ -242,7 +199,7 @@ class Field extends \WPForms_Field {
 	 */
 	protected function get_field_populated_single_property_value( $raw_value, $input, $properties, $field ) {
 		/*
-		 * When the form is submitted we get only choice values from the Fallback.
+		 * When the form is submitted, we get only choice values from the Fallback.
 		 * As payment-checkbox (checkboxes) field doesn't support 'show_values' option -
 		 * we should transform that into label to check against using general logic in parent method.
 		 */
@@ -329,7 +286,7 @@ class Field extends \WPForms_Field {
 		// Choices Images.
 		$this->field_option( 'choices_images', $field );
 
-		// Choices Images Style (theme).
+		// Choice Images Style (theme).
 		$this->field_option( 'choices_images_style', $field );
 
 		// Choices Icons.
@@ -418,6 +375,9 @@ class Field extends \WPForms_Field {
 	 * @param array $field      Field settings.
 	 * @param array $deprecated Deprecated array.
 	 * @param array $form_data  Form data and settings.
+	 *
+	 * @noinspection HtmlUnknownAttribute
+	 * @noinspection HtmlUnknownTarget
 	 */
 	public function field_display( $field, $deprecated, $form_data ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
@@ -432,10 +392,12 @@ class Field extends \WPForms_Field {
 
 			foreach ( $choices as $key => $choice ) {
 
-				$label = isset( $choice['label']['text'] ) ? $choice['label']['text'] : '';
-				/* translators: %s - Choice item number. */
-				$label  = $label !== '' ? $label : sprintf( esc_html__( 'Item %s', 'wpforms-lite' ), $key );
-				$label .= ! empty( $field['show_price_after_labels'] ) && isset( $choice['data']['amount'] ) ? ' - ' . wpforms_format_amount( wpforms_sanitize_amount( $choice['data']['amount'] ), true ) : '';
+				$label = $choice['label']['text'] ?? '';
+
+				/* translators: %s - item number. */
+				$label = $label !== '' ? $label : sprintf( esc_html__( 'Item %s', 'wpforms-lite' ), $key );
+
+				$label .= ! empty( $field['show_price_after_labels'] ) && isset( $choice['data']['amount'] ) ? $this->get_price_after_label( $choice['data']['amount'] ) : '';
 
 				printf(
 					'<li %s>',
@@ -450,14 +412,18 @@ class Field extends \WPForms_Field {
 							wpforms_html_attributes( $choice['label']['id'], $choice['label']['class'], $choice['label']['data'], $choice['label']['attr'] )  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						);
 
+							echo '<span class="wpforms-image-choices-image">';
+
 							if ( ! empty( $choice['image'] ) ) {
 								printf(
-									'<span class="wpforms-image-choices-image"><img src="%s" alt="%s"%s></span>',
+									'<img src="%s" alt="%s"%s>',
 									esc_url( $choice['image'] ),
 									esc_attr( $choice['label']['text'] ),
 									! empty( $choice['label']['text'] ) ? ' title="' . esc_attr( $choice['label']['text'] ) . '"' : ''
 								);
 							}
+
+							echo '</span>';
 
 							if ( $field['choices_images_style'] === 'none' ) {
 								echo '<br>';
@@ -475,9 +441,8 @@ class Field extends \WPForms_Field {
 						echo '</label>';
 
 					} elseif ( empty( $field['dynamic_choices'] ) && ! empty( $field['choices_icons'] ) ) {
-
 						// Icon Choices.
-						wpforms()->get( 'icon_choices' )->field_display( $field, $choice, 'checkbox', $label );
+						wpforms()->obj( 'icon_choices' )->field_display( $field, $choice, 'checkbox', $label );
 
 					} else {
 
@@ -503,12 +468,12 @@ class Field extends \WPForms_Field {
 	}
 
 	/**
-	 * Validate field on form submit.
+	 * Validate field on submitting the form.
 	 *
 	 * @since 1.8.2
 	 *
 	 * @param int   $field_id     Field ID.
-	 * @param array $field_submit Array of selected choice IDs.
+	 * @param array $field_submit Submitted field value (raw data).
 	 * @param array $form_data    Form data and settings.
 	 */
 	public function validate( $field_id, $field_submit, $form_data ) {
@@ -532,7 +497,7 @@ class Field extends \WPForms_Field {
 		}
 
 		if ( ! empty( $error ) ) {
-			wpforms()->get( 'process' )->errors[ $form_data['id'] ][ $field_id ] = $error;
+			wpforms()->obj( 'process' )->errors[ $form_data['id'] ][ $field_id ] = $error;
 		}
 	}
 
@@ -566,7 +531,7 @@ class Field extends \WPForms_Field {
 
 					$value = (float) wpforms_sanitize_amount( $choice['value'] );
 
-					// Increase total amount.
+					// Increase the total amount.
 					$amount += $value;
 
 					$value        = wpforms_format_amount( $value, true );
@@ -590,7 +555,7 @@ class Field extends \WPForms_Field {
 			}
 		}
 
-		wpforms()->get( 'process' )->fields[ $field_id ] = [
+		wpforms()->obj( 'process' )->fields[ $field_id ] = [
 			'name'         => $name,
 			'value'        => implode( "\r\n", $choice_values ),
 			'value_choice' => implode( "\r\n", $choice_labels ),
@@ -602,29 +567,5 @@ class Field extends \WPForms_Field {
 			'id'           => absint( $field_id ),
 			'type'         => sanitize_key( $this->type ),
 		];
-	}
-
-	/**
-	 * Return boolean determining if field HTML values uses images.
-	 *
-	 * Bail if field type is not set.
-	 *
-	 * @since 1.8.2
-	 *
-	 * @param string $context Context of the field.
-	 *
-	 * @return bool
-	 */
-	private function filter_field_html_value_images( $context ) {
-
-		/**
-		 * Filters whether to use HTML formatting for a field with image choices enabled.
-		 *
-		 * @since 1.5.1
-		 *
-		 * @param bool   $use_html Whether to use HTML formatting.
-		 * @param string $context  Value display context.
-		 */
-		return (bool) apply_filters( "wpforms_{$this->type}_field_html_value_images", true, $context ); // phpcs:ignore WPForms.PHP.ValidateHooks.InvalidHookName
 	}
 }

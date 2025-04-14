@@ -1,15 +1,33 @@
 === All 404 Redirect to Homepage ===
-Contributors: wp-buy, osama.esh 
-Tags: 404 error, redirection, homepage, broken images, redirection, https, automatic redirection, 404 link,redirect, soft 404, redirected, 301 seo redirect, post redirect plugin, broken links, fix 404
+Contributors: wp-buy, osamaesh, adam1318
+Tags: 404 error, redirection, seo redirect, broken images, redirection
 Requires at least: 4.5
-Tested up to: 6.2
-Stable tag: 4.3
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tested up to: 6.7.1
+Stable tag: 5.2
 
-By using this smart plugin, you can fix all 404 error links by redirecting them to homepage using the SEO 301 redirection. Improve your visibility in search engines now..
+Using this plugin, you can fix all 404 error links by redirecting them to homepage using the SEO 301 redirection. Improve your SEO rank & pages speed
 
 == Description ==
 
-By this plugin you can fix all random 404 links appear in you your website and redirect them to homepage or any other page using 301 SEO redirect. 404 error pages hurts the rank of your site in search engines. This smart plugin is a simple solution to handle 404 error pages. 
+By this plugin you can fix all random 404 links appear in you your website and redirect them to homepage or any other page using 301 SEO redirect. 404 error pages hurts the rank of your site in search engines. This smart plugin is a simple solution to handle 404 error pages.
+
+Elevate your website's SEO performance and user experience with our Smart 404 Error Fix & Redirect plugin. This powerful tool automatically identifies and manages random 404 errors on your WordPress site, ensuring that broken links and missing pages are seamlessly redirected. By handling these 404 errors with precision, the plugin directs visitors to your homepage or any other specified page, helping to retain your audience and improve site navigation.
+
+=== Features ===
+* **Automatic 404 Redirection:** Effortlessly manage broken links and redirect users to relevant pages.
+* **301 SEO Redirects:** Implement permanent 301 redirects to enhance your website's SEO ranking and preserve link equity.
+* **Customizable Redirection:** Choose where 404 errors should be redirected – to your homepage, a custom page, or any URL of your choice.
+* **Soft 404 Handling:** Address and manage soft 404 errors effectively.
+* **Broken Link Management:** Detect and fix broken images and links to maintain a smooth user experience.
+* **HTTPS Support:** Ensure compatibility with HTTPS for secure redirection.
+
+=== Benefits ===
+* **Improved SEO:** Reduce the negative impact of 404 errors on your search engine rankings with effective 301 redirects.
+* **Enhanced User Experience:** Keep visitors engaged by preventing them from encountering error pages.
+* **Easy Setup:** Simple installation and configuration with user-friendly options.
+
 
 **How to use the plugin?**
 
@@ -20,7 +38,7 @@ By this plugin you can fix all random 404 links appear in you your website and r
 - Go to <b>404 URLs</b> tab to see the latest 404 links discovered and redirected
 
 **Note**
-Please make sure than the page you put above in the control panel to redirect all 404 to it is a valid link. If this page is not valid it will be considred as an 404 link and will result in redirect loop. In case of redirect loop you can simply disable the plugin and check the page is valid or not. 
+Please make sure than the page you put above in the control panel to redirect all 404 to it is a valid link. If this page is not valid it will be considered as an 404 link and will result in redirect loop. In case of redirect loop you can simply disable the plugin and check the page is valid or not. 
 
 == Installation ==
 
@@ -34,6 +52,33 @@ Extract the zip file and just drop the contents in the wp-content/plugins/ direc
 
 == Changelog ==
 
+= 5.2 =
+* Checking with the last version of wordpress 6.7.1
+
+= 5.1 =
+* Bug fixing in the options
+
+= 4.9 =
+* Bug fixing in the log
+
+= 4.8 =
+* Bug fixing in the customizer
+
+= 4.7 =
+* Checking with the last version of wordpress 6.7.1
+* Adding new options
+* Adding the ability to clear the log
+
+= 4.6 =
+* Checking with the last version of wordpress 6.6.1
+* readme.txt some fixes
+
+= 4.5 =
+* Bug fixing in "exclude media" option
+
+
+= 4.4 =
+* Introducing a new feature on the plugin options page to prevent the logging of media links.
 
 = 4.3 =
 * bg fixing in reading htaccess file

@@ -7,33 +7,29 @@
  * @since 1.7.4
  */
 
-'use strict';
-
+// eslint-disable-next-line no-var
 var WPFormsEducation = window.WPFormsEducation || {};
 
 WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function( document, window, $ ) {
-
 	/**
 	 * Public functions and properties.
 	 *
 	 * @since 1.7.4
 	 *
-	 * @type {object}
+	 * @type {Object}
 	 */
-	var app = {
+	const app = {
 
 		/**
 		 * Start the engine.
 		 *
 		 * @since 1.7.4
 		 */
-		init: function() {
-
+		init() {
 			$( app.ready );
 
 			// Page load.
 			$( window ).on( 'load', function() {
-
 				// In the case of jQuery 3.+, we need to wait for a ready event first.
 				if ( typeof $.ready.then === 'function' ) {
 					$.ready.then( app.load );
@@ -48,7 +44,7 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 *
 		 * @since 1.7.4
 		 */
-		ready: function() {
+		ready() {
 
 		},
 
@@ -57,8 +53,7 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 *
 		 * @since 1.7.4
 		 */
-		load: function() {
-
+		load() {
 			app.events();
 			app.initLiteConnectToggle();
 			app.maybeRevealBuilderTopBar();
@@ -69,12 +64,12 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 *
 		 * @since 1.7.4
 		 */
-		events: function() {
-
+		events() {
 			app.enableLiteConnectToggleClick();
 			app.enableLiteConnectButtonClick();
 			app.dismissBuilderTopBarClick();
 			app.autoSaveToggleChange();
+			app.enableLiteConnectAIButtonClick();
 		},
 
 		/**
@@ -82,7 +77,7 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 *
 		 * @since 1.7.5
 		 */
-		initLiteConnectToggle: function() {
+		initLiteConnectToggle() {
 			$( '.wpforms-toggle-control.wpforms-setting-lite-connect-auto-save-toggle input' ).prop( 'disabled', false );
 		},
 
@@ -91,27 +86,28 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 *
 		 * @since 1.7.4
 		 */
-		enableLiteConnectToggleClick: function() {
-
+		enableLiteConnectToggleClick() {
 			$( document ).on(
 				'mousedown touchstart',
-				'.wpforms-toggle-control.wpforms-setting-lite-connect-auto-save-toggle',
+				'#wpforms-setting-row-lite-connect-enabled label, .wpforms-setting-lite-connect-auto-save-toggle label',
 				function( event ) {
-
-					var $input = $( this ).find( 'input' ),
-						isEnabled = $input.is( ':checked' ),
-						isTouchDevice = 'ontouchstart' in document.documentElement;
+					const isTouchDevice = 'ontouchstart' in document.documentElement;
 
 					if ( ! isTouchDevice ) {
 						event.preventDefault();
 					}
 
+					const wrapper = $( this ).closest( '#wpforms-setting-row-lite-connect-enabled, .wpforms-setting-lite-connect-auto-save-toggle' );
+
+					const $input = wrapper.find( '#wpforms-setting-lite-connect-enabled' );
+
 					if ( $input.prop( 'disabled' ) ) {
 						return;
 					}
 
-					app.openSettingsLiteConnectModal( isEnabled, function() {
+					const isEnabled = $input.is( ':checked' );
 
+					app.openSettingsLiteConnectModal( isEnabled, function() {
 						$input
 							.trigger( 'click' )
 							.prop( 'disabled', true );
@@ -125,16 +121,14 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 *
 		 * @since 1.7.4
 		 */
-		enableLiteConnectButtonClick: function() {
-
+		enableLiteConnectButtonClick() {
 			$( document ).on(
 				'click',
 				'.wpforms-dyk-lite-connect .button-primary',
 				function( event ) {
-
 					event.preventDefault();
 
-					var $button = $( this );
+					const $button = $( this );
 
 					if ( $button.hasClass( 'wpforms-is-enabled' ) ) {
 						window.open( $button.attr( 'href' ) );
@@ -151,16 +145,90 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		},
 
 		/**
+		 * Enable Lite Connect button click handler.
+		 *
+		 * @since 1.9.1
+		 */
+		enableLiteConnectAIButtonClick() {
+			$( document ).on(
+				'click',
+				'.enable-lite-connect-modal',
+				app.handleLiteConnectModalClick,
+			);
+		},
+
+		/**
+		 * Finalize the Lite Connect keys setup.
+		 *
+		 * @since 1.9.1
+		 *
+		 * @return {jQuery} AJAX request deferred object.
+		 */
+		finalizeLiteConnectSetup() {
+			return $.get( wpforms_education_lite_connect.ajax_url, {
+				action: 'wpforms_lite_connect_finalize',
+				nonce: wpforms_education_lite_connect.nonce,
+			} );
+		},
+
+		/**
+		 * Handle Lite Connect modal click.
+		 *
+		 * @since 1.9.1
+		 *
+		 * @param {Event} event Event object.
+		 */
+		handleLiteConnectModalClick( event ) {
+			event.preventDefault();
+
+			app.openAILiteConnectEnableModal(
+				function() {
+					app.saveSettingAjaxPost( true, $(), function() {
+						app.switchSettingView( true, $( '#wpforms-builder-lite-connect-top-bar .wpforms-toggle-control' ) );
+
+						// Finalize the Lite Connect keys setup.
+						app.finalizeLiteConnectSetup()
+							.done( () => {
+								app.removeLiteConnectModalOnAIButtons();
+							} );
+					} );
+				}
+			);
+		},
+
+		/**
+		 * Remove Lite Connect modal on AI buttons.
+		 *
+		 * @since 1.9.1
+		 */
+		removeLiteConnectModalOnAIButtons() {
+			$( '.enable-lite-connect-modal.wpforms-prevent-default' ).each( function() {
+				const $button = $( this );
+
+				// Update button class.
+				$button.removeClass( 'enable-lite-connect-modal wpforms-prevent-default' );
+
+				// Open AI Form Generator.
+				if ( $button.hasClass( 'wpforms-template-generate' ) ) {
+					$button.trigger( 'click' );
+				}
+
+				// Close the top bar in the form builder.
+				if ( $( '#wpforms-builder-lite-connect-top-bar' ).length ) {
+					app.toggleBuilderTopBar( false );
+				}
+			} );
+		},
+
+		/**
 		 * Enable Lite Connect button modal confirm Callback.
 		 *
 		 * @since 1.7.4
 		 */
-		enableLiteConnectButtonModalConfirm: function() {
-
-			var $toggle = $( '.wpforms-dyk-lite-connect .button-primary' );
+		enableLiteConnectButtonModalConfirm() {
+			const $toggle = $( '.wpforms-dyk-lite-connect .button-primary' );
 
 			app.saveSettingAjaxPost( true, $toggle, function() {
-
 				app.switchSettingView( true, $toggle );
 			} );
 		},
@@ -173,8 +241,7 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 * @param {boolean}  isEnabled       Current setting state.
 		 * @param {Function} confirmCallback Confirm button action.
 		 */
-		openSettingsLiteConnectModal: function( isEnabled, confirmCallback ) {
-
+		openSettingsLiteConnectModal( isEnabled, confirmCallback ) {
 			if ( isEnabled ) {
 				app.openSettingsLiteConnectDisableModal( confirmCallback );
 			} else {
@@ -189,30 +256,69 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 *
 		 * @param {Function} confirmCallback Confirm button action.
 		 */
-		openSettingsLiteConnectEnableModal: function( confirmCallback ) {
+		openSettingsLiteConnectEnableModal( confirmCallback ) {
+			const $args = {
+				content: wp.template( 'wpforms-settings-lite-connect-modal-content' )(),
+				confirm: {
+					text: wpforms_education_lite_connect.enable_modal.confirm,
+					callback: confirmCallback,
+				},
+			};
 
+			app.enableModal( $args );
+		},
+
+		/**
+		 * AI features enable information modal.
+		 *
+		 * @since 1.9.1
+		 *
+		 * @param {Function} confirmCallback Confirm button action.
+		 */
+		openAILiteConnectEnableModal( confirmCallback ) {
+			const $args = {
+				content: wp.template( 'wpforms-builder-ai-lite-connect-modal-content' )(),
+				confirm: {
+					text: wpforms_education_lite_connect.enable_ai.confirm,
+					callback: confirmCallback,
+				},
+				theme: 'modern, ai-modal',
+			};
+
+			// eslint-disable-next-line camelcase
+			wpforms_education_lite_connect.update_result.enabled_title = wpforms_education_lite_connect.enable_ai.enabled_title;
+
+			app.enableModal( $args );
+		},
+
+		/**
+		 * Render Enable modal.
+		 *
+		 * @param {Object} $args Modal arguments.
+		 */
+		enableModal( $args ) {
 			$.alert( {
 				title: false,
-				content: wp.template( 'wpforms-settings-lite-connect-modal-content' )(),
+				content: $args.content,
 				icon: false,
 				type: 'orange',
-				boxWidth: '550px',
-				theme: 'modern',
+				boxWidth: 550,
+				theme: $args.theme || 'modern',
 				useBootstrap: false,
 				scrollToPreviousElement: false,
 				buttons: {
 					confirm: {
-						text: wpforms_education_lite_connect.enable_modal.confirm,
+						text: $args.confirm.text,
 						btnClass: 'btn-confirm',
 						keys: [ 'enter' ],
-						action: function() {
-
-							if ( typeof confirmCallback === 'function' ) {
-								confirmCallback();
+						action() {
+							if ( typeof $args.confirm.callback === 'function' ) {
+								$args.confirm.callback();
 							}
 
 							// Maybe close Challenge popup.
 							if ( window.WPFormsChallenge ) {
+								// eslint-disable-next-line no-var
 								var completeChallenge = WPFormsChallenge.embed && WPFormsChallenge.embed.completeChallenge;
 							}
 
@@ -223,19 +329,16 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 					},
 					cancel: {
 						text: wpforms_education_lite_connect.enable_modal.cancel,
-						action: function() {
-
+						action() {
 							$( '.wpforms-challenge-popup-container' ).removeClass( 'wpforms-invisible' );
 						},
 					},
 				},
-				onOpenBefore: function() {
-
+				onOpenBefore() {
 					$( 'body' ).addClass( 'wpforms-setting-lite-connect-modal' );
 					$( '.wpforms-challenge-popup-container' ).addClass( 'wpforms-invisible' );
 				},
-				onDestroy: function() {
-
+				onDestroy() {
 					$( 'body' ).removeClass( 'wpforms-setting-lite-connect-modal' );
 				},
 			} );
@@ -248,8 +351,7 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 *
 		 * @param {Function} confirmCallback Confirm button action.
 		 */
-		openSettingsLiteConnectDisableModal: function( confirmCallback ) {
-
+		openSettingsLiteConnectDisableModal( confirmCallback ) {
 			$.alert( {
 				title: wpforms_education_lite_connect.disable_modal.title,
 				content: wpforms_education_lite_connect.disable_modal.content,
@@ -268,8 +370,7 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 					},
 					confirm: {
 						text: wpforms_education_lite_connect.disable_modal.confirm,
-						action: function() {
-
+						action() {
 							if ( typeof confirmCallback === 'function' ) {
 								confirmCallback();
 							}
@@ -288,11 +389,10 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 * @param {jQuery|undefined} $toggle         Toggle control outer element.
 		 * @param {Function}         successCallback Success result callback.
 		 */
-		saveSettingAjaxPost: function( isEnabled, $toggle, successCallback ) {
-
+		saveSettingAjaxPost( isEnabled, $toggle, successCallback ) {
 			$toggle = $toggle || $();
 
-			var $input = $toggle.find( 'input' );
+			const $input = $toggle.find( 'input' );
 
 			// Perform AJAX request.
 			$.post(
@@ -303,7 +403,6 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 					nonce: wpforms_education_lite_connect.nonce,
 				}
 			).done( function( res ) {
-
 				if ( ! res.success ) {
 					$input.prop( 'checked', ! isEnabled );
 					app.updateResultModal( 'error' );
@@ -316,13 +415,10 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 				if ( typeof successCallback === 'function' ) {
 					successCallback();
 				}
-
-			} ).fail( function( xhr, textStatus, e ) {
-
+			} ).fail( function() {
 				$input.prop( 'checked', ! isEnabled );
 				app.updateResultModal( 'error' );
-
-			} ).always( function( xhr, textStatus, e ) {
+			} ).always( function() {
 				$input.prop( 'disabled', false );
 			} );
 		},
@@ -332,19 +428,21 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 *
 		 * @since 1.7.4
 		 */
-		autoSaveToggleChange: function() {
-
+		autoSaveToggleChange() {
 			$( document ).on(
 				'change',
 				'.wpforms-toggle-control.wpforms-setting-lite-connect-auto-save-toggle input',
 				function() {
-
-					var $input    = $( this ),
-						$toggle   = $input.closest( '.wpforms-toggle-control' ),
+					const $input = $( this ),
+						$toggle = $input.closest( '.wpforms-toggle-control' ),
 						isEnabled = $input.is( ':checked' );
 
 					app.saveSettingAjaxPost( isEnabled, $toggle, function() {
 						app.switchSettingView( isEnabled, $toggle );
+						app.removeLiteConnectModalOnAIButtons();
+
+						// Finalize the Lite Connect keys setup.
+						app.finalizeLiteConnectSetup();
 					} );
 				}
 			);
@@ -358,10 +456,9 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 * @param {boolean} isEnabled Toggle state.
 		 * @param {jQuery}  $toggle   Toggle control.
 		 */
-		switchSettingView: function( isEnabled, $toggle ) {
-
-			var $wrapper     = $toggle.closest( '.wpforms-education-lite-connect-wrapper' ),
-				$setting     = $wrapper.find( '.wpforms-education-lite-connect-setting' ),
+		switchSettingView( isEnabled, $toggle ) {
+			const $wrapper = $toggle.closest( '.wpforms-education-lite-connect-wrapper' ),
+				$setting = $wrapper.find( '.wpforms-education-lite-connect-setting' ),
 				$enabledInfo = $wrapper.find( '.wpforms-education-lite-connect-enabled-info' );
 
 			$setting.toggleClass( 'wpforms-hidden', isEnabled );
@@ -375,8 +472,7 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 *
 		 * @param {string} msg Message slug.
 		 */
-		updateResultModal: function( msg ) {
-
+		updateResultModal( msg ) {
 			if ( ! wpforms_education_lite_connect.update_result[ msg ] ) {
 				return;
 			}
@@ -408,8 +504,7 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 *
 		 * @since 1.7.4
 		 */
-		maybeRevealBuilderTopBar: function() {
-
+		maybeRevealBuilderTopBar() {
 			// Skip it is not Form Builder or Entry Backups is already enabled or top bar is dismissed.
 			if (
 				! window.wpforms_builder ||
@@ -431,12 +526,12 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 *
 		 * @param {boolean} open True for open, false for close.
 		 */
-		toggleBuilderTopBar: function( open ) {
+		toggleBuilderTopBar( open ) {
+			const cssVar = '--wpforms-admin-bar-height';
+			const root = document.documentElement;
+			const topBarHeight = 45;
 
-			var cssVar = '--wpforms-admin-bar-height',
-				root = document.documentElement,
-				adminBarHeight = parseInt( getComputedStyle( root ).getPropertyValue( cssVar ), 10 ),
-				topBarHeight = 45;
+			let adminBarHeight = parseInt( getComputedStyle( root ).getPropertyValue( cssVar ), 10 );
 
 			adminBarHeight += open ? topBarHeight : -topBarHeight;
 
@@ -451,8 +546,7 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 		 *
 		 * @since 1.7.4
 		 */
-		dismissBuilderTopBarClick: function() {
-
+		dismissBuilderTopBarClick() {
 			$( document ).on(
 				'click',
 				'#wpforms-builder-lite-connect-top-bar .wpforms-dismiss-button',
@@ -465,7 +559,6 @@ WPFormsEducation.liteConnect = window.WPFormsEducation.liteConnect || ( function
 
 	// Provide access to public functions/properties.
 	return app;
-
 }( document, window, jQuery ) );
 
 // Initialize.

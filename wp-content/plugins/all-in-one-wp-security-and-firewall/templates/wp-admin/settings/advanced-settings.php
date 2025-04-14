@@ -8,7 +8,7 @@
 			echo '<p>'.__('The IP address detection settings allow you to specify how visitors\' IP addresses are made known to PHP (and hence to WordPress and its plugins).', 'all-in-one-wp-security-and-firewall').
 				'<br />'.__('Usually, this is automatic and there is only one choice.', 'all-in-one-wp-security-and-firewall').
 				' '.__('However in some setups, such as those using proxies (including load-balancers and security firewalls like Cloudflare), it may be necessary to set this manually.', 'all-in-one-wp-security-and-firewall').
-				'</p><p><strong>'.__('Attention', 'all-in-one-wp-security-and-firewall').':</strong> '.__('It is important to set this correctly - otherwise you may make it possible for a hacker to ban all your visitors (e.g. via banning Cloudflare from connecting to you) instead of being banned himself.', 'all-in-one-wp-security-and-firewall').'</p><p>'.__("The default is to use the REMOTE_ADDR PHP server variable. If this variable does not contain the visitor's IP address, then whilst you can make a different selection below, it is better to ask your web hosting company to have it correctly set.", 'all-in-one-wp-security-and-firewall') . ' ' .
+				'</p><p><strong>'.__('Attention', 'all-in-one-wp-security-and-firewall').':</strong> '.__('It is important to set this correctly - otherwise you may make it possible for a hacker to ban all your visitors (e.g. via banning Cloudflare from connecting to you) instead of the hacker being banned.', 'all-in-one-wp-security-and-firewall').'</p><p>'.__("The default is to use the REMOTE_ADDR PHP server variable.", 'all-in-one-wp-security-and-firewall') ." " . __("If this variable does not contain the visitor's IP address, then whilst you can make a different selection below, it is better to ask your web hosting company to have it correctly set.", 'all-in-one-wp-security-and-firewall') . ' ' .
 				__("This is the most secure setup, because when set correctly it is immune from being spoofed by an attacker.", 'all-in-one-wp-security-and-firewall').'</p>';
 			?>
 		</div>
@@ -44,8 +44,7 @@
 			#aiowps_ip_retrieve_method option:disabled { color: #cccccc; }
 			.aios-ip-error { color: #ff0000; }
 		</style>
-		<form action="" method="POST">
-			<?php wp_nonce_field('aiowpsec-ip-settings-nonce'); ?>
+		<form action="" method="POST" id="aiowpsec-ip-settings-form">
 			<table class="form-table">
 				<tr valign="top">
 					<td>
@@ -79,7 +78,7 @@
 						<script>
 							jQuery(function() {
 								var get_ip_error_count = 0;
-								var unexpected_response_text = '<?php _e('Unexpected response:', 'updraftplus'); ?> ';
+								var unexpected_response_text = '<?php _e('Unexpected response:', 'all-in-one-wp-security-and-firewall'); ?> ';
 								var getting_text = ' ' + '<?php _e('getting...', 'all-in-one-wp-security-and-firewall'); ?>'
 
 

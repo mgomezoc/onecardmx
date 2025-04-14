@@ -4,8 +4,8 @@ Donate link: https://david.dw-perspective.org.uk/donate
 Tags: security, malware scanning, two factor authentication, firewall, login security
 Requires PHP: 5.6
 Requires at least: 5.0
-Tested up to: 6.2
-Stable tag: 5.2.1
+Tested up to: 6.7
+Stable tag: 5.4.0
 License: GPLv3 or later
 
 Protect your website investment with All-In-One Security (AIOS) – a comprehensive and easy to use security plugin designed especially for WordPress. Featuring login security tools, a cutting-edge firewall and much more.
@@ -125,7 +125,7 @@ Most security attacks come from a handful of countries and so it’s possible to
 their enquiry within 24 hours.
 
 #### Plugin Support
-* If you have a question or problem with the All-In-One Security plugin, post it on the support forum and we will help you. Premium customers can log queries directly with the team via aiosplugin.com
+* If you have a question or problem with the All-In-One Security plugin, post it on the support forum and we will help you. Premium customers can log queries directly with the team via https://teamupdraft.com/all-in-one-security/
 
 = Developers =
 * If you are a developer and you need some extra hooks or filters for this plugin then let us know.
@@ -168,7 +168,7 @@ But if your WordPress site is a business website, if it showcases what you do, o
 = What are the additional features of All-In-One Security Premium? =
 AIOS Premium scans your WordPress website for malware whilst also monitoring your site's response time and uptime, notifying you of any issues within 24 hours, AIOS Premium customers also benefit from hands-on ticketed support via email (rather than via WP Support forums).
 Additional security tools include Country Blocking, Smart 404 Error Blocking and Advanced Two Factor Authentication.
-More information is available from our [All-In-One Security website](https://aiosplugin.com)
+More information is available from our [All-In-One Security website](https://teamupdraft.com/all-in-one-security/)
 
 = How do I get started with All-In-One Security Premium? =
 In the web shop, purchase your preferred subscription. After completing the purchase, you will be emailed a link to download the plugin. You can also access the link through your "My Account" page.
@@ -192,7 +192,7 @@ Development and test sites require their own licence if updates to the plugin ar
 However, these sites can be disconnected from the licence when they have served their purpose. You can disconnect the licence via the site's WP Admin->Plugins page, and it will be available to be reassigned to a different site.
 
 = Is the All In One Security & Firewall Plugin GDPR and other privacy law compliant? =
-Please read more about GDPR compliance here: https://aiosplugin.com/privacy-policy/ .
+Please read more about GDPR compliance here: https://teamupdraft.com/privacy/ .
 
 == Installation ==
 
@@ -212,6 +212,285 @@ Go to the settings menu after you activate the plugin and follow the instruction
 
 == Changelog ==
 
+= 5.4.0 - 27/Mar/2025 =
+
+* FIX: Replaced firewall URI parsers with non-WordPress methods
+* FIX: Resolved PHP 5.6 compatibility issue caused by the ?? operator in 5.3.10
+
+= 5.3.10 - 26/Mar/2025 =
+
+* FEATURE: Added commenting capability to IP whitelists
+* FEATURE: Added diagnostics reporting
+* FEATURE: Added a whitelist and user role-based access limit to the REST API firewall
+* FIX: "Undefined index: path" error when front-end HTTP Authentication is enabled.
+* FIX: Resolved dashboard translation issue where text lacked whitespace and was not properly translated
+* TWEAK: Remove uses of unserialize without restriction of allowed_classes
+* TWEAK: Refactored IP commands class to use response helper
+* TWEAK: Removed WP REST API tab
+* TWEAK: Switched "Critical Feature Status" toggle buttons on the dashboard to a status light system
+* TWEAK: Updated the security strength meter on the dashboard
+* TWEAK: Improved the dashboard widget to display a chart showing the number of logins over the last 7 days
+* TWEAK: Enhanced the maintenance mode switch on the dashboard for consistency with the rest of the plugin
+* TWEAK: Converted Brute Force menu actions to use AJAX
+* TWEAK: Updated seasonal notices 
+
+= 5.3.8 - 16/Dec/2024 =
+
+* FIX: Updated the plugin notices to fix translation related fatal errors.
+
+= 5.3.7 - 5/Dec/2024 =
+
+* TWEAK: Change response code for blocked unauthorized REST requests to 403.
+* TWEAK: Temporarily removed firewall logging
+
+= 5.3.6 - 3/Dec/2024 =
+
+* FIX: Resolved an issue with the AIOS_Firewall_Resource class
+
+= 5.3.5 - 24/Nov/2024 =
+
+* FIX: Custom .htaccess rules are now properly escaped, with backslashes removed.
+* FIX: Import settings failed when visitor lockout messages had text alignment or other formatting applied
+* FIX: The audit log filter for event type now works correctly, even when the event type is translated into languages other than English
+* FIX: Resolved text overflow in the blue box on the Settings > WP Version Info page
+* FIX: Some user meta keys were not being removed after uninstalling the plugin
+* FIX: Subsites no longer incorrectly detect the Database Prefix feature as active
+* FIX: Prevented fatal errors from missing firewall resources, replacing them with debug log entries
+* FIX: WordPress database error: BLOB, TEXT, GEOMETRY, or JSON columns cannot have a default value set
+* FIX: The load_plugin_textdomain function is called during the init action, and translations are applied afterward
+* FIX: Renamed login page is now using the WordPress translations
+* TWEAK: Added a filter for PHP firewall rules templates
+* TWEAK: Updated the country code field for audit logs to be based on the IP address (Premium)
+* TWEAK: Improved the text in the 404 detection tab
+* TWEAK: Moved the allowlist into the blacklist tab, and renamed it to "Block & Allow Lists"
+* TWEAK: Moved the WP REST API feature to the PHP rules tab
+* TWEAK: Refactored multiple command classes to use the new AJAX response helper method: Tools, File scan, Files, Settings, and Log commands classes
+* TWEAK: Updated the UI for the .htaccess rules, Captcha settings and file protection tabs
+* TWEAK: Added a note in Settings > Delete plugin settings tab
+* TWEAK: Early calls to get_plugin_data() no longer require translations
+* TWEAK: Refactored the firewall command class to use the response helper method
+* TWEAK: Added a constant AIOS_DISABLE_HTTP_AUTHENTICATION. Define this in your wp-config.php to disable HTTP authentication
+
+= 5.3.4 - 21/Oct/2024 =
+
+* FEATURE: Added a HTTP authentication feature that allows protecting the site with a username/password login.
+* FIX: Added a new method to reset the firewall rules under general settings
+* FIX: Resolved the issue with post cache which caused an issue with comment spam prevention
+* TWEAK: Added a helper class for API requests
+* TWEAK: Removed whitespaces at end of sentences
+
+= 5.3.3 - 16/Sep/2024 =
+
+* FEATURE: Added captcha option for WooCommerce classic guest checkout page.
+* FIX: Fixed responsive layout issues with dashboard notice logo on mobile devices.
+* FIX: Turnstile captcha widget showing multiple times
+* FIX: Solved memory issue for reading larger host system log file 
+* FIX: Removed .htaccess options from the Settings menu on Nginx, IIS and unsupported web servers
+* FIX: Resolved UX popup issue and firewall allowlist sanitization
+* FIX: Resolved an issue where bulk table actions were still executed even if the confirmation dialog was canceled.
+* FIX: Added a null check to prevent PHP warnings in firewall rules
+* TWEAK: Ajaxified the actions in the settings, filesystem security, spam prevention and user security menu
+* TWEAK: Added Ajax support to list tables and the audit log
+* TWEAK: Added CAPTCHA field to MemberPress forgot password and registration forms
+* TWEAK: Excluded .htaccess tabs from settings if the server is not supported
+* TWEAK: Updated the firewall rules UI and malware scanner description
+* TWEAK: Tweaked the htaccess backup method to generate the random filename
+* TWEAK: Removed 'prevent access to default WP files' from .htaccess and added 'license.txt' to deletion list.
+
+= 5.3.2 - 06/Aug/2024 =
+
+* FIX: Bug that allowed subsite admins to delete audit logs of other subsites
+* FIX: Disabled blacklisting on subsites because the PHP-based firewall currently applies to the entire multisite
+* FIX: An issue with getting the google bot ip ranges
+* TWEAK: Added extra protections in place before modifying the .htaccess file
+* TWEAK: Actions in the tools, firewall and scanner menu are now processed via AJAX
+* TWEAK: Trimmed leading and trailing whitespace from inputs in the WHOIS lookup tab
+* TWEAK: Added a confirmation pop-up when users clear records in the Debug Logs table
+* TWEAK: Added captcha support for the MemberPress plugin
+* TWEAK: Improved the UX of the WP REST API options
+* TWEAK: Internal code improvements to improve maintainability
+* TWEAK: Updated the feature manager to improve performance
+* TWEAK: Fixed the issue of blank tables on mobile view
+ 
+= 5.3.1 - 26/Jun/2024 =
+
+* FEATURE: Added CAPTCHA to password protected pages/posts
+* FIX: Captcha not showing on the BuddyPress registration page
+* FIX: WooCommerce logout issue when the renamed login page and login whitelist features are both enabled
+* FIX: Missing CAPTCHAs when multiple WooCommerce login and register forms are on the same page
+* FIX: Fixed an issue with the 404 detection actions
+* FIX: A UI issue with the 2FA QR code image
+* TWEAK: Added the attribute data-cfasync="false" to the default captcha url to allow loading on Cloudflare Rocket Loader
+* TWEAK: Purge login lockdown table records after 90 days to restrict size. The AIOS_PURGE_LOGIN_LOCKOUT_RECORDS_AFTER_DAYS constant has been added to change the default.
+* TWEAK: Updated the malware scanner frequency text from daily to weekly
+* TWEAK: Updated the password strength meter UI for the password tool
+* TWEAK: Add a 'Lock IP' and 'Blacklist IP' link to the IP column of the audit log.
+* TWEAK: Enhance fake Googlebot detection. In the case where gethostbyaddr fails, the firewall will fallback to checking against known Googlebot IP ranges
+* TWEAK: Updated the column header for the  "Permanent Blocked IP Addresses" table to be consistent with other tables
+* TWEAK: Prevent warning when DISALLOW_FILE_EDIT has already been defined
+* TWEAK: Fix instances of one translation function being used for multiple sentences
+* TWEAK: Improved the UX during AJAX calls
+* TWEAK: Removed Trash spam comments duplicated description
+
+= 5.3.0 - 01/May/2024 =
+
+* FEATURE: Added bulk force logout features for logged in users
+* FIX: An issue with the WooCommerce my account page logout function when the cookie based brute force feature is turned on
+* FIX: Warning undefined array key SCRIPT_FILENAME
+* FIX: Custom redirection after login not working if url contains the redirect_to parameter
+* FIX: List of administrator accounts not showing on the user security page
+* FIX: Issue with cookie based bruteforce prevention solved if salt postfix feature is on.
+* FIX: Fixed country field not showing in the 404 event logs (Premium)
+* FIX: Fixed country field not showing in the smart 404 blocked IP log (Premium)
+* TWEAK: Fixed translation issue not showing as per admin user set language instead of site settings
+* TWEAK: Firewall upgrade changes are applied without access to the admin interface
+* TWEAK: Change the labels for the switches to a more appropriate wording
+* TWEAK: In the file scanner results show the file sizes in a human readable format
+* TWEAK: Updated the default message for attempts to access wp-admin
+* TWEAK: Internal refactor of the update code to improve code clarity.
+* TWEAK: Port the 'Block fake Googlebots' feature to the PHP-based firewall
+* TWEAK: Remove requirement for at least one IP for 'Blacklist', 'Login whitelist' and 'Login lockout IP whitelist' to be enabled.
+* TWEAK: Added error message when a user tries to block their own IP on registration approval
+* TWEAK: Added method to update badge on AJAX call
+* TWEAK: internal refactor of the AIOWPSecurity_Utility_File class to improve code clarity
+* TWEAK: Seasonal notice content update for 2024
+
+= 5.2.9 - 06/Mar/2024 =
+
+* FIX: Remove call to update_event_table_column_to_timestamp in update routine
+* FIX: Remove call to wp_timezone() which is only available in WP 5.3+
+
+= 5.2.8 - 05/Mar/2024 =
+
+* FIX: The user check that affects the Duo authentication plugin
+* FIX: Database update routine is now run without needing to visit the admin interface or each individual site in a multisite
+* FIX: Some settings in the firewall menu not resetting after deactivating and reactivating the plugin.
+* TWEAK: Audit log and 404 events CSV export file date time column is now in a human readable format not unix timestamp
+* TWEAK: Debug log table existing datetime field converted to timestamp to be timezone independent
+* TWEAK: Global meta table existing datetime field converted to timestamp to be timezone independent
+* TWEAK: Permanent block table existing datetime field converted to timestamp to be timezone independent
+* TWEAK: Refactor list item actions to further improve code clarity
+* TWEAK: Removed blacklist admin menu as previously announced
+* TWEAK: Removed miscellaneous admin menu as previously announced
+* TWEAK: Removed various admin menu tabs as previously announced
+* TWEAK: Store IP lookup result for other types of entries in the login lockdown table
+* TWEAK: Update the footer review prompt
+* TWEAK: Max file upload size limit to 250 MB by aiowps_max_allowed_upload_config filter removed
+* TWEAK: Improve comment spam detection to not interfere with other forms
+
+= 5.2.7 - 06/Feb/2024 =
+
+* SECURITY: Added nonce checks to various list table actions to prevent a CSRF vulnerability. Thanks to dhakal_ananda for disclosing this defect. This would allow an attacker who persuaded a logged-in administrator to visit a specially crafted link to perform actions on the 404 event records.
+
+= 5.2.6 - 06/Feb/2024 =
+
+* SECURITY: Removed unnecessary use of the "tab" query parameter on various admin menu pages to prevent a non-persistent XSS vulnerability. Thanks to Matthew Rollings for disclosing this defect. (This would allow an attacker who deliberately targets you whilst logged in as an administrator and persuades you to visit a link he controls to inject unwanted scripts on a single visit to your AIOS admin page).
+* FEATURE: Added logout event to the audit logs
+* FEATURE: Add ability to delete the default readme.html file and wp-config-sample.php file
+* FIX: Correct some translation calls that were using the wrong text domain
+* FIX: PHP notice caused by the file scanner being unable to read its data file
+* FIX: Unlock request button was not showing and redirects to 127.0.0.1
+* FIX: Database errors for the aiowps_login_lockdown table during plugin installation
+* TWEAK: Refactor the 6G UI
+* TWEAK: Added an option to set the Cloudflare Turnstile CAPTCHA theme
+* TWEAK: Added CSS styling for audit log details column
+* TWEAK: Dashboard critical feature status links fixed and only show features that can be enabled in a multisite subsite
+* TWEAK: Deactivating the plugin now removes stored login info so on the next activation users are not force logged out
+* TWEAK: Display json string instead of null if json_decode does not work for audit log details
+* TWEAK: Event table existing datetime field converted to timestamp to be timezone independent
+* TWEAK: Various tweaks to get codebase up to coding standards
+* TWEAK: Various tweaks to ensure multiple sentences are not passed to a single translation function
+* TWEAK: Fix the broken UI for RSS and Atom firewall settings and added a more info box
+* TWEAK: Fix the issue of unique ID in DOM
+* TWEAK: Merge Username and Display Name tabs in User Security Settings 
+* TWEAK: Moved the '404 detection' tab to the 'Brute force' admin menu
+* TWEAK: Moved the 'PHP file editing' tab into 'File Protection' tab
+* TWEAK: Moved the 'User enumeration' tab into the 'User accounts' tab in the User Security Menu
+* TWEAK: Moved the 'WP Rest API' tab into the Firewall Menu
+* TWEAK: Moved the 'Copy protection' and 'Frames' tab into the Filesystem security menu
+* TWEAK: Moved the 'Salt' tab into the User security menu
+* TWEAK: Moved 'Blacklist Manager' tab into the Firewall menu.
+* TWEAK: Password resets, removed and deleted users are now recorded in the audit log
+* TWEAK: Stop 404 IP from being locked if there's a current lock on that IP
+* TWEAK: Unify date and time conversion with users timezone support
+* TWEAK: Changed how empty data in ip lookup result is stored in the database
+* TWEAK: Rework Firewall Menu page to have two tabs for PHP and .htaccess rules
+* TWEAK: Add captcha support for Contact Form 7
+* TWEAK: Added a AJAX save settings and get features details badge function as part of ongoing work to add AJAX support to the plugin settings
+* TWEAK: Enhance reset password email by adding IP info
+* TWEAK: Remove defunct imagetoolbar meta tag
+* TWEAK: Login lockout tables existing datetime field converted to timestamp to be timezone independent
+* TWEAK: Code improvements - utilising WP_Error objects instead of arrays
+
+= 5.2.5 - 25/Oct/2023 =
+
+* SECURITY: On a multisite install, if using the AIOS feature for renaming and hiding the login page, a route existed for an attacker to discover the hidden login page, thus negating the usefulness of the feature. Thanks to Naveen Muthusamy for disclosing this defect.
+* FEATURE: Block POST requests that have a blank user-agent and referer
+* FEATURE: Added reverse IP Lookup data to the login lockdown notification email
+* FIX: Prevent a fatal error when setting up the firewall if the host has disabled the function parse_ini_file
+* FIX: Prevent the firewall message store from filling up with unused entries
+* FIX: Prevent legitimate Googlebot traffic being blocked on sites where the gethostbyaddr function fails or is disabled
+* FIX: An issue that prevented MainWP updates from being performed correctly
+* FIX: Prevent user enumeration via the REST API and oEmbed protocol
+* FIX: User agent blacklist not matching all strings correctly
+* FIX: Logged in user table not showing the correct information
+* TWEAK: Improve comment spam detection by using hidden fields and cookies
+* TWEAK: Login whitelist suggests both IPv4 and IPv6 addresses to whitelist
+* TWEAK: The menu actions in the dashboard admin menu are now processed via AJAX
+* TWEAK: Converted checkboxes in the admin menu pages to switches
+* TWEAK: Add network_id and site_id column to debug logs table for differentiating logs between sites on multisite
+* TWEAK: Combined various user admin menus into a new 'User Security' admin menu
+* TWEAK: Export configuration filename now reflects the local timezone.
+* TWEAK: Improve the UI/UX of the file scanner making way for future improvements
+* TWEAK: Redesign the feature manager badges
+* TWEAK: Removed various admin menu tabs as previously announced
+* TWEAK: Add features that depend on other plugins to the feature manager conditionally
+* TWEAK: Added a null check to function that removes wp meta info from scripts and styles src to prevent a PHP deprecation warning
+* TWEAK: Audit log date and time are now displayed in the sites timezone
+* TWEAK: PHP warning undefined array key REQUEST_METHOD in rule-proxy-comment-posting.php
+* TWEAK: When TranslatePress is active, logging out via WooCommerce should not show a 404 page if the "rename login page" setting is on.
+
+= 5.2.4 - 16/Aug/2023 =
+
+* FIX: Ported firewall settings from disabling on upgrade
+
+= 5.2.3 - 09/Aug/2023 =
+
+* FIX: Fatal error "set_value() on null" when the firewall config is missing
+* FIX: PHP notices when running under cron
+* FIX: Revert change that caused the Brute force login whitelist to show the server IPs and not the users
+* TWEAK: Add communication mechanism so that firewall can send data to WordPress
+* TWEAK: Remove incorrect mentions of the .htaccess file on PHP Firewall rules
+
+= 5.2.2 - 04/Aug/2023 =
+
+* FEATURE: An allow list of IP addresses which bypass the firewall rules
+* FIX: Fix get_class() on null fatal error when updating via ManageWP
+* FIX: No such file or directory notice generated by the firewall's config file
+* FIX: Only send the upgrade email if one or more of the ported rules had been enabled
+* FIX: Fake Google bots are now blocked if bot server IP address does not resolve to a hostname
+* FIX: Google reCaptcha now appears correctly on the WooCommerce checkout page
+* FIX: Prevent Woocommerce auto login if manual registration approval is turned on
+* FIX: Premium upgrade tab UI overlapping issue.
+* FIX: Allow maintenance mode to be controlled via WP-CLI (Premium)
+* FIX: Use the correct site id for login success events added to audit log table on Multisite
+* FIX: Added missing features to the feature manager list
+* FIX: A warning when using the update all command via WP-CLI
+* TWEAK: AIOS settings based IP address is now used instead of the REMOTE_ADDR server variable for multiple wrong 2FA code notification
+* TWEAK: Added 'aios_audit_log_record_event' filter to allow events to not be recorded
+* TWEAK: Improve the feature item manager code structure making way for future improvements
+* TWEAK: Login whitelist suggests both IPv4 and IPv6 addresses to whitelist.
+* TWEAK: Move the 'Custom rules' tab from the 'Firewall' section to its own tab in the 'Tools' section
+* TWEAK: Move the 'Prevent hotlinking' tab to the 'File protection' tab in the 'Filesystem Security' menu
+* TWEAK: Moved all CAPTCHA settings to the 'CAPTCHA settings' tab in the 'Brute Force' menu
+* TWEAK: Moved the 'Password tool' tab to the 'Tools' admin menu
+* TWEAK: Moved the 'Visitor lockout' tab to the 'Tools' admin menu
+* TWEAK: Moved the 'User registration honeypot' tab to the 'Brute force' admin menu
+* TWEAK: Remove 'Account activity table' as these entries are also recorded in the audit log
+* TWEAK: Removed the 'Failed login records' tab as previously announced, these are now recorded in the audit log
+* TWEAK: Improve list table code performance
+* TWEAK: Removed use of $_GET, $_POST, $_REQUEST from all template files making way for future improvements
+
 = 5.2.1 - 12/Jul/2023 =
 
 * FIX: Include helper class file from loader
@@ -219,7 +498,7 @@ Go to the settings menu after you activate the plugin and follow the instruction
 
 = 5.2.0 - 10/Jul/2023 =
 
-* SECURITY: Remove authentication data from the stacktrace before saving to the database. This defect meant that a site administator had the potential, between releases 5.1.9 to 5.2.0 (which purges the existing data), to know what site users' passwords are. This information has limited value (an admin can aleady reset anyone's password) except insofar as the passwords may be re-used by users on other sites. In that "hostile admin" scenario, your site has other problems (since the hostile admin has a whole raft of equivalent ways of causing mischief to users, especially if not on multisite where a site admin is potentially not a super admin and may not be able to install or configure plugins). This changelog has been expanded in response to incorrect reports which suggested a wider problem (for example, they did not mention that the attacker needs to already be logged in as an admin to read the log, or that upgrading to 5.2.0 deletes the affected data).
+* SECURITY: Remove authentication data from the stacktrace before saving to the database. This defect meant that a site administrator had the potential, between releases 5.1.9 to 5.2.0 (which purges the existing data), to know what site users' passwords are. This information has limited value (an admin can already reset anyone's password) except insofar as the passwords may be re-used by users on other sites. In that "hostile admin" scenario, your site has other problems (since the hostile admin has a whole raft of equivalent ways of causing mischief to users, especially if not on multisite where a site admin is potentially not a super admin and may not be able to install or configure plugins). This changelog has been expanded in response to incorrect reports which suggested a wider problem (for example, they did not mention that the attacker needs to already be logged in as an admin to read the log, or that upgrading to 5.2.0 deletes the affected data).
 * SECURITY: Set tighter restrictions on what subsite admins can do in a multisite.
 * FIX: After editing a file reset permissions back to the original permissions
 * FIX: Corrected some broken links in the plugin
@@ -331,7 +610,7 @@ Go to the settings menu after you activate the plugin and follow the instruction
 * FIX: Cookie based brute force prevention locks out if plugin deactivated and activated again.
 * FIX: The notice to reapply .htaccess rules after reactivating the plugin is displayed on subsites.
 * FIX: Various WordPress command line notices about undefined $_SERVER indexes
-* FIX: Deativate and reactivate plugin firewall settings file sync issue solved.
+* FIX: Deactivate and reactivate plugin firewall settings file sync issue solved.
 * TWEAK: 2FA setting page to show premium options for AIOS premium.
 * TWEAK: Remove characters that should not have been on the scanner page
 * TWEAK: Organise firewall rules into subdirectories
@@ -389,7 +668,7 @@ Go to the settings menu after you activate the plugin and follow the instruction
 * SECURITY/FEATURE: Fix IP address detection, and give IP address detection settings in the Admin Dashboard > WP Security > Settings > Advanced Settings, provide user guidance on how to use them, and notify the user if there any problem is apparent. Versions from 5.0.0 to 5.0.7 had a defect allowing an attacker to spoof their IP address, aiding them to avoid detection or locking out legitimate users. Thanks to Calvin Alkan for the responsible disclosure.
 * FIX: The 403 forbidden error was shown on the wp login screen if the login url contains the redirect_to parameter and the deny bad query strings firewall feature is enabled on localhost.
 * FIX: The PUT request method was blocked when the user enabled the 6G firewall.
-* FIX: The login whitelisting didn't work on servers not supporting .htaccess files, without this information being dislayed in the user interface. The feature is now ported to PHP so that it works on all servers. Thanks to Calvin Alkan for identifying this issue.
+* FIX: The login whitelisting didn't work on servers not supporting .htaccess files, without this information being displayed in the user interface. The feature is now ported to PHP so that it works on all servers. Thanks to Calvin Alkan for identifying this issue.
 * TWEAK: Add index keys to the login lockdown, failed_logins and the permanent block tables to prevent poor database reading performance in the event of vast numbers of rows being stored in these tables (see the "SECURITY" item above, since the defect described there can allow this). Thanks to Calvin Alkan for identifying this issue.
 * TWEAK: Resolve a PHP-firewall 'Unable to locate workspace' log message.
 * TWEAK: Added a constant AIOS_DISABLE_GET_EXTERNAL_IP. Define this in your wp-config.php to disable getting the IP address via an external API when the IP retrieval method fail to get a valid IP address.
@@ -569,7 +848,7 @@ Go to the settings menu after you activate the plugin and follow the instruction
 
 = 4.4.4 =
 - Fixed bugs and improved functionality related to "logged in users" functionality.
-- Google recaptha checks for WooCommerce product reviews
+- Google recaptcha checks for WooCommerce product reviews
 - Replaced use of deprecated hook "wpmu_new_blog" with "wp_insert_site"
 - Fixed a potential XSS issue in the settings menu of the plugin for IE11 or older browsers.
 
@@ -1012,7 +1291,7 @@ was not working on some servers due to timestamp difference between PHP current_
 = 3.8.0 =
 - Improved deactivation and re-activation tasks - AIOWPS will now gracefully clean up the .htaccess rules when the plugin is deactivated.
 - Tweaked code so that all login pages including custom ones will correctly load the CSS style sheet file needed for honeypot feature.
-- Updated the Portugese language translation.
+- Updated the Portuguese language translation.
 - Fixed the copy protection feature so it doesn't interfere with iframes and shortcodes.
 - The plugin will now work fine even if your wp-config.php file is outside the wordpress root folder.
 
@@ -1221,7 +1500,7 @@ All other IP addresses trying to access your WP login page which are not in the 
 - Added a POT file for language translations.
 - Made the DB Prefix feature more robust by adding a check to ensure that plugin can write to the wp-config.php file. This will prevent user from losing access to their site in cases where the system changed the prefix but not the entry in the wp-config.php file.
 - Tightened the data validation for the cookie based brute force login feature to ensure that the user must enter a secret word which consists of alphanumeric characters.
-- Added edit links to the user account list in the "User Acounts" menu.
+- Added edit links to the user account list in the "User Accounts" menu.
 
 = 1.8 =
 - Moved the front end site lockout feature to a new menu called "Maintenance".
@@ -1270,4 +1549,4 @@ those who want to enable the basic firewall but do not have "AllowOverride" opti
 - First commit to the WP repository.
 
 == Upgrade Notice ==
-* 5.2.1: Performance tweak and fix from issues introduced in 5.2.0. See changelog for full details. A recommended update for all.
+* 5.4.0: Resolved a bug in the firewall and other compatibility issues. See changelog for full details. A recommended update for all.

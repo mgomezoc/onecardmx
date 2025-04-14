@@ -112,9 +112,542 @@ class SucuriScanOption extends SucuriScanRequest
             'sucuriscan_sitecheck_target' => '',
             'sucuriscan_timezone' => 'UTC+00.00',
             'sucuriscan_use_wpmail' => 'enabled',
+
+            'sucuriscan_headers_cache_control' => 'disabled',
+            'sucuriscan_headers_cache_control_options' => array(
+                'front_page' => array(
+                    'id' => 'front_page',
+                    'title' => __('Front Page', 'sucuri-scanner'),
+                    'max_age' => 21600,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 'unavailable',
+                    'old_age_multiplier' => 'unavailable',
+                ),
+
+                'posts' => array(
+                    'id' => 'posts',
+                    'title' => __('Posts', 'sucuri-scanner'),
+                    'max_age' => 43200,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 'unavailable',
+                    'old_age_multiplier' => true,
+                ),
+
+                'pages' => array(
+                    'id' => 'pages',
+                    'title' => __('Pages', 'sucuri-scanner'),
+                    'max_age' => 86400,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 'unavailable',
+                    'old_age_multiplier' => 'unavailable',
+                ),
+
+                'main_index' => array(
+                    'id' => 'main_index',
+                    'title' => __('Main Index', 'sucuri-scanner'),
+                    'max_age' => 21600,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 5,
+                    'old_age_multiplier' => 'unavailable',
+                ),
+
+                'categories' => array(
+                    'id' => 'categories',
+                    'title' => __('Categories', 'sucuri-scanner'),
+                    'max_age' => 86400,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 8,
+                    'old_age_multiplier' => 'unavailable',
+                ),
+
+                'tags' => array(
+                    'id' => 'tags',
+                    'title' => __('Tags', 'sucuri-scanner'),
+                    'max_age' => 86400,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 10,
+                    'old_age_multiplier' => 'unavailable',
+                ),
+
+                'authors' => array(
+                    'id' => 'authors',
+                    'title' => __('Authors', 'sucuri-scanner'),
+                    'max_age' => 86400,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 10,
+                    'old_age_multiplier' => 'unavailable',
+                ),
+
+                'archives' => array(
+                    'id' => 'archives',
+                    'title' => __('Archives', 'sucuri-scanner'),
+                    'max_age' => 86400,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 'unavailable',
+                    'old_age_multiplier' => 'unavailable',
+                ),
+
+                'feeds' => array(
+                    'id' => 'feeds',
+                    'title' => __('Feeds', 'sucuri-scanner'),
+                    'max_age' => 21600,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 'unavailable',
+                    'old_age_multiplier' => 'unavailable',
+                ),
+
+                'attachment_pages' => array(
+                    'id' => 'attachment_pages',
+                    'title' => __('Attachment Pages', 'sucuri-scanner'),
+                    'max_age' => 86400,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 'unavailable',
+                    'old_age_multiplier' => 'unavailable',
+                ),
+
+                'search_results' => array(
+                    'id' => 'search_results',
+                    'title' => __('Search Results', 'sucuri-scanner'),
+                    'max_age' => 86400,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 'unavailable',
+                    'old_age_multiplier' => 'unavailable',
+                ),
+
+                '404_not_found' => array(
+                    'id' => '404_not_found',
+                    'title' => __('404 Not Found', 'sucuri-scanner'),
+                    'max_age' => 86400,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 'unavailable',
+                    'old_age_multiplier' => 'unavailable',
+                ),
+
+                'redirects' => array(
+                    'id' => 'attachment',
+                    'title' => __('Redirects', 'sucuri-scanner'),
+                    'max_age' => 86400,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 'unavailable',
+                    'old_age_multiplier' => 'unavailable',
+                ),
+
+                'woocommerce_products' => array(
+                    'id' => 'woocommerce_products',
+                    'title' => __('Woocommerce Products', 'sucuri-scanner'),
+                    'max_age' => 86400,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 'unavailable',
+                    'old_age_multiplier' => 'unavailable',
+                ),
+
+                'woocommerce_categories' => array(
+                    'id' => 'woocommerce_categories',
+                    'title' => __('Woocommerce Categories', 'sucuri-scanner'),
+                    'max_age' => 86400,
+                    's_maxage' => 0,
+                    'stale_if_error' => 0,
+                    'stale_while_revalidate' => 0,
+                    'pagination_factor' => 'unavailable',
+                    'old_age_multiplier' => 'unavailable',
+                ),
+            ),
+            'sucuriscan_headers_csp' => 'disabled',
+            'sucuriscan_headers_csp_options' => array(
+                'base_uri' => array(
+                    'id' => 'base_uri',
+                    'title' => __('Base URI', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __(
+                        'Restricts the URLs that can appear in the document’s <base> element. Commonly \'self\'.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+                'child_src' => array(
+                    'id' => 'child_src',
+                    'title' => __('Child Source', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __('Allowed sources for frames and nested browsing contexts.', 'sucuri-scanner'),
+                    'enforced' => false
+                ),
+                'connect_src' => array(
+                    'id' => 'connect_src',
+                    'title' => __('Connect Source', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __('Allowed endpoints for fetch/XHR/WebSocket connections.', 'sucuri-scanner'),
+                    'enforced' => false
+                ),
+                'default_src' => array(
+                    'id' => 'default_src',
+                    'title' => __('Default Source', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __(
+                        'Fallback policy for resources if no other directive is defined.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+                'font_src' => array(
+                    'id' => 'font_src',
+                    'title' => __('Font Source', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __('Allowed font sources (e.g. self or font CDNs).', 'sucuri-scanner'),
+                    'enforced' => false
+                ),
+                'form_action' => array(
+                    'id' => 'form_action',
+                    'title' => __('Form Action', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __('Restricts the URLs to which forms can be submitted.', 'sucuri-scanner'),
+                    'enforced' => false
+                ),
+                'frame_ancestors' => array(
+                    'id' => 'frame_ancestors',
+                    'title' => __('Frame Ancestors', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __('Restricts which sites can embed this page in a frame.', 'sucuri-scanner'),
+                    'enforced' => false
+                ),
+                'img_src' => array(
+                    'id' => 'img_src',
+                    'title' => __('Image Source', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __(
+                        'Allowed image sources. Often includes self and possibly data: URIs.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+                'manifest_src' => array(
+                    'id' => 'manifest_src',
+                    'title' => __('Manifest Source', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __('Allowed sources for web app manifests.', 'sucuri-scanner'),
+                    'enforced' => false
+                ),
+                'media_src' => array(
+                    'id' => 'media_src',
+                    'title' => __('Media Source', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __('Allowed sources for audio and video content.', 'sucuri-scanner'),
+                    'enforced' => false
+                ),
+                'navigate_to' => array(
+                    'id' => 'navigate_to',
+                    'title' => __('Navigate To', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __(
+                        'Restricts which URLs the document can navigate to (e.g., links).',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+                'object_src' => array(
+                    'id' => 'object_src',
+                    'title' => __('Object Source', 'sucuri-scanner'),
+                    'value' => "'none'",
+                    'type' => 'text',
+                    'description' => __(
+                        'Allowed sources for <object>, <embed>, or <applet>. Usually \'none\'.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+                'script_src' => array(
+                    'id' => 'script_src',
+                    'title' => __('Script Source', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __(
+                        'Allowed script sources. Avoid \'unsafe-inline\'; consider nonces.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+                'script_src_attr' => array(
+                    'id' => 'script_src_attr',
+                    'title' => __('Script Source Attribute', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __(
+                        'Allowed sources for inline event handlers.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+                'script_src_elem' => array(
+                    'id' => 'script_src_elem',
+                    'title' => __('Script Source Element', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __(
+                        'Allowed sources for <script> elements. Falls back to script-src if missing.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+                'style_src' => array(
+                    'id' => 'style_src',
+                    'title' => __('Style Source', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __(
+                        'Allowed style sources. Avoid \'unsafe-inline\'; consider nonces.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+                'style_src_attr' => array(
+                    'id' => 'style_src_attr',
+                    'title' => __('Style Source Attribute', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __('Allowed sources for inline style attributes.', 'sucuri-scanner'),
+                    'enforced' => false
+                ),
+                'style_src_elem' => array(
+                    'id' => 'style_src_elem',
+                    'title' => __('Style Source Element', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __('Allowed sources for <style> and <link> elements.', 'sucuri-scanner'),
+                    'enforced' => false
+                ),
+                'worker_src' => array(
+                    'id' => 'worker_src',
+                    'title' => __('Worker Source', 'sucuri-scanner'),
+                    'value' => "'self'",
+                    'type' => 'text',
+                    'description' => __('Allowed sources for web and service workers.', 'sucuri-scanner'),
+                    'enforced' => false
+                ),
+                'sandbox' => array(
+                    'id' => 'sandbox',
+                    'title' => __('Sandbox', 'sucuri-scanner'),
+                    'type' => 'multi_checkbox',
+                    'options' => array(
+                        'allow-downloads' => array(
+                            'title' => __('Allow Downloads', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'allow-forms' => array(
+                            'title' => __('Allow Forms', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'allow-modals' => array(
+                            'title' => __('Allow Modals', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'allow-orientation-lock' => array(
+                            'title' => __('Allow Orientation Lock', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'allow-pointer-lock' => array(
+                            'title' => __('Allow Pointer Lock', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'allow-popups' => array(
+                            'title' => __('Allow Popups', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'allow-popups-to-escape-sandbox' => array(
+                            'title' => __('Allow Popups to Escape Sandbox', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'allow-presentation' => array(
+                            'title' => __('Allow Presentation', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'allow-same-origin' => array(
+                            'title' => __('Allow Same Origin', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'allow-scripts' => array(
+                            'title' => __('Allow Scripts', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'allow-top-navigation' => array(
+                            'title' => __('Allow Top Navigation', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                    ),
+                    'description' => __(
+                        'Applies a sandbox to the page. Select tokens to allow exceptions.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+                'upgrade_insecure_requests' => array(
+                    'id' => 'upgrade_insecure_requests',
+                    'title' => __('Upgrade Insecure Requests', 'sucuri-scanner'),
+                    'type' => 'multi_checkbox',
+                    'options' => array(
+                        'upgrade-insecure-requests' => array(
+                            'title' => __('Upgrade Insecure Requests', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                    ),
+                    'description' => __(
+                        'Upgrade insecure requests to HTTPS. This is a security feature that prevents mixed content.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+            ),
+            'sucuriscan_headers_cors' => 'disabled',
+            'sucuriscan_headers_cors_options' => array(
+                'Access-Control-Allow-Origin' => array(
+                    'id' => 'access_control_allow_origin',
+                    'title' => __('Access-Control-Allow-Origin', 'sucuri-scanner'),
+                    'value' => '*',
+                    'type' => 'text',
+                    'description' => __(
+                        'Specifies the origin that is allowed to access the resource.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+                'Access-Control-Expose-Headers' => array(
+                    'id' => 'access_control_expose_headers',
+                    'title' => __('Access-Control-Expose-Headers', 'sucuri-scanner'),
+                    'value' => '',
+                    'type' => 'text',
+                    'description' => __(
+                        'Specifies the headers that can be exposed when accessing the resource.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false,
+                ),
+                'Access-Control-Allow-Methods' => array(
+                    'id' => 'access_control_allow_methods',
+                    'title' => __('Access-Control-Allow-Methods', 'sucuri-scanner'),
+                    'options' => array(
+                        'GET' => array(
+                            'title' => __('Allow GET method', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'POST' => array(
+                            'title' => __('Allow POST method', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'PUT' => array(
+                            'title' => __('Allow PUT method', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'DELETE' => array(
+                            'title' => __('Allow DELETE method', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'OPTIONS' => array(
+                            'title' => __('Allow OPTIONS method', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'PATCH' => array(
+                            'title' => __('Allow PATCH method', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'HEAD' => array(
+                            'title' => __('Allow HEAD method', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'TRACE' => array(
+                            'title' => __('Allow TRACE method', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                        'CONNECT' => array(
+                            'title' => __('Allow CONNECT method', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                    ),
+                    'type' => 'multi_checkbox',
+                    'description' => __(
+                        'Specifies the methods allowed when accessing the resource.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+                'Access-Control-Allow-Headers' => array(
+                    'id' => 'access_control_allow_headers',
+                    'title' => __('Access-Control-Allow-Headers', 'sucuri-scanner'),
+                    'value' => '',
+                    'type' => 'text',
+                    'description' => __(
+                        'Specifies the headers allowed when accessing the resource.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+                'Access-Control-Allow-Credentials' => array(
+                    'id' => 'access_control_allow_credentials',
+                    'title' => __('Access-Control-Allow-Credentials', 'sucuri-scanner'),
+                    'type' => 'multi_checkbox',
+                    'options' => array(
+                        'Access-Control-Allow-Credentials' => array(
+                            'title' => __('Allow Credentials', 'sucuri-scanner'),
+                            'enforced' => false,
+                        ),
+                    ),
+                    'description' => __(
+                        'Specifies whether credentials are allowed when accessing the resource.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+                'Access-Control-Max-Age' => array(
+                    'id' => 'access_control_max_age',
+                    'title' => __('Access-Control-Max-Age', 'sucuri-scanner'),
+                    'value' => '86400',
+                    'type' => 'text',
+                    'description' => __(
+                        'Specifies how long the results of a preflight request can be cached.',
+                        'sucuri-scanner'
+                    ),
+                    'enforced' => false
+                ),
+            ),
         );
 
-        return (array) apply_filters('sucuriscan_option_defaults', $defaults);
+        return (array)apply_filters('sucuriscan_option_defaults', $defaults);
     }
 
     /**
@@ -133,7 +666,7 @@ class SucuriScanOption extends SucuriScanRequest
     /**
      * Retrieve the default values for some specific options.
      *
-     * @param  string $option List of options, or single option name.
+     * @param string $option List of options, or single option name.
      * @return mixed          The default values for the specified options.
      */
     private static function getDefaultOptions($option = '')
@@ -145,7 +678,12 @@ class SucuriScanOption extends SucuriScanRequest
             $admin_email = get_option('admin_email');
             $default['sucuriscan_account'] = $admin_email;
             $default['sucuriscan_notify_to'] = $admin_email;
-            $default['sucuriscan_email_subject'] = sprintf(__('Sucuri Alert, %s, %s, %s', 'sucuri-scanner'), ':domain', ':event', ':remoteaddr');
+            $default['sucuriscan_email_subject'] = sprintf(
+                __('Sucuri Alert, %s, %s, %s', 'sucuri-scanner'),
+                ':domain',
+                ':event',
+                ':remoteaddr'
+            );
         }
 
         return @$default[$option];
@@ -211,7 +749,7 @@ class SucuriScanOption extends SucuriScanRequest
     /**
      * Write new options into the external options file.
      *
-     * @param  array $options Array with plugins options.
+     * @param array $options Array with plugins options.
      * @return bool           True if the new options were saved, false otherwise.
      */
     public static function writeNewOptions($options = array())
@@ -222,7 +760,7 @@ class SucuriScanOption extends SucuriScanRequest
         $content = "<?php exit(0); ?>\n";
         $content .= @json_encode($options) . "\n";
 
-        return (bool) @file_put_contents($fpath, $content);
+        return (bool)@file_put_contents($fpath, $content);
     }
 
     /**
@@ -241,7 +779,7 @@ class SucuriScanOption extends SucuriScanRequest
      *
      * @see https://developer.wordpress.org/reference/functions/get_option/
      *
-     * @param  string $option Name of the option.
+     * @param string $option Name of the option.
      * @return mixed          Value associated to the option.
      */
     public static function getOption($option = '')
@@ -313,8 +851,8 @@ class SucuriScanOption extends SucuriScanRequest
      *
      * @see https://developer.wordpress.org/reference/functions/update_option/
      *
-     * @param  string $option Name of the option.
-     * @param  mixed  $value  New value for the option.
+     * @param string $option Name of the option.
+     * @param mixed $value New value for the option.
      * @return bool           True if option has been updated, false otherwise.
      */
     public static function updateOption($option = '', $value = '')
@@ -337,7 +875,7 @@ class SucuriScanOption extends SucuriScanRequest
      *
      * @see https://developer.wordpress.org/reference/functions/delete_option/
      *
-     * @param  string $option Name of the option to be deleted.
+     * @param string $option Name of the option to be deleted.
      * @return bool           True if option is successfully deleted, false otherwise.
      */
     public static function deleteOption($option = '')
@@ -360,23 +898,23 @@ class SucuriScanOption extends SucuriScanRequest
     /**
      * Check whether a setting is enabled or not.
      *
-     * @param  string $option Name of the option to be deleted.
+     * @param string $option Name of the option to be deleted.
      * @return bool           True if the option is enabled, false otherwise.
      */
     public static function isEnabled($option = '')
     {
-        return (bool) (self::getOption($option) === 'enabled');
+        return (bool)(self::getOption($option) === 'enabled');
     }
 
     /**
      * Check whether a setting is disabled or not.
      *
-     * @param  string $option Name of the option to be deleted.
+     * @param string $option Name of the option to be deleted.
      * @return bool           True if the option is disabled, false otherwise.
      */
     public static function isDisabled($option = '')
     {
-        return (bool) (self::getOption($option) === 'disabled');
+        return (bool)(self::getOption($option) === 'disabled');
     }
 
     /**
@@ -414,7 +952,7 @@ class SucuriScanOption extends SucuriScanRequest
      * Check what Wordpress options were changed comparing the values in the database
      * with the values sent through a simple request using a GET or POST method.
      *
-     * @param  array $request The content of the global variable GET or POST considering SERVER[REQUEST_METHOD].
+     * @param array $request The content of the global variable GET or POST considering SERVER[REQUEST_METHOD].
      * @return array          A list of all the options that were changes through this request.
      */
     public static function whatOptionsWereChanged($request = array())
@@ -428,10 +966,10 @@ class SucuriScanOption extends SucuriScanRequest
 
         foreach ($request as $req_name => $req_value) {
             if (array_key_exists($req_name, $site_options)
-                && $site_options[ $req_name ] != $req_value
+                && $site_options[$req_name] != $req_value
             ) {
-                $options_changed['original'][ $req_name ] = $site_options[ $req_name ];
-                $options_changed['changed'][ $req_name ] = $req_value;
+                $options_changed['original'][$req_name] = $site_options[$req_name];
+                $options_changed['changed'][$req_name] = $req_value;
             }
         }
 
@@ -475,7 +1013,7 @@ class SucuriScanOption extends SucuriScanRequest
         }
 
         /* check the nonce validity */
-        return (bool) (
+        return (bool)(
             !empty($action)
             && isset($_REQUEST[$nonce])
             && wp_verify_nonce($_REQUEST[$nonce], $action)
@@ -536,7 +1074,7 @@ class SucuriScanOption extends SucuriScanRequest
     /**
      * Check whether an event is being ignored to send alerts or not.
      *
-     * @param  string $event Unique post-type name.
+     * @param string $event Unique post-type name.
      * @return bool          Whether an event is being ignored or not.
      */
     public static function isIgnoredEvent($event = '')
@@ -561,7 +1099,7 @@ class SucuriScanOption extends SucuriScanRequest
             $post_types = @json_decode($post_types, true);
         }
 
-        return (array) $post_types;
+        return (array)$post_types;
     }
 
     /**
@@ -593,12 +1131,12 @@ class SucuriScanOption extends SucuriScanRequest
                 $key_value = constant($key_name);
 
                 if (stripos($key_value, 'unique phrase') !== false) {
-                    $response['bad'][ $key_name ] = $key_value;
+                    $response['bad'][$key_name] = $key_value;
                 } else {
-                    $response['good'][ $key_name ] = $key_value;
+                    $response['good'][$key_name] = $key_value;
                 }
             } else {
-                $response['missing'][ $key_name ] = false;
+                $response['missing'][$key_name] = false;
             }
         }
 
@@ -614,8 +1152,8 @@ class SucuriScanOption extends SucuriScanRequest
      * firewall page is activated as it assumes that the proxy is creating a
      * custom HTTP header for the real IP.
      *
-     * @param  string $action Enable or disable the reverse proxy.
-     * @param  bool   $silent Hide admin notices on success.
+     * @param string $action Enable or disable the reverse proxy.
+     * @param bool $silent Hide admin notices on success.
      * @return void
      */
     public static function setRevProxy($action = 'disable', $silent = false)
@@ -647,8 +1185,8 @@ class SucuriScanOption extends SucuriScanRequest
     /**
      * Change the HTTP header to retrieve the real IP address.
      *
-     * @param  string $header Valid HTTP header name.
-     * @param  bool   $silent Hide admin notices on success.
+     * @param string $header Valid HTTP header name.
+     * @param bool $silent Hide admin notices on success.
      * @return void
      */
     public static function setAddrHeader($header = 'REMOTE_ADDR', $silent = false)

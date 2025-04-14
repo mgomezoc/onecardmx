@@ -116,9 +116,7 @@ class User_Role_Editor {
         }
         
         add_action( 'admin_init', array($this, 'plugin_init'), 1 );
-
-        // Add the translation function after the plugins loaded hook.
-        add_action('plugins_loaded', array($this, 'load_translation'));
+        add_action('init', array($this, 'load_translation'));
 
         // add own submenu 
         add_action('admin_menu', array($this, 'plugin_menu'));
@@ -280,7 +278,7 @@ class User_Role_Editor {
   public function add_css_to_users_page() {
       
       wp_enqueue_style( 'wp-jquery-ui-dialog' );
-      wp_enqueue_style( 'ure-admin-css', URE_PLUGIN_URL . 'css/ure-admin.css', array(), false, 'screen' );
+      wp_enqueue_style( 'ure-admin', URE_PLUGIN_URL . 'css/ure-admin.css', array(), URE_VERSION, 'screen' );
       
   }
   // end of add_css_to_users_page()
@@ -288,8 +286,8 @@ class User_Role_Editor {
   
   public function add_js_to_users_page() {
               
-      wp_enqueue_script('jquery-ui-dialog', '', array('jquery-ui-core','jquery-ui-button', 'jquery') );
-      wp_register_script( 'ure-users', plugins_url( '/js/users.js', URE_PLUGIN_FULL_PATH ), array(), URE_VERSION );
+      wp_enqueue_script('jquery-ui-dialog', '', array('jquery-ui-core','jquery-ui-button', 'jquery'), false, true );
+      wp_register_script( 'ure-users', plugins_url( '/js/users.js', URE_PLUGIN_FULL_PATH ), array(), URE_VERSION, true );
       wp_enqueue_script ( 'ure-users' );      
       wp_localize_script( 'ure-users', 'ure_users_data', array(
         'wp_nonce' => wp_create_nonce('user-role-editor'),
@@ -481,12 +479,12 @@ class User_Role_Editor {
     
 
     /**
-     * Load plugin translation files - linked to the 'plugins_loaded' action
+     * Load plugin translation files - linked to the 'init' action
      * 
      */
     function load_translation() {
 
-        load_plugin_textdomain('user-role-editor', '', dirname( plugin_basename( URE_PLUGIN_FULL_PATH ) ) .'/lang');
+        load_plugin_textdomain('user-role-editor', false, dirname( plugin_basename( URE_PLUGIN_FULL_PATH ) ) .'/lang');
         
         if ( function_exists('pll_register_string') ) {   
             // Integration with PolyLang plugin (https://wordpress.org/plugins/polylang/)
@@ -647,8 +645,8 @@ class User_Role_Editor {
     public function admin_css_action() {
 
         wp_enqueue_style('wp-jquery-ui-selectable');        
-        wp_enqueue_style('ure-jquery-ui-general', URE_PLUGIN_URL . 'css/jquery-ui.min.css', array(), false, 'screen');
-        wp_enqueue_style('ure-admin-css', URE_PLUGIN_URL . 'css/ure-admin.css', array(), false, 'screen');
+        wp_enqueue_style('ure-jquery-ui-general', URE_PLUGIN_URL . 'css/jquery-ui.min.css', array(), URE_VERSION, 'screen');
+        wp_enqueue_style('ure-admin', URE_PLUGIN_URL . 'css/ure-admin.css', array(), URE_VERSION, 'screen');
     }
     // end of admin_css_action()
     
@@ -656,8 +654,8 @@ class User_Role_Editor {
     public function settings_css_action() {
 
 
-        wp_enqueue_style('ure-jquery-ui-tabs', URE_PLUGIN_URL . 'css/jquery-ui.min.css', array(), false, 'screen');
-        wp_enqueue_style('ure-admin-css', URE_PLUGIN_URL . 'css/ure-admin.css', array(), false, 'screen');
+        wp_enqueue_style('ure-jquery-ui-tabs', URE_PLUGIN_URL . 'css/jquery-ui.min.css', array(), URE_VERSION, 'screen');
+        wp_enqueue_style('ure-admin', URE_PLUGIN_URL . 'css/ure-admin.css', array(), URE_VERSION, 'screen');
 
     }
     // end of admin_css_action()
@@ -744,12 +742,11 @@ class User_Role_Editor {
             $do_not_revoke_from_admin = false;
         }
         
-        wp_enqueue_script('jquery-ui-dialog', '', array('jquery-ui-core', 'jquery-ui-button', 'jquery'));
-        wp_enqueue_script('jquery-ui-selectable', '', array('jquery-ui-core', 'jquery'));        
-        wp_enqueue_script('notifyjs', plugins_url('/js/notify.min.js', URE_PLUGIN_FULL_PATH ), array(), URE_VERSION );
-        //wp_enqueue_script('notifyjs', plugins_url('/js/notify.js', URE_PLUGIN_FULL_PATH ), array(), URE_VERSION );
+        wp_enqueue_script('jquery-ui-dialog', '', array('jquery-ui-core', 'jquery-ui-button', 'jquery'), false, true );
+        wp_enqueue_script('jquery-ui-selectable', '', array('jquery-ui-core', 'jquery'), false, true );        
+        wp_enqueue_script('notifyjs', plugins_url('/js/notify.min.js', URE_PLUGIN_FULL_PATH ), array(), URE_VERSION, true );
         
-        wp_register_script('ure', plugins_url('/js/ure.js', URE_PLUGIN_FULL_PATH ), array(), URE_VERSION );
+        wp_register_script('ure', plugins_url('/js/ure.js', URE_PLUGIN_FULL_PATH ), array(), URE_VERSION, true );
         wp_enqueue_script('ure');
         wp_localize_script('ure', 'ure_data', array(
             'wp_nonce' => wp_create_nonce('user-role-editor'),
@@ -793,10 +790,10 @@ class User_Role_Editor {
     
         $page_url = $this->get_ure_page_url();
         
-        wp_enqueue_script('jquery-ui-tabs', '', array('jquery-ui-core', 'jquery'));
-        wp_enqueue_script('jquery-ui-dialog', '', array('jquery-ui-core', 'jquery'));
-        wp_enqueue_script('jquery-ui-button', '', array('jquery-ui-core', 'jquery'));
-        wp_register_script('ure-settings', plugins_url('/js/settings.js', URE_PLUGIN_FULL_PATH ), array(), URE_VERSION );
+        wp_enqueue_script('jquery-ui-tabs', '', array('jquery-ui-core', 'jquery'), false, true );
+        wp_enqueue_script('jquery-ui-dialog', '', array('jquery-ui-core', 'jquery'), false, true );
+        wp_enqueue_script('jquery-ui-button', '', array('jquery-ui-core', 'jquery'), false, true );
+        wp_register_script('ure-settings', plugins_url('/js/settings.js', URE_PLUGIN_FULL_PATH ), array(), URE_VERSION, true );
         wp_enqueue_script('ure-settings');
         
         wp_localize_script('ure-settings', 'ure_data', array(
@@ -945,26 +942,28 @@ class User_Role_Editor {
      *  Translate user role names, inluding custom roles added by user
      * 
      */
-    function translate_custom_roles( $roles ) {                
-        
+    function translate_custom_roles( $roles ) {
+
+        $use_pll = function_exists('pll__');
+
         foreach ($roles as $key => $value) {
-            $translated_name = esc_html__( $value['name'], 'user-role-editor' );  // get translation from URE language file, if exists
-            if ( $translated_name === $value['name'] ) { 
-                if ( $this->lib->is_wp_built_in_role( $key ) ) {
-                    // get WordPress internal translation
-                    $translated_name = translate_user_role( $translated_name );
-                } elseif ( function_exists('pll_register_string') ) {   
-                    // Integration with PolyLang plugin (https://wordpress.org/plugins/polylang/)                        
-                    $translated_name = pll__( $translated_name );
-                }
+            $role_name = $value['name'];
+            if ($this->lib->is_wp_built_in_role($key)) {
+                // get WordPress internal translation
+                $translated_name = translate_user_role( $role_name );
+            } elseif ($use_pll) {
+                // Integration with PolyLang plugin (https://wordpress.org/plugins/polylang/)                        
+                $translated_name = pll__($role_name);
+            } else {    // translation is not available
+                $translated_name = $role_name;
             }
-            $roles[$key]['name'] = $translated_name;
+            $roles[$key]['name'] = esc_html( $translated_name );
         }
-        
+
         $roles = apply_filters('ure_editable_roles', $roles );
-        
+
         return $roles;
-    } 
+    }
     // end of translate_custom_roles()
     
     

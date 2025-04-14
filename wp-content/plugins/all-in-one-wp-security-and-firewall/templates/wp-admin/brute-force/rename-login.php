@@ -10,45 +10,40 @@
 		}
 	?>
 </div>
+<div id="aios-rename-login-notice">
 <?php
-	// Show the user the new login URL if this feature is active
-	if ('1' == $aio_wp_security->configs->get_value('aiowps_enable_rename_login_page')) {
+$aio_wp_security->include_template('wp-admin/brute-force/partials/rename-login-notice.php', false, array('home_url' => $home_url));
 ?>
-		<div class="aio_yellow_box">
-			<p><?php _e('Your WordPress login page URL has been renamed.', 'all-in-one-wp-security-and-firewall'); ?></p>
-			<p><?php _e('Your current login URL is:', 'all-in-one-wp-security-and-firewall'); ?></p>
-			<p><strong><?php echo $home_url.$aio_wp_security->configs->get_value('aiowps_login_page_slug'); ?></strong></p>
-		</div>
-<?php
-	}
-?>
+</div>
 <div class="postbox">
 	<h3 class="hndle"><label for="title"><?php _e('Rename login page settings', 'all-in-one-wp-security-and-firewall'); ?></label></h3>
 	<div class="inside">
-		<?php
-			// Display security info badge
-			$aiowps_feature_mgr->output_feature_details_badge("bf-rename-login-page");
-		?>
-		<form action="" method="POST">
-			<?php wp_nonce_field('aiowpsec-rename-login-page-nonce'); ?>
+		<div id="bf-rename-login-page-badge">
+			<?php
+				// Display security info badge
+				$aiowps_feature_mgr->output_feature_details_badge("bf-rename-login-page");
+			?>
+		</div>
+		<form action="" id="aios-rename-login-page-form">
 			<div class="aio_orange_box">
 				<?php
-				echo sprintf(__('This feature can lock you out of admin if it doesn\'t work correctly on your site. Before activating this feature you must read the following %s.', 'all-in-one-wp-security-and-firewall'), '<a href="https://aiosplugin.com/important-note-on-intermediate-and-advanced-features" target="_blank">'.__('message', 'all-in-one-wp-security-and-firewall').'</a>');
-				echo '<p>' . __("NOTE: If you are hosting your site on WPEngine or a provider which performs server caching, you will need to ask the host support people to NOT cache your renamed login page.", "all-in-one-wp-security-and-firewall") . '</p>';
+				echo '<p>' . __('This feature can lock you out of admin if it doesn\'t work correctly on your site.', 'all-in-one-wp-security-and-firewall') . ' '. sprintf(__('Before activating this feature, you must read the following %s.', 'all-in-one-wp-security-and-firewall'), '<a href="https://teamupdraft.com/documentation/all-in-one-security/faqs/important-note-on-intermediate-and-advanced-features/?utm_source=aios-plugin&utm_medium=referral&utm_campaign=paac&utm_content=you-must-read-this-to-activate-rename-login-feature&utm_creative_format=text" target="_blank">'.__('message', 'all-in-one-wp-security-and-firewall').'</a>') . '</p>';
+				echo '<p>' . __("NOTE: If you are hosting your site on WPEngine or a provider which performs server caching, you will need to ask the host support people to NOT cache your renamed login page.", 'all-in-one-wp-security-and-firewall') . '</p>';
 				?>
 			</div>
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><?php _e('Enable rename login page feature', 'all-in-one-wp-security-and-firewall'); ?>:</th>
 					<td>
-					<input id="aiowps_enable_rename_login_page" name="aiowps_enable_rename_login_page" type="checkbox"<?php checked($aio_wp_security->configs->get_value('aiowps_enable_rename_login_page'), '1'); ?> value="1"/>
-					<label for="aiowps_enable_rename_login_page" class="description"><?php _e('Check this if you want to enable the rename login page feature', 'all-in-one-wp-security-and-firewall'); ?></label>
+						<div class="aiowps_switch_container">
+							<?php AIOWPSecurity_Utility_UI::setting_checkbox(__('Enable this if you want the rename login page feature', 'all-in-one-wp-security-and-firewall'), 'aiowps_enable_rename_login_page', '1' == $aio_wp_security->configs->get_value('aiowps_enable_rename_login_page')); ?>
+						</div>
 					</td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label for="aiowps_login_page_slug"><?php _e('Login page URL', 'all-in-one-wp-security-and-firewall'); ?>:</label></th>
 					<td><code><?php echo $home_url; ?></code><input id="aiowps_login_page_slug" type="text" size="15" name="aiowps_login_page_slug" value="<?php echo $aio_wp_security->configs->get_value('aiowps_login_page_slug'); ?>">
-					<span class="description"><?php _e('Enter a string which will represent your secure login page slug. You are encouraged to choose something which is hard to guess and only you will remember.', 'all-in-one-wp-security-and-firewall'); ?></span>
+					<span class="description"><?php echo __('Enter a string which will represent your secure login page slug.', 'all-in-one-wp-security-and-firewall') . ' ' . __('You are encouraged to choose something which is hard to guess and only you will remember.', 'all-in-one-wp-security-and-firewall'); ?></span>
 					</td>
 				</tr>
 			</table>
