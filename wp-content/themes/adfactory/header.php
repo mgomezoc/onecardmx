@@ -18,13 +18,14 @@
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
 	<!--BOOTSTRAP 4.3-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 
 	<!--GOOGLE FONTS MONTSERRAT-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,500,700&display=swap" rel="stylesheet">
 
 	<!--ESTILOS-->
 	<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/generales.css">
+	<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/onecard.css">
 	<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/estilos-1.css">
 	<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/media.css">
 

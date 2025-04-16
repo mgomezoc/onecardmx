@@ -1,0 +1,13 @@
+.titulo-landing {
+  color: #00a0ff;
+  font-weight: 900;
+  font-size: 52px !important;
+  margin: 0px 0px 52px 0px;
+  text-align: justify;
+}
+.texto-landing {
+  color: #fff;
+  font-weight: 500;
+  font-size: 26px;
+  margin: 0px 0px 52px 0px;
+}
