@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Sucuri Security &#8211; Auditing, Malware Scanner and Security Hardening - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-03-31 17:45:56+0000\n"
+"PO-Revision-Date: 2025-04-29 10:25:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,50 @@ msgstr ""
 "X-Generator: GlotPress/4.0.1\n"
 "Language: es\n"
 "Project-Id-Version: Plugins - Sucuri Security &#8211; Auditing, Malware Scanner and Security Hardening - Stable (latest release)\n"
+
+#: src/settings-hardening.php:152
+msgid "Why keep your site updated? WordPress updates are public. If they include security fixes, attackers can exploit those details to target sites that haven’t upgraded. Staying updated helps protect your site from known vulnerabilities."
+msgstr "¿Por qué mantener tu sitio actualizado? Las actualizaciones de WordPress son públicas. Si incluyen correcciones de seguridad, los atacantes pueden aprovechar esa información para atacar sitios que no se han actualizado. Mantenerte actualizado ayuda a proteger tu sitio web de vulnerabilidades conocidas."
+
+#: src/globals.php:96
+msgid "Post-Hack Actions"
+msgstr "Acciones después de un hackeo"
+
+#: src/globals.php:95
+msgid "Hardening & Prevention"
+msgstr "Refuerzo y prevención"
+
+#: src/globals.php:94
+msgid "Headers Management"
+msgstr "Gestión de cabeceras"
+
+#: src/globals.php:93
+msgid "Events Reporting"
+msgstr "Informes de eventos"
+
+#: src/globals.php:91
+msgid "Firewall Management"
+msgstr "Gestión del cortafuegos"
+
+#: src/globals.php:90
+msgid "Vulnerability Scanning"
+msgstr "Exploración de vulnerabilidades"
+
+#: src/api.lib.php:622
+msgid "Added"
+msgstr "Añadido"
+
+#: src/api.lib.php:618
+msgid "All Files"
+msgstr "Todos los archivos"
+
+#: src/event.lib.php:946
+msgid "%s log file was deleted."
+msgstr "Se ha borrado %s archivo de registro."
+
+#: src/event.lib.php:945
+msgid "%s log files were deleted."
+msgstr "Se han borrado %s archivos de registro."
 
 #: src/strings.php:810
 msgid "Content Security Policy"
@@ -59,428 +103,428 @@ msgstr "El uso compartido de recursos de origen cruzado (CORS) es una función d
 msgid "CORS Options"
 msgstr "Opciones de CORS"
 
-#: src/settings-headers.php:403
+#: src/settings-headers.php:409
 msgid "CORS settings were updated."
 msgstr "Los ajustes de CORS se han sido actualizado."
 
-#: src/settings-headers.php:396
+#: src/settings-headers.php:402
 msgid "Invalid CORS mode selected."
 msgstr "El modo CORS seleccionado no es válido."
 
-#: src/option.lib.php:641
+#: src/option.lib.php:644
 msgid "Specifies how long the results of a preflight request can be cached."
 msgstr "Especifica durante cuánto tiempo se pueden almacenar en caché los resultados de una solicitud de verificación previa."
 
-#: src/option.lib.php:638
+#: src/option.lib.php:641
 msgid "Access-Control-Max-Age"
 msgstr "Access-Control-Max-Age"
 
-#: src/option.lib.php:630
+#: src/option.lib.php:633
 msgid "Specifies whether credentials are allowed when accessing the resource."
 msgstr "Especifica si se permiten credenciales al acceder al recurso."
 
-#: src/option.lib.php:626
+#: src/option.lib.php:629
 msgid "Allow Credentials"
 msgstr "Permitir credenciales"
 
-#: src/option.lib.php:622
+#: src/option.lib.php:625
 msgid "Access-Control-Allow-Credentials"
 msgstr "Access-Control-Allow-Credentials"
 
-#: src/option.lib.php:614
+#: src/option.lib.php:617
 msgid "Specifies the headers allowed when accessing the resource."
 msgstr "Especifica las cabeceras permitidas al acceder al recurso."
 
-#: src/option.lib.php:611
+#: src/option.lib.php:614
 msgid "Access-Control-Allow-Headers"
 msgstr "Access-Control-Allow-Headers"
 
-#: src/option.lib.php:603
+#: src/option.lib.php:606
 msgid "Specifies the methods allowed when accessing the resource."
 msgstr "Especifica los métodos permitidos al acceder al recurso."
 
-#: src/option.lib.php:598
+#: src/option.lib.php:601
 msgid "Allow CONNECT method"
 msgstr "Permitir el método CONNECT"
 
-#: src/option.lib.php:594
+#: src/option.lib.php:597
 msgid "Allow TRACE method"
 msgstr "Permitir el método TRACE"
 
-#: src/option.lib.php:590
+#: src/option.lib.php:593
 msgid "Allow HEAD method"
 msgstr "Permitir el método HEAD"
 
-#: src/option.lib.php:586
+#: src/option.lib.php:589
 msgid "Allow PATCH method"
 msgstr "Permitir el método PATCH"
 
-#: src/option.lib.php:582
+#: src/option.lib.php:585
 msgid "Allow OPTIONS method"
 msgstr "Permitir el método OPTIONS"
 
-#: src/option.lib.php:578
+#: src/option.lib.php:581
 msgid "Allow DELETE method"
 msgstr "Permitir el método DELETE"
 
-#: src/option.lib.php:574
+#: src/option.lib.php:577
 msgid "Allow PUT method"
 msgstr "Permitir el método PUT"
 
-#: src/option.lib.php:570
+#: src/option.lib.php:573
 msgid "Allow POST method"
 msgstr "Permitir el método POST"
 
-#: src/option.lib.php:566
+#: src/option.lib.php:569
 msgid "Allow GET method"
 msgstr "Permitir el método GET"
 
-#: src/option.lib.php:563
+#: src/option.lib.php:566
 msgid "Access-Control-Allow-Methods"
 msgstr "Access-Control-Allow-Methods"
 
-#: src/option.lib.php:555
+#: src/option.lib.php:558
 msgid "Specifies the headers that can be exposed when accessing the resource."
 msgstr "Especifica las cabeceras que se pueden exponer al acceder al recurso."
 
-#: src/option.lib.php:552
+#: src/option.lib.php:555
 msgid "Access-Control-Expose-Headers"
 msgstr "Access-Control-Expose-Headers"
 
-#: src/option.lib.php:544
+#: src/option.lib.php:547
 msgid "Specifies the origin that is allowed to access the resource."
 msgstr "Especifica el origen al que se le permite acceder al recurso."
 
-#: src/option.lib.php:541
+#: src/option.lib.php:544
 msgid "Access-Control-Allow-Origin"
 msgstr "Access-Control-Allow-Origin"
 
-#: src/settings-headers.php:327
+#: src/settings-headers.php:331
 msgid "Content Security Policy settings were updated."
 msgstr "Se actualizaron los ajustes de la Política de seguridad de contenido."
 
-#: src/settings-headers.php:320
+#: src/settings-headers.php:324
 msgid "Invalid CSP mode selected."
 msgstr "Modo CSP no válido seleccionado."
 
-#: src/settings-headers.php:311 src/settings-headers.php:354
+#: src/settings-headers.php:315 src/settings-headers.php:358
 msgid "Report Only"
 msgstr "Sólo informe"
 
-#: src/settings-headers.php:38 src/settings-headers.php:296
-#: src/settings-headers.php:372
+#: src/settings-headers.php:38 src/settings-headers.php:298
+#: src/settings-headers.php:376
 msgid "Invalid nonce."
 msgstr "Nonce no válido."
 
-#: src/option.lib.php:530
+#: src/option.lib.php:533
 msgid "Upgrade insecure requests to HTTPS. This is a security feature that prevents mixed content."
 msgstr "Actualizar las solicitudes inseguras a HTTPS. Esta función de seguridad evita el contenido mixto."
 
-#: src/option.lib.php:522 src/option.lib.php:526
+#: src/option.lib.php:525 src/option.lib.php:529
 msgid "Upgrade Insecure Requests"
 msgstr "Actualizar las solicitudes inseguras"
 
-#: src/option.lib.php:514
+#: src/option.lib.php:517
 msgid "Applies a sandbox to the page. Select tokens to allow exceptions."
 msgstr "Aplica un entorno de pruebas a la página. Selecciona tokens para permitir excepciones."
 
-#: src/option.lib.php:510
+#: src/option.lib.php:513
 msgid "Allow Top Navigation"
 msgstr "Permitir navegación superior"
 
-#: src/option.lib.php:506
+#: src/option.lib.php:509
 msgid "Allow Scripts"
 msgstr "Permitir scripts"
 
-#: src/option.lib.php:502
+#: src/option.lib.php:505
 msgid "Allow Same Origin"
 msgstr "Permitir el mismo origen"
 
-#: src/option.lib.php:498
+#: src/option.lib.php:501
 msgid "Allow Presentation"
 msgstr "Permitir presentación"
 
-#: src/option.lib.php:494
+#: src/option.lib.php:497
 msgid "Allow Popups to Escape Sandbox"
 msgstr "Permitir que las ventanas emergentes escapen del Sandbox"
 
-#: src/option.lib.php:490
+#: src/option.lib.php:493
 msgid "Allow Popups"
 msgstr "Permitir ventanas emergentes"
 
-#: src/option.lib.php:486
+#: src/option.lib.php:489
 msgid "Allow Pointer Lock"
 msgstr "Permitir bloqueo de puntero"
 
-#: src/option.lib.php:482
+#: src/option.lib.php:485
 msgid "Allow Orientation Lock"
 msgstr "Permitir bloqueo de orientación"
 
-#: src/option.lib.php:478
+#: src/option.lib.php:481
 msgid "Allow Modals"
 msgstr "Permitir modales"
 
-#: src/option.lib.php:474
+#: src/option.lib.php:477
 msgid "Allow Forms"
 msgstr "Permitir formularios"
 
-#: src/option.lib.php:470
+#: src/option.lib.php:473
 msgid "Allow Downloads"
 msgstr "Permitir descargas"
 
-#: src/option.lib.php:466
+#: src/option.lib.php:469
 msgid "Sandbox"
 msgstr "Entorno de pruebas"
 
-#: src/option.lib.php:461
+#: src/option.lib.php:464
 msgid "Allowed sources for web and service workers."
 msgstr "Fuentes permitidas para trabajadores web y de servicios."
 
-#: src/option.lib.php:458
+#: src/option.lib.php:461
 msgid "Worker Source"
 msgstr "Fuente del trabajador"
 
-#: src/option.lib.php:453
+#: src/option.lib.php:456
 msgid "Allowed sources for <style> and <link> elements."
 msgstr "Fuentes permitidas para los elementos <style> y <link>."
 
-#: src/option.lib.php:450
+#: src/option.lib.php:453
 msgid "Style Source Element"
 msgstr "Elemento de fuente de estilo"
 
-#: src/option.lib.php:445
+#: src/option.lib.php:448
 msgid "Allowed sources for inline style attributes."
 msgstr "Fuentes permitidas para atributos de estilo integrado."
 
-#: src/option.lib.php:442
+#: src/option.lib.php:445
 msgid "Style Source Attribute"
 msgstr "Atributo de fuente de estilo"
 
-#: src/option.lib.php:434
+#: src/option.lib.php:437
 msgid "Allowed style sources. Avoid 'unsafe-inline'; consider nonces."
 msgstr "Fuentes de estilo permitidas. Evita el uso de 'unsafe-inline'; considera los nonces."
 
-#: src/option.lib.php:431
+#: src/option.lib.php:434
 msgid "Style Source"
 msgstr "Fuente de estilo"
 
-#: src/option.lib.php:423
+#: src/option.lib.php:426
 msgid "Allowed sources for <script> elements. Falls back to script-src if missing."
 msgstr "Fuentes permitidas para elementos <script>. Si falta, se recurre a script-src."
 
-#: src/option.lib.php:420
+#: src/option.lib.php:423
 msgid "Script Source Element"
 msgstr "Elemento de fuente de script"
 
-#: src/option.lib.php:412
+#: src/option.lib.php:415
 msgid "Allowed sources for inline event handlers."
 msgstr "Fuentes permitidas para controladores de eventos integrados."
 
-#: src/option.lib.php:409
+#: src/option.lib.php:412
 msgid "Script Source Attribute"
 msgstr "Atributo de origen de script"
 
-#: src/option.lib.php:401
+#: src/option.lib.php:404
 msgid "Allowed script sources. Avoid 'unsafe-inline'; consider nonces."
 msgstr "Fuentes de script permitidas. Evita el uso de 'unsafe-inline'; considera los nonces."
 
-#: src/option.lib.php:398
+#: src/option.lib.php:401
 msgid "Script Source"
 msgstr "Fuente de script"
 
-#: src/option.lib.php:390
+#: src/option.lib.php:393
 msgid "Allowed sources for <object>, <embed>, or <applet>. Usually 'none'."
 msgstr "Fuentes permitidas para <object>, <embed> o <applet>. Normalmente, ninguna."
 
-#: src/option.lib.php:387
+#: src/option.lib.php:390
 msgid "Object Source"
 msgstr "Fuente de objeto"
 
-#: src/option.lib.php:379
+#: src/option.lib.php:382
 msgid "Restricts which URLs the document can navigate to (e.g., links)."
 msgstr "Restringe las URL a las que puede acceder el documento (por ejemplo, enlaces)."
 
-#: src/option.lib.php:376
+#: src/option.lib.php:379
 msgid "Navigate To"
 msgstr "Navegar a"
 
-#: src/option.lib.php:371
+#: src/option.lib.php:374
 msgid "Allowed sources for audio and video content."
 msgstr "Fuentes permitidas para contenido de audio y vídeo."
 
-#: src/option.lib.php:368
+#: src/option.lib.php:371
 msgid "Media Source"
 msgstr "Fuente de medios"
 
-#: src/option.lib.php:363
+#: src/option.lib.php:366
 msgid "Allowed sources for web app manifests."
 msgstr "Fuentes permitidas para manifiestos de aplicaciones web."
 
-#: src/option.lib.php:360
+#: src/option.lib.php:363
 msgid "Manifest Source"
 msgstr "Fuente de manifiesto"
 
-#: src/option.lib.php:352
+#: src/option.lib.php:355
 msgid "Allowed image sources. Often includes self and possibly data: URIs."
 msgstr "Fuentes de imágenes permitidas. Suele incluir la propia imagen y, posiblemente, datos: URIs."
 
-#: src/option.lib.php:349
+#: src/option.lib.php:352
 msgid "Image Source"
 msgstr "Fuente de imagen"
 
-#: src/option.lib.php:344
+#: src/option.lib.php:347
 msgid "Restricts which sites can embed this page in a frame."
 msgstr "Restringe qué sitios pueden incrustar esta página en un marco."
 
-#: src/option.lib.php:341
+#: src/option.lib.php:344
 msgid "Frame Ancestors"
 msgstr "Ancestros ​​del marco"
 
-#: src/option.lib.php:336
+#: src/option.lib.php:339
 msgid "Restricts the URLs to which forms can be submitted."
 msgstr "Restringe las URL a las que se pueden enviar formularios."
 
-#: src/option.lib.php:333
+#: src/option.lib.php:336
 msgid "Form Action"
 msgstr "Acción de formulario"
 
-#: src/option.lib.php:328
+#: src/option.lib.php:331
 msgid "Allowed font sources (e.g. self or font CDNs)."
 msgstr "Fuentes de fuentes permitidas (por ejemplo, propias o CDN de fuentes)."
 
-#: src/option.lib.php:325
+#: src/option.lib.php:328
 msgid "Font Source"
 msgstr "Origen de la fuente"
 
-#: src/option.lib.php:317
+#: src/option.lib.php:320
 msgid "Fallback policy for resources if no other directive is defined."
 msgstr "Política de respaldo para recursos si no se define otra directiva."
 
-#: src/option.lib.php:314
+#: src/option.lib.php:317
 msgid "Default Source"
 msgstr "Fuente por defecto"
 
-#: src/option.lib.php:309
+#: src/option.lib.php:312
 msgid "Allowed endpoints for fetch/XHR/WebSocket connections."
 msgstr "Puntos finales permitidos para conexiones fetch/XHR/WebSocket."
 
-#: src/option.lib.php:306
+#: src/option.lib.php:309
 msgid "Connect Source"
 msgstr "Conectar fuente"
 
-#: src/option.lib.php:301
+#: src/option.lib.php:304
 msgid "Allowed sources for frames and nested browsing contexts."
 msgstr "Fuentes permitidas para marcos y contextos de navegación anidados."
 
-#: src/option.lib.php:298
+#: src/option.lib.php:301
 msgid "Child Source"
 msgstr "Fuente secundaria"
 
-#: src/option.lib.php:290
+#: src/option.lib.php:293
 msgid "Restricts the URLs that can appear in the document’s <base> element. Commonly 'self'."
 msgstr "Restringe las URL que pueden aparecer en el elemento <base> del documento. Normalmente, es 'self'."
 
-#: src/option.lib.php:287
+#: src/option.lib.php:290
 msgid "Base URI"
 msgstr "URI base"
 
-#: src/api.lib.php:611
+#: src/api.lib.php:612 src/topt.lib.php:1363 src/topt.lib.php:1395
 msgid "Deactivated"
 msgstr "Desactivado"
 
-#: src/api.lib.php:607
+#: src/api.lib.php:608 src/topt.lib.php:1363
 msgid "Activated"
 msgstr "Activado"
 
-#: src/api.lib.php:603
+#: src/api.lib.php:604
 msgid "Installed"
 msgstr "Instalado"
 
-#: src/api.lib.php:599
+#: src/api.lib.php:600
 msgid "All Plugins"
 msgstr "Todos los plugins"
 
-#: src/api.lib.php:589
+#: src/api.lib.php:590
 msgid "Edited"
 msgstr "Editado"
 
-#: src/api.lib.php:575
+#: src/api.lib.php:576
 msgid "Succeeded"
 msgstr "Con éxito"
 
-#: src/api.lib.php:571
+#: src/api.lib.php:572
 msgid "Failed"
 msgstr "Fallida"
 
-#: src/api.lib.php:567
+#: src/api.lib.php:568
 msgid "All Logins"
 msgstr "Todos los accesos"
 
-#: src/api.lib.php:561 src/api.lib.php:593
+#: src/api.lib.php:562 src/api.lib.php:594
 msgid "Deleted"
 msgstr "Borrado"
 
-#: src/api.lib.php:557
+#: src/api.lib.php:558
 msgid "Updated"
 msgstr "Actualizado"
 
-#: src/api.lib.php:553 src/api.lib.php:585
+#: src/api.lib.php:554 src/api.lib.php:586
 msgid "Created"
 msgstr "Creado"
 
-#: src/api.lib.php:549
+#: src/api.lib.php:550
 msgid "All Posts"
 msgstr "Todas las entradas"
 
-#: src/api.lib.php:541
+#: src/api.lib.php:542
 msgid "Custom"
 msgstr "Personalizado"
 
-#: src/api.lib.php:537
+#: src/api.lib.php:538
 msgid "Last Year"
 msgstr "Último año"
 
-#: src/api.lib.php:533
+#: src/api.lib.php:534
 msgid "This Year"
 msgstr "Este año"
 
-#: src/api.lib.php:529
+#: src/api.lib.php:530
 msgid "Last Month"
 msgstr "Último mes"
 
-#: src/api.lib.php:525
+#: src/api.lib.php:526
 msgid "Last 30 Days"
 msgstr "Últimos 30 días"
 
-#: src/api.lib.php:521
+#: src/api.lib.php:522
 msgid "This Month"
 msgstr "Este mes"
 
-#: src/api.lib.php:517
+#: src/api.lib.php:518
 msgid "Last 14 Days"
 msgstr "Últimos 14 días"
 
-#: src/api.lib.php:513
+#: src/api.lib.php:514
 msgid "Last Week"
 msgstr "Última semana"
 
-#: src/api.lib.php:509
+#: src/api.lib.php:510
 msgid "Last 7 Days"
 msgstr "Últimos 7 días"
 
-#: src/api.lib.php:505
+#: src/api.lib.php:506
 msgid "This Week"
 msgstr "Esta semana"
 
-#: src/api.lib.php:501
+#: src/api.lib.php:502
 msgid "Yesterday"
 msgstr "Ayer"
 
-#: src/api.lib.php:493
+#: src/api.lib.php:494
 msgid "All Time"
 msgstr "Todo el tiempo"
 
-#: src/settings-hardening.php:748
+#: src/settings-hardening.php:773
 msgid "Some files could not be removed"
 msgstr "No se han podido eliminar algunos archivos"
 
@@ -540,99 +584,99 @@ msgstr "El ajuste s-maxage indica a las cachés compartidas, como las que utiliz
 msgid "The max-age setting tells your browser how long, in seconds, it can keep a copy of a web page before it needs to check for a new version. This is the basic setting needed to make caching work on most devices."
 msgstr "El ajuste max-age indica a tu navegador cuánto tiempo, en segundos, puede conservar una copia de una página web antes de tener que buscar una nueva versión. Esta es la configuración básica necesaria para que el almacenamiento en caché funcione en la mayoría de los dispositivos."
 
-#: src/settings-headers.php:99
+#: src/settings-headers.php:101
 msgid "Invalid cache control mode selected."
 msgstr "Modo de control de caché seleccionado no válido."
 
-#: src/settings-headers.php:96
+#: src/settings-headers.php:98
 msgid "Cache-Control header was activated."
 msgstr "Se ha activado la cabecera Cache-Control."
 
-#: src/settings-headers.php:94
+#: src/settings-headers.php:96
 msgid "Cache-Control header was deactivated."
 msgstr "Se ha desactivado la cabecera Cache-Control."
 
-#: src/settings-headers.php:58
+#: src/settings-headers.php:60
 msgid "custom"
 msgstr "personalizado"
 
-#: src/settings-headers.php:57
+#: src/settings-headers.php:59
 msgid "busy"
 msgstr "ocupado"
 
-#: src/settings-headers.php:56
+#: src/settings-headers.php:58
 msgid "frequent"
 msgstr "frecuente"
 
-#: src/settings-headers.php:55
+#: src/settings-headers.php:57
 msgid "occasional"
 msgstr "ocasional"
 
-#: src/settings-headers.php:54
+#: src/settings-headers.php:56
 msgid "static"
 msgstr "estático"
 
-#: src/settings-headers.php:53
+#: src/settings-headers.php:55
 msgid "disabled"
 msgstr "desactivado"
 
-#: src/option.lib.php:274
+#: src/option.lib.php:277
 msgid "Woocommerce Categories"
 msgstr "Categorías de Woocommerce"
 
-#: src/option.lib.php:263
+#: src/option.lib.php:266
 msgid "Woocommerce Products"
 msgstr "Productos de WooCommerce"
 
-#: src/option.lib.php:252
+#: src/option.lib.php:255
 msgid "Redirects"
 msgstr "Redirecciones"
 
-#: src/option.lib.php:241
+#: src/option.lib.php:244
 msgid "404 Not Found"
 msgstr "404 No encontrado"
 
-#: src/option.lib.php:230
+#: src/option.lib.php:233
 msgid "Search Results"
 msgstr "Resultados de la búsqueda"
 
-#: src/option.lib.php:219
+#: src/option.lib.php:222
 msgid "Attachment Pages"
 msgstr "Páginas de adjuntos"
 
-#: src/option.lib.php:208
+#: src/option.lib.php:211
 msgid "Feeds"
 msgstr "Feeds"
 
-#: src/option.lib.php:197
+#: src/option.lib.php:200
 msgid "Archives"
 msgstr "Archivos"
 
-#: src/option.lib.php:186
+#: src/option.lib.php:189
 msgid "Authors"
 msgstr "Autores"
 
-#: src/option.lib.php:175
+#: src/option.lib.php:178
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: src/option.lib.php:164
+#: src/option.lib.php:167
 msgid "Categories"
 msgstr "Categorías"
 
-#: src/option.lib.php:153
+#: src/option.lib.php:156
 msgid "Main Index"
 msgstr "Índice principal"
 
-#: src/option.lib.php:142
+#: src/option.lib.php:145
 msgid "Pages"
 msgstr "Páginas"
 
-#: src/option.lib.php:131
+#: src/option.lib.php:134
 msgid "Posts"
 msgstr "Entradas"
 
-#: src/option.lib.php:120
+#: src/option.lib.php:123
 msgid "Front Page"
 msgstr "Página de inicio"
 
@@ -672,7 +716,7 @@ msgstr "URL de API de servicio no configurada. Para activar el servicio API, añ
 msgid "The status of the API service could not be enabled because the required SUCURISCAN_API_URL configuration was not found."
 msgstr "El estado del servicio de la API podría no activarse debido que no se encuentre la configuración obligatoria de SUCURISCAN_API_URL."
 
-#: src/settings-posthack.php:63
+#: src/settings-posthack.php:64
 msgid "WordPress configuration file was not found or new keys could not be created."
 msgstr "No se ha encontrado el archivo de configuración de WordPress o no se han podido crear nuevas claves."
 
@@ -680,7 +724,7 @@ msgstr "No se ha encontrado el archivo de configuración de WordPress o no se ha
 msgid "Automatic update of security keys failed. WordPress configuration file was not found or new keys could not be created."
 msgstr "Ha fallado la actualización automática de las claves de seguridad. No se ha encontrado el archivo de configuración de WordPress o no se han podido crear nuevas claves."
 
-#: src/settings-hardening.php:716
+#: src/settings-hardening.php:741
 msgid "The file has been allowed"
 msgstr "El archivo se ha permitido"
 
@@ -716,31 +760,31 @@ msgstr "Selecciona a los usuarios de la lista para cambiar sus contraseñas, fin
 msgid "WordPress has invalidated the password for your account <b>%%SUCURI.ResetPassword.UserName%%</b> at <a target=\"_blank\" href=\"http://%%SUCURI.ResetPassword.Website%%\" rel=\"noopener\">%%SUCURI.ResetPassword.Website%%</a>. The change has been requested by one of the admins in this website for security reasons. You can set a new password at &mdash; <span style=\"font-family:Menlo, Monaco, monospace, serif;font-weight:700\"><a target=\"_blank\" href=\"%%%SUCURI.ResetPassword.ResetURL%%%\" rel=\"noopener\">%%%SUCURI.ResetPassword.ResetURL%%%</a></span> &mdash;."
 msgstr "WordPress ha invalidado la contraseña para tu cuenta <b>%%SUCURI.ResetPassword.UserName%%</b> en <a target=\"_blank\" href=\"http://%%SUCURI.ResetPassword.Website%%\" rel=\"noopener\">%%SUCURI.ResetPassword.Website%%</a>. El cambio ha sido solicitado por uno de los administradores en esta web por motivos de seguridad. Puedes establecer una nueva contraseña en &mdash; <span style=\"font-family:Menlo, Monaco, monospace, serif;font-weight:700\"><a target=\"_blank\" href=\"%%%SUCURI.ResetPassword.ResetURL%%%\" rel=\"noopener\">%%%SUCURI.ResetPassword.ResetURL%%%</a></span> &mdash;."
 
-#: src/settings-hardening.php:662
+#: src/settings-hardening.php:685
 msgid "Changing the Secret Keys will invalidate all existing cookies, forcing all logged in users to login again. Doing this frequently will decrease the chances of misuse of sessions left open on unprotected devices."
 msgstr "Cambiar las claves secretas invalidará todas las cookies existentes, obligando a todos los usuarios conectados a volver a acceder. Hacer esto con frecuencia disminuirá las posibilidades de mal uso de las sesiones que se dejen abiertas en dispositivos desprotegidos."
 
-#: src/settings-hardening.php:661
+#: src/settings-hardening.php:684
 msgid "Activate Automatic Secret Keys Updater"
 msgstr "Activar el actualizador automático de claves secretas"
 
-#: src/settings-hardening.php:639
+#: src/settings-hardening.php:661
 msgid "Automatic Secret Keys Updater enabled. The default frequency is \"Weekly\", but you can change the frequency on Settings -> Post-Hack -> Update Secret Keys section."
 msgstr "Actualizador automático de claves secretas activado. La frecuencia por defecto es «Semanal», pero puedes cambiar la frecuencia en la sección «Ajustes -> Post-Hack -> Actualizar las claves secretas»."
 
-#: src/settings-hardening.php:603
+#: src/settings-hardening.php:625
 msgid "Disable Plugin and Theme Editor"
 msgstr "Desactivar el editor de plugins y temas"
 
-#: src/settings-hardening.php:488
+#: src/settings-hardening.php:507
 msgid "Verify Default Admin Account"
 msgstr "Verificar la cuenta de administración por defecto"
 
-#: src/settings-hardening.php:449
+#: src/settings-hardening.php:466
 msgid "Avoid Information Leakage"
 msgstr "Evitar la fuga de información"
 
-#: src/settings-hardening.php:108
+#: src/settings-hardening.php:110
 msgid "Enable Website Firewall Protection"
 msgstr "Activar la protección de cortafuegos de la web"
 
@@ -772,22 +816,22 @@ msgstr "Editar el perfil del usuario"
 msgid "To delete an IP from the blocklist you can use the form below or you can log into the Firewall dashboard."
 msgstr "Para borrar una IP de la lista de bloqueo puedes usar el formulario que aparece a continuación o puedes acceder al escritorio del cortafuegos."
 
-#: src/settings-hardening.php:643 src/settings-posthack.php:158
-#: src/settings-posthack.php:159
+#: src/settings-hardening.php:665 src/settings-posthack.php:159
+#: src/settings-posthack.php:160
 msgid "Automatic Secret Keys Updater enabled."
 msgstr "Actualizador automático de claves secretas activado."
 
-#: src/settings-hardening.php:645 src/settings-hardening.php:655
-#: src/settings-posthack.php:150 src/settings-posthack.php:161
+#: src/settings-hardening.php:667 src/settings-hardening.php:677
+#: src/settings-posthack.php:151 src/settings-posthack.php:162
 msgid "Something went wrong."
 msgstr "Algo ha ido mal."
 
-#: src/settings-hardening.php:652 src/settings-hardening.php:653
-#: src/settings-posthack.php:147 src/settings-posthack.php:148
+#: src/settings-hardening.php:674 src/settings-hardening.php:675
+#: src/settings-posthack.php:148 src/settings-posthack.php:149
 msgid "Automatic Secret Keys Updater disabled."
 msgstr "Actualizador automático de claves secretas desactivado."
 
-#: src/settings-posthack.php:140
+#: src/settings-posthack.php:141
 msgid "No frequency selected for the automatic secret key updater."
 msgstr "No se ha seleccionado ninguna frecuencia para el actualizador automático de claves secretas."
 
@@ -899,11 +943,7 @@ msgstr "Los certificados SSL ayudan a proteger la integridad de los datos en tr�
 msgid "Implement an SSL Certificate"
 msgstr "Implementar un certificado SSL"
 
-#: src/event.lib.php:940 src/event.lib.php:946
-msgid "%s was deleted."
-msgstr "«%s» ha sido borrado."
-
-#: src/event.lib.php:928
+#: src/event.lib.php:934
 msgid "%s cannot be deleted."
 msgstr "«%s» no ha podido ser borrado."
 
@@ -911,7 +951,7 @@ msgstr "«%s» no ha podido ser borrado."
 msgid "%s were deleted."
 msgstr "«%s» han sido borrados."
 
-#: src/settings-hardening.php:100
+#: src/settings-hardening.php:102
 msgid "The firewall is a premium service that you need purchase at - <a href=\"https://sucuri.net/website-firewall/signup\" target=\"_blank\">Sucuri Firewall</a>"
 msgstr "El cortafuegos es un servicio premium que tienes que adquirir en - <a href=\"https://sucuri.net/website-firewall/signup\" target=\"_blank\">Cortafuegos de Sucuri</a>"
 
@@ -939,23 +979,23 @@ msgstr "La versión PHP que estás utilizando ya no recibe soporte de seguridad 
 msgid "Upgrade PHP to a supported version"
 msgstr "Actualiza PHP a una versión compatible"
 
-#: sucuri.php:344
+#: sucuri.php:350
 msgid "Sucuri plugin has been uninstalled"
 msgstr "El plugin Sucuri se ha desinstalado"
 
-#: src/auditlogs.lib.php:294
+#: src/auditlogs.lib.php:295
 msgid "status has been changed"
 msgstr "el estado ha cambiado"
 
-#: src/auditlogs.lib.php:238
+#: src/auditlogs.lib.php:239
 msgid "There are no logs."
 msgstr "No hay registros."
 
-#: src/auditlogs.lib.php:192
+#: src/auditlogs.lib.php:193
 msgid "API %s secs"
 msgstr "API %s segs"
 
-#: src/auditlogs.lib.php:190
+#: src/auditlogs.lib.php:191
 msgid "API is not available; using local queue"
 msgstr "La API no está disponible; usando la cola local"
 
@@ -987,43 +1027,43 @@ msgstr "Usuario: %s (%s)"
 msgid "Maximum number of emails per hour reached"
 msgstr "Se ha alcanzado el número máximo de correos electrónicos por hora"
 
-#: src/settings-posthack.php:518
+#: src/settings-posthack.php:519
 msgid "There are no updates available."
 msgstr "No hay actualizaciones disponibles."
 
-#: src/settings-posthack.php:406
+#: src/settings-posthack.php:407
 msgid "Installed v%s"
 msgstr "Instalada v%s"
 
-#: src/settings-posthack.php:365
+#: src/settings-posthack.php:366
 msgid "Plugin is Premium"
 msgstr "El plugin es premium"
 
-#: src/settings-posthack.php:358
+#: src/settings-posthack.php:359
 msgid "not installed"
 msgstr "no está instalado"
 
-#: src/settings-posthack.php:263
+#: src/settings-posthack.php:264
 msgid "Password changed for user #%d"
 msgstr "Contraseña cambiada para el usuario #%d"
 
-#: src/settings-posthack.php:75
+#: src/settings-posthack.php:76
 msgid "Generate new security keys (failure)"
 msgstr "Crear nuevas claves de seguridad (fallo)"
 
-#: src/settings-posthack.php:72
+#: src/settings-posthack.php:73
 msgid "New Security Keys"
 msgstr "Nuevas claves de seguridad"
 
-#: src/settings-posthack.php:69
+#: src/settings-posthack.php:70
 msgid "Old Security Keys"
 msgstr "Viejas claves de seguridad"
 
-#: src/settings-posthack.php:66
+#: src/settings-posthack.php:67
 msgid "Secret keys updated successfully (summary of the operation bellow)."
 msgstr "Claves secretas actualizadas correctamente (abajo está el resumen de la operación)."
 
-#: src/settings-posthack.php:65
+#: src/settings-posthack.php:66
 msgid "Generate new security keys (success)"
 msgstr "Crear nuevas claves de seguridad (correcto)"
 
@@ -1715,7 +1755,7 @@ msgstr "Usuarios conectados"
 msgid "Admins"
 msgstr "Administradores"
 
-#: src/api.lib.php:581 src/strings.php:205
+#: src/api.lib.php:582 src/strings.php:205
 msgid "All Users"
 msgstr "Todos los usuarios"
 
@@ -1975,143 +2015,139 @@ msgstr "Tiempo máximo de ejecución:"
 msgid "Total logs in the queue:"
 msgstr "Registros totales en cola:"
 
-#: src/settings-hardening.php:750
+#: src/settings-hardening.php:775
 msgid "Selected files have been removed"
 msgstr "Los archivos seleccionados se han eliminado"
 
-#: src/settings-hardening.php:721
+#: src/settings-hardening.php:746
 msgid "Specified folder is not hardened by this plugin"
 msgstr "La carpeta especificada no está reforzada por este plugin"
 
-#: src/settings-hardening.php:604
+#: src/settings-hardening.php:626
 msgid "Disables the theme and plugin editors to prevent unwanted modifications to the code. If you are having problems reverting this please open the wp-config.php file and delete the line with the constant DISALLOW_FILE_EDIT."
 msgstr "Desactiva el editor de plugins y temas para evitar modificaciones no deseadas al código. Si estás teniendo problemas al revertir esto, por favor, abre el archivo wp-config.php y borra la línea con la constante DISALLOW_FILE_EDIT."
 
-#: src/settings-hardening.php:591 src/settings-hardening.php:595
+#: src/settings-hardening.php:613 src/settings-hardening.php:617
 msgid "Hardening reverted in the plugin and theme editor"
 msgstr "Refuerzo revertido en el editor de temas y plugins"
 
-#: src/settings-hardening.php:582
+#: src/settings-hardening.php:604
 msgid "File Editor was not disabled using this tool. You must scan your project for a constant defined as DISALLOW_FILE_EDIT, then either delete it or set its value to False. Any plugin/theme can disable the file editor, so it is impossible to determine the origin of the constant."
 msgstr "El editor de archivos no se ha desactivado usando esta herramientas. Debes explorar tu proyecto por si hay una constante definida como DISALLOW_FILE_EDIT, luego edítala o establece su valor a «false». Cualquier plugin/tema puede desactivar el editor de archivos, así que es imposible determinar el origen de la constante."
 
-#: src/settings-hardening.php:550 src/settings-hardening.php:554
+#: src/settings-hardening.php:572 src/settings-hardening.php:576
 msgid "Hardening applied to the plugin and theme editor"
 msgstr "Refuerzo aplicado al editor de temas y plugins"
 
-#: src/settings-hardening.php:523 src/settings-hardening.php:564
-#: src/settings-posthack.php:76
+#: src/settings-hardening.php:545 src/settings-hardening.php:586
+#: src/settings-posthack.php:77
 msgid "WordPress configuration file is not writable."
 msgstr "El archivo de configuración de WordPress no tiene permisos de escritura."
 
-#: src/settings-hardening.php:521 src/settings-hardening.php:562
+#: src/settings-hardening.php:543 src/settings-hardening.php:584
 msgid "WordPress configuration file was not found."
 msgstr "No se ha encontrado el archivo de configuración de WordPress."
 
-#: src/settings-hardening.php:489
+#: src/settings-hardening.php:508
 msgid "Check if the primary user account still uses the name \"admin\". This allows malicious users to easily identify which account has the highest privileges to target an attack."
 msgstr "Comprueba si la cuenta del usuario principal aún usa el nombre «admin». Esto permite a usuarios malintencionados identificar fácilmente qué cuenta tiene los mayores privilegios para dirigir un ataque."
 
-#: src/settings-hardening.php:450
-msgid "Checks if the WordPress README file still exists in the website. The information in this file can be used by malicious users to pin-point which disclosed vulnerabilities are associated to the website. Be aware that WordPress recreates this file automatically with every update."
+#: src/settings-hardening.php:467
+msgid "Checks if the WordPress README file still exists in the website. The information in this file can be used by malicious users to pin-point which disclosed vulnerabilities are associated to the website. WordPress recreates this file automatically with every update."
 msgstr "Comprueba si aún existe en la web el archivo README de WordPress. La información de este archivo puede ser utilizada por usuarios malintencionados para identificar qué vulnerabilidades reveladas hay asociadas a la web. Ten en cuenta que WordPress reconstruye este archivo automáticamente con cada actualización."
 
-#: src/settings-hardening.php:438 src/settings-hardening.php:442
+#: src/settings-hardening.php:455 src/settings-hardening.php:459
 msgid "Hardening applied to the <code>readme.html</code> file"
 msgstr "Refuerzo aplicado al archivo <code>readme.html</code>"
 
-#: src/settings-hardening.php:434
+#: src/settings-hardening.php:451
 msgid "Cannot delete <code>%s/readme.html</code>"
 msgstr "No se puede borrar <code>%s/readme.html</code>"
 
-#: src/settings-hardening.php:397
+#: src/settings-hardening.php:412
 msgid "Block PHP Files in WP-INCLUDES Directory"
 msgstr "Bloquear archivos PHP en el directorio WP-INCLUDES"
 
-#: src/settings-hardening.php:390 src/settings-hardening.php:391
+#: src/settings-hardening.php:405 src/settings-hardening.php:406
 msgid "Hardening reverted in the library directory"
 msgstr "Refuerzo revertido en el directorio de la biblioteca"
 
-#: src/settings-hardening.php:371 src/settings-hardening.php:375
+#: src/settings-hardening.php:386 src/settings-hardening.php:390
 msgid "Hardening applied to the library directory"
 msgstr "Refuerzo aplicado al directorio de la biblioteca"
 
-#: src/settings-hardening.php:322
+#: src/settings-hardening.php:335
 msgid "Block PHP Files in WP-CONTENT Directory"
 msgstr "Bloquear archivos PHP en el directorio WP-CONTENT"
 
-#: src/settings-hardening.php:315 src/settings-hardening.php:316
+#: src/settings-hardening.php:328 src/settings-hardening.php:329
 msgid "Hardening reverted in the content directory"
 msgstr "Refuerzo revertido en el directorio del contenido"
 
-#: src/settings-hardening.php:304 src/settings-hardening.php:305
+#: src/settings-hardening.php:317 src/settings-hardening.php:318
 msgid "Hardening applied to the content directory"
 msgstr "Refuerzo aplicado al directorio del contenido"
 
-#: src/settings-hardening.php:260
+#: src/settings-hardening.php:271
 msgid "Block PHP Files in Uploads Directory"
 msgstr "Bloquear archivos PHP en el directorio de subidas"
 
-#: src/settings-hardening.php:256 src/settings-hardening.php:318
-#: src/settings-hardening.php:393
+#: src/settings-hardening.php:267 src/settings-hardening.php:331
+#: src/settings-hardening.php:408
 msgid "Access file is not writable, check the permissions."
 msgstr "El archivo de acceso no tiene permisos de escritura, revisa los permisos."
 
-#: src/settings-hardening.php:253 src/settings-hardening.php:254
+#: src/settings-hardening.php:264 src/settings-hardening.php:265
 msgid "Hardening reverted in the uploads directory"
 msgstr "Refuerzo revertido en el directorio de subidas"
 
-#: src/settings-hardening.php:245 src/settings-hardening.php:307
-#: src/settings-hardening.php:380
+#: src/settings-hardening.php:256 src/settings-hardening.php:320
+#: src/settings-hardening.php:395
 msgid "Error hardening directory, check the permissions."
 msgstr "Error al reforzar el directorio, revisa los permisos."
 
-#: src/settings-hardening.php:242 src/settings-hardening.php:243
+#: src/settings-hardening.php:253 src/settings-hardening.php:254
 msgid "Hardening applied to the uploads directory"
 msgstr "Refuerzo aplicado al directorio de subidas"
 
-#: src/settings-hardening.php:212 src/settings-hardening.php:261
-#: src/settings-hardening.php:323 src/settings-hardening.php:398
+#: src/settings-hardening.php:221 src/settings-hardening.php:272
+#: src/settings-hardening.php:336 src/settings-hardening.php:413
 msgid "Block the execution of PHP files in sensitive directories. Be careful while applying this hardening option as there are many plugins and theme which rely on the ability to execute PHP files in the content directory to generate images or save temporary data. Use the \"Add PHP Files to the Allowlist\" tool to add exceptions to individual files."
 msgstr "Bloquea la ejecución de archivos PHP en directorios sensibles. Ten cuidado al aplicar esta opción de refuerzo ya que hay muchos plugins y temas que dependen de la posibilidad de ejecutar archivos PHP en el directorio del contenido para crear imágenes o guardar datos temporales. Utiliza la herramienta de «Lista blanca de archivos PHP» para añadir excepciones a archivos individuales."
 
-#: src/settings-hardening.php:211
+#: src/settings-hardening.php:220
 msgid "Check Hardening"
 msgstr "Comprobar refuerzo"
 
-#: src/settings-hardening.php:208
+#: src/settings-hardening.php:217
 msgid "Block of Certain PHP Files"
 msgstr "Bloqueo de ciertos archivos PHP"
 
-#: src/settings-hardening.php:201
+#: src/settings-hardening.php:210
 msgid "Read the official WordPress guidelines to learn how to restrict access to PHP files in sensitive directories - <a href=\"https://developer.wordpress.org/advanced-administration/server/web-server/nginx/#global-restrictions-file\" target=\"_blank\" rel=\"noopener\">Nginx Global Restrictions For WordPress</a>"
 msgstr "Lee las directrices oficiales de WordPress para aprender cómo restringir acceso a archivos PHP en directorios sensibles - <a href=\"https://developer.wordpress.org/advanced-administration/server/web-server/nginx/#global-restrictions-file\" target=\"_blank\" rel=\"noopener\">Restricciones globales de Nginx para WordPress</a>"
 
-#: src/settings-hardening.php:178
+#: src/settings-hardening.php:185
 msgid "It checks if your WordPress version is being leaked to the public via a HTML meta-tag. Many web vulnerability scanners use this to determine which version of the code is running in your website. They use this to find disclosed vulnerabilities associated to this version number. A vulnerability scanner can still guess which version of WordPress is installed by comparing the checksum of some static files."
 msgstr "Comprueba si tu versión de WordPress se está divulgando públicamente a través de una etiqueta meta HTML. Muchos exploradores de vulnerabilidades web lo utilizan para determinar qué versión del código se está ejecutando en tu web. Utilizan esto para encontrar vulnerabilidades conocidas asociadas a este número de versión. Un explorador de vulnerabilidades aún puede adivinar qué versión de WordPress está instalada comparando la suma de comprobación de algunos archivos estáticos."
 
-#: src/settings-hardening.php:174
+#: src/settings-hardening.php:181
 msgid "Remove WordPress Version"
 msgstr "Eliminar versión de WordPress"
 
-#: src/settings-hardening.php:154
+#: src/settings-hardening.php:159
 msgid "WordPress Update Available"
 msgstr "Actualización de WordPress disponible"
 
-#: src/settings-hardening.php:147
-msgid "Why keep your site updated? WordPress is an open-source project which means that with every update the details of the changes made to the source code are made public, if there were security fixes then someone with malicious intent can use this information to attack any site that has not been upgraded."
-msgstr "¿Por qué mantener tu sitio actualizado? WordPress es un proyecto de código abierto, lo que significa que con cada actualización los detalles de los cambios realizados en el código fuente se hacen públicos, si hubiera correcciones de seguridad, entonces alguien con intenciones malintencionadas puede utilizar esta información para atacar cualquier sitio que no haya sido actualizado."
-
-#: src/settings-hardening.php:146
+#: src/settings-hardening.php:151
 msgid "Verify WordPress Version"
 msgstr "Verificar versión de WordPress"
 
-#: src/settings-hardening.php:145
+#: src/settings-hardening.php:150
 msgid "Check Updates Now"
 msgstr "Comprobar actualizaciones ahora"
 
-#: src/settings-hardening.php:109
+#: src/settings-hardening.php:111
 msgid "A WAF is a protection layer for your web site, blocking all sort of attacks (brute force attempts, DDoS, SQL injections, etc) and helping it remain malware and blocklist free. This test checks if your site is using Sucuri Firewall to protect your site."
 msgstr "Un WAF es una capa de protección para tu web, que bloquea todo tipo de ataques (intentos de fuerza bruta, DDoS, inyecciones de SQL, etc.) y ayuda a mantenerlo libre de malware y lista de bloqueo. Esta prueba comprueba si tu sitio está utilizando el cortafuegos de Sucuri para protegerlo."
 
@@ -2408,44 +2444,44 @@ msgstr "El directorio no existe"
 msgid "No files were found"
 msgstr "No se han encontrado archivos"
 
-#: src/option.lib.php:682 src/settings-alerts.php:214
+#: src/option.lib.php:685 src/settings-alerts.php:214
 #: src/settings-alerts.php:215 src/settings-alerts.php:216
 msgid "Sucuri Alert, %s, %s, %s"
 msgstr "Alerta de Sucuri, %s, %s, %s"
 
-#: src/api.lib.php:1262 src/api.lib.php:1267
+#: src/api.lib.php:1285 src/api.lib.php:1290
 msgid "WordPress version is not supported anymore"
 msgstr "Ya no es compatible con esta versión de WordPress"
 
-#: src/api.lib.php:919
+#: src/api.lib.php:942
 msgid "WP Engine PHP Compatibility Checker: %s (created post #%d as cache)"
 msgstr "Verificador de compatibilidad PHP del motor de WP: %s (creada la entrada #%d como caché)"
 
-#: src/api.lib.php:389
+#: src/api.lib.php:390
 msgid "API key recovery for domain: %s"
 msgstr "Recuperación de clave API para el dominio: %s"
 
-#: src/api.lib.php:361
+#: src/api.lib.php:362
 msgid "API key successfully generated and saved."
 msgstr "La clave de API se ha generado y guardado correctamente."
 
-#: src/api.lib.php:359
+#: src/api.lib.php:360
 msgid "API key was generated and set"
 msgstr "La clave de API se ha generado y establecido"
 
-#: src/api.lib.php:324
+#: src/api.lib.php:325
 msgid "Invalid email format or the host is missing MX records."
 msgstr "Formato de correo electrónico no válido, o el servidor carece de registros MX."
 
-#: src/api.lib.php:284
+#: src/api.lib.php:285
 msgid "Unknown error, there is no information"
 msgstr "Error desconocido, no hay información"
 
-#: src/api.lib.php:188
+#: src/api.lib.php:189
 msgid "API key was successfully set: %s"
 msgstr "La clave API se estableció correctamente: %s"
 
-#: src/api.lib.php:182
+#: src/api.lib.php:183
 msgid "Invalid API key format"
 msgstr "Formato de clave API no válido"
 
@@ -2461,31 +2497,31 @@ msgstr "La URL no es válida"
 msgid "not active"
 msgstr "no activo"
 
-#: src/interface.lib.php:275
+#: src/interface.lib.php:293
 msgid "WordPress CSRF verification failed. The submitted form is missing an important unique code that prevents the execution of automated malicious scanners. Go back and try again. If you did not submit a form, this error message could be an indication of an incompatibility between this plugin and another add-on; one of them is inserting data into the global POST variable when the HTTP request is coming via GET. Disable them one by one (while reloading this page) to find the culprit."
 msgstr "Falló la verificación CSRF de WordPress. Al formulario enviado le falta un código único importante que impide la ejecución de escáneres maliciosos automatizados. Vuelve e inténtalo de nuevo. Si no enviaste un formulario, este mensaje de error podría ser una indicación de incompatibilidad entre este plugin y otra extensión; uno de ellos es la inserción de datos en la variable POST global cuando la petición HTTP llega vía GET. Desactívalos uno por uno (mientras recargas esta página) para encontrar al culpable."
 
-#: src/interface.lib.php:274
+#: src/interface.lib.php:292
 msgid "Nonce is invalid"
 msgstr "El nonce no es válido"
 
-#: src/interface.lib.php:254
+#: src/interface.lib.php:272
 msgid "Access denied by %s"
 msgstr "Acceso denegado por %s"
 
-#: src/interface.lib.php:253
+#: src/interface.lib.php:271
 msgid "Access denied; cannot manage options"
 msgstr "Acceso denegado; no se pueden gestionar opciones"
 
-#: src/interface.lib.php:240
+#: src/interface.lib.php:258
 msgid "Do you want to get vulnerability disclosures? Subscribe to our newsletter <a href=\"http://sucuri.hs-sites.com/subscribe-to-security\" target=\"_blank\" rel=\"noopener\">here</a>"
 msgstr "¿Quieres obtener información sobre vulnerabilidades? Suscríbete a nuestro boletín <a href=\"http://sucuri.hs-sites.com/subscribe-to-security\" target=\"_blank\" rel=\"noopener\">aquí</a>"
 
-#: src/interface.lib.php:198
+#: src/interface.lib.php:216
 msgid "Storage is not writable: <code>%s</code>"
 msgstr "El almacenamiento no tiene permisos de escritura: <code>%s</code>"
 
-#: src/interface.lib.php:190
+#: src/interface.lib.php:208
 msgid "The plugin requires PHP 5 >= 5.3.0 - OR - PHP 7"
 msgstr "El plugin requiere una versión de PHP igual o superior a la 5.3.0, o PHP 7"
 
@@ -2560,15 +2596,15 @@ msgstr "El directorio no se ha reforzado"
 msgid "Directory is not usable"
 msgstr "El directorio no se puede utilizar"
 
-#: src/pagehandler.php:102
+#: src/pagehandler.php:350
 msgid "Could not reset the last-logins data file."
 msgstr "No se pudo restablecer el archivo de datos de últimos accesos."
 
-#: src/pagehandler.php:100
+#: src/pagehandler.php:348
 msgid "Last-Logins logs were successfully reset."
 msgstr "Registro de últimos accesos correctamente restablecido."
 
-#: src/pagehandler.php:47 src/pagehandler.php:48 src/pagehandler.php:49
+#: src/pagehandler.php:170 src/pagehandler.php:171 src/pagehandler.php:172
 #: src/strings.php:26 src/strings.php:57 src/strings.php:69 src/strings.php:89
 #: src/strings.php:143 src/strings.php:202 src/strings.php:544
 #: src/strings.php:557 src/strings.php:571 src/strings.php:630
@@ -2711,15 +2747,15 @@ msgstr "Archivo de almacenamiento de últimas conexiones no válido"
 msgid "Last-logins data file is not writable: <code>%s</code>"
 msgstr "No se puede escribir en el archivo de últimas conexiones: <code>%s</code>"
 
-#: src/template.lib.php:277
+#: src/template.lib.php:280
 msgid "Invalid template type"
 msgstr "Tipo de plantilla no válido"
 
-#: src/globals.php:114 src/globals.php:115 src/strings.php:35
+#: src/globals.php:119 src/globals.php:120 src/strings.php:35
 msgid "Sucuri Security"
 msgstr "Seguridad Sucuri"
 
-#: src/globals.php:91 src/strings.php:40
+#: src/strings.php:40
 msgid "Firewall (WAF)"
 msgstr "Cortafuegos (WAF)"
 
@@ -3052,56 +3088,56 @@ msgstr "%s (cada %d segundos)"
 msgid "Invalid cache key name"
 msgstr "Nombre de clave de caché no válido"
 
-#: src/integrity.lib.php:494 src/strings.php:662 src/strings.php:667
+#: src/integrity.lib.php:509 src/strings.php:662 src/strings.php:667
 msgid "WordPress Integrity Diff Utility"
 msgstr "Utilidad Diff de integridad de WordPress"
 
-#: src/integrity.lib.php:396
+#: src/integrity.lib.php:406
 msgid "The plugin has no permission to restore this file because its directory is owned by a different system user who has more privileges than your account. Please use FTP to restore it."
 msgstr "El plugin no tiene permiso para restaurar este archivo porque su directorio pertenece a un usuario de sistema distinto, y que tiene más privilegios que tu cuenta. Puede emplearse FTP para restaurarlo."
 
-#: src/integrity.lib.php:393
+#: src/integrity.lib.php:401
 msgid "The plugin has no permission to restore this file because it was modified by a different system user who has more privileges than your account. Please use FTP to restore it."
 msgstr "El plugin no tiene permiso para restaurar este archivo porque fue modificado por un usuario de sistema distinto, y que tiene más privilegios que tu cuenta. Puede emplearse FTP para restaurarlo. "
 
-#: src/integrity.lib.php:390
+#: src/integrity.lib.php:396
 msgid "The plugin has no permission to delete this file because it was created by a different system user who has more privileges than your account. Please use FTP to delete it."
 msgstr "El plugin no tiene permiso para borrar este archivo porque fue creado por un usuario de sistema distinto, y que tiene más privilegios que tu cuenta. Puede emplearse FTP para borrarlo. "
 
-#: src/integrity.lib.php:245
+#: src/integrity.lib.php:249
 msgid "<b>%d</b> out of <b>%d</b> files were successfully processed."
 msgstr "Se han procesado correctamente <b>%d</b> de <b>%d</b> archivos."
 
-#: src/integrity.lib.php:236
+#: src/integrity.lib.php:240
 msgid "Only <b>%d</b> out of <b>%d</b> files were processed."
 msgstr "Solo se han procesado <b>%d</b> de <b>%d</b> archivos."
 
-#: src/integrity.lib.php:229
+#: src/integrity.lib.php:231
 msgid "Server is not fast enough to process this action; maximum execution time reached"
 msgstr "El servidor no ha sido lo suficientemente rápido al procesar esta acción. Tiempo máximo de ejecución excedido"
 
-#: src/integrity.lib.php:136
+#: src/integrity.lib.php:138
 msgid "Nothing was selected from the list."
 msgstr "No se ha seleccionado nada de la lista."
 
-#: src/integrity.lib.php:131
+#: src/integrity.lib.php:133
 msgid "Core file marked as fixed"
 msgstr "Archivo del núcleo marcado como corregido"
 
-#: src/integrity.lib.php:130
+#: src/integrity.lib.php:132
 msgid "Non-core file deleted"
 msgstr "Archivo que no es del núcleo borrado"
 
-#: src/integrity.lib.php:129
+#: src/integrity.lib.php:131
 msgid "Core file restored"
 msgstr "Archivo del núcleo restaurado"
 
-#: src/integrity.lib.php:119
+#: src/integrity.lib.php:121
 msgid "Requested action is not supported."
 msgstr "La acción solicitada no es compatible."
 
 #: src/integrity.lib.php:113 src/settings-general.php:46
-#: src/settings-general.php:501 src/settings-posthack.php:58
+#: src/settings-general.php:501 src/settings-posthack.php:59
 msgid "You need to confirm that you understand the risk of this operation."
 msgstr "Necesitas confirmar que comprendes el riesgo de esta operación."
 
@@ -3171,7 +3207,7 @@ msgstr "https://wordpress.sucuri.net/"
 msgid "Sucuri Security - Auditing, Malware Scanner and Hardening"
 msgstr "Sucuri Security - Auditing, Malware Scanner and Hardening"
 
-#: src/strings.php:38 src/template.lib.php:136
+#: src/strings.php:38
 msgid "Generate API Key"
 msgstr "Generar clave de API"
 
@@ -3179,23 +3215,23 @@ msgstr "Generar clave de API"
 msgid "Not blocklisted"
 msgstr "No está en lista negra"
 
-#: src/settings-posthack.php:480
+#: src/settings-posthack.php:481
 msgid "Newest WordPress"
 msgstr "Último WordPress"
 
-#: src/settings-posthack.php:397
+#: src/settings-posthack.php:398
 msgid "Cannot Install"
 msgstr "No se puede instalar"
 
-#: src/settings-posthack.php:384
+#: src/settings-posthack.php:385
 msgid "Cannot Backup"
 msgstr "No se puede hacer copia"
 
-#: src/settings-posthack.php:381
+#: src/settings-posthack.php:382
 msgid "Cannot Download"
 msgstr "No se puede descargar"
 
-#: src/settings-posthack.php:371
+#: src/settings-posthack.php:372
 msgid "Missing Library"
 msgstr "Falta la biblioteca"
 
@@ -3203,19 +3239,19 @@ msgstr "Falta la biblioteca"
 msgid "Error"
 msgstr "Error"
 
-#: src/settings-hardening.php:120 src/settings-hardening.php:176
-#: src/settings-hardening.php:269 src/settings-hardening.php:273
-#: src/settings-hardening.php:331 src/settings-hardening.php:335
-#: src/settings-hardening.php:406 src/settings-hardening.php:410
-#: src/settings-hardening.php:461 src/settings-hardening.php:497
-#: src/settings-hardening.php:612 src/settings-hardening.php:674
+#: src/settings-hardening.php:122 src/settings-hardening.php:183
+#: src/settings-hardening.php:280 src/settings-hardening.php:284
+#: src/settings-hardening.php:344 src/settings-hardening.php:348
+#: src/settings-hardening.php:421 src/settings-hardening.php:425
+#: src/settings-hardening.php:478 src/settings-hardening.php:516
+#: src/settings-hardening.php:634 src/settings-hardening.php:697
 msgid "Revert Hardening"
 msgstr "Revertir el refuerzo"
 
-#: src/settings-hardening.php:116 src/settings-hardening.php:277
-#: src/settings-hardening.php:339 src/settings-hardening.php:414
-#: src/settings-hardening.php:458 src/settings-hardening.php:501
-#: src/settings-hardening.php:616 src/settings-hardening.php:669
+#: src/settings-hardening.php:118 src/settings-hardening.php:288
+#: src/settings-hardening.php:352 src/settings-hardening.php:429
+#: src/settings-hardening.php:475 src/settings-hardening.php:520
+#: src/settings-hardening.php:638 src/settings-hardening.php:692
 msgid "Apply Hardening"
 msgstr "Aplicar refuerzo"
 
@@ -3231,7 +3267,7 @@ msgstr "Existe"
 msgid "Does Not Exist"
 msgstr "No existe"
 
-#: src/settings-general.php:136 src/settings-posthack.php:368
+#: src/settings-general.php:136 src/settings-posthack.php:369
 msgid "Not Writable"
 msgstr "No se puede escribir"
 
@@ -3242,9 +3278,9 @@ msgstr "Activar"
 
 #: src/settings-apiservice.php:69 src/settings-general.php:254
 #: src/settings-general.php:298 src/settings-general.php:359
-#: src/settings-headers.php:135 src/settings-headers.php:310
-#: src/settings-headers.php:354 src/settings-headers.php:386
-#: src/settings-headers.php:430 src/strings.php:773
+#: src/settings-headers.php:137 src/settings-headers.php:314
+#: src/settings-headers.php:358 src/settings-headers.php:392
+#: src/settings-headers.php:436 src/strings.php:773 src/topt.lib.php:1064
 msgid "Disabled"
 msgstr "Desactivado"
 
@@ -3256,21 +3292,21 @@ msgstr "Desactivar"
 
 #: src/settings-apiservice.php:60 src/settings-general.php:211
 #: src/settings-general.php:277 src/settings-general.php:324
-#: src/settings-headers.php:135 src/settings-headers.php:387
-#: src/settings-headers.php:430 src/settings-integrity.php:80
-#: src/strings.php:772
+#: src/settings-headers.php:137 src/settings-headers.php:393
+#: src/settings-headers.php:436 src/settings-integrity.php:80
+#: src/strings.php:772 src/topt.lib.php:1063
 msgid "Enabled"
 msgstr "Activo"
 
-#: src/pagehandler.php:46
+#: src/pagehandler.php:169
 msgid "Scripts"
 msgstr "Scripts"
 
-#: src/pagehandler.php:45
+#: src/pagehandler.php:168
 msgid "Links"
 msgstr "Enlaces"
 
-#: src/pagehandler.php:44
+#: src/pagehandler.php:167
 msgid "iFrames"
 msgstr "iFrames"
 
@@ -3296,16 +3332,16 @@ msgstr "Contraseña"
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: src/globals.php:93 src/strings.php:41 src/strings.php:124
+#: src/globals.php:98 src/strings.php:41 src/strings.php:124
 #: src/strings.php:400
 msgid "Settings"
 msgstr "Ajustes"
 
-#: src/globals.php:92
+#: src/globals.php:97
 msgid "Last Logins"
 msgstr "Últimas conexiones"
 
-#: src/globals.php:90 src/strings.php:39 src/strings.php:399
+#: src/strings.php:39 src/strings.php:399
 msgid "Dashboard"
 msgstr "Escritorio"
 
@@ -3372,6 +3408,6 @@ msgstr "activo"
 msgid "Scheduled Tasks"
 msgstr "Tareas programadas"
 
-#: src/api.lib.php:497 src/auditlogs.lib.php:383
+#: src/api.lib.php:498 src/auditlogs.lib.php:384
 msgid "Today"
 msgstr "Hoy"

@@ -67,10 +67,14 @@ class AIOWPSecurity_Debug {
 			'Operating system' => php_uname('s') . ' ' . php_uname('r'),
 			'Server' => $_SERVER['SERVER_SOFTWARE'],
 			'Memory usage' => AIOWPSecurity_Utility::convert_numeric_size_to_text(memory_get_peak_usage(true)),
-			'Total space' => AIOWPSecurity_Utility::convert_numeric_size_to_text(disk_total_space('/')),
-			'Used space' => AIOWPSecurity_Utility::convert_numeric_size_to_text(disk_total_space('/') - disk_free_space('/')),
 		);
 
+		if (function_exists('disk_total_space')) {
+			$server_info = array_merge($server_info, array(
+				'Total space' => AIOWPSecurity_Utility::convert_numeric_size_to_text(disk_total_space('/')),
+				'Used space' => AIOWPSecurity_Utility::convert_numeric_size_to_text(disk_total_space('/') - disk_free_space('/')),
+			));
+		}
 		return apply_filters('aiowp_security_get_server_info', $server_info);
 	}
 
@@ -83,7 +87,6 @@ class AIOWPSecurity_Debug {
 
 		$php_info = array(
 			'PHP version' => phpversion(),
-			'PHP safe mode' => ini_get('safe_mode') ? 'Active' : 'Inactive',
 			'PHP expose php' => ini_get('expose_php') ? 'Active' : 'Inactive',
 			'PHP allow url fopen' => ini_get('allow_url_fopen') ? 'Active' : 'Inactive',
 			'PHP memory limit' => ini_get('memory_limit'),
@@ -100,7 +103,7 @@ class AIOWPSecurity_Debug {
 			'cURL support protocols' => function_exists('curl_version') ? implode(', ', curl_version()['protocols']) : 'Unknown',
 			'cURL SSL version' => function_exists('curl_version') ? curl_version()['ssl_version'] : 'Unknown',
 			'cURL libz version' => function_exists('curl_version') ? curl_version()['libz_version'] : 'Unknown',
-			/*'Checking display_errors' => ini_get('display_errors') ? 'Enabled' : 'Disabled', */ // Temporarily removed as this causes a bug on the email reports
+			'Checking display_errors' => ini_get('display_errors') ? 'Enabled' : 'Disabled',
 		);
 
 		return apply_filters('aiowp_security_get_php_info', $php_info);
@@ -404,24 +407,15 @@ class AIOWPSecurity_Debug {
 		global $aio_wp_security;
 		$ip_detection_methods = AIOS_Abstracted_Ids::get_ip_retrieve_methods();
 	
-		$active_method = $aio_wp_security->configs->get_value('aiowps_ip_retrieve_method');
+		$active_method = $aio_wp_security->configs->get_site_value('aiowps_ip_retrieve_method');  // In a multisite network, this setting is available for the main site only.
+		$active_method = empty($active_method) ? 0 : (int) $active_method;
 	
 		$ip_detection_list = array();
 	
 		foreach ($ip_detection_methods as $method => $variable) {
-			$status = '';
-			$ip_address = '';
-			if (strval($method) === $active_method) {
-				$status = 'On';
-			} else {
-				$status = 'Off';
-			}
-	
-			if (!empty($_SERVER[$variable])) {
-				$ip_address = $_SERVER[$variable];
-			}
-	
-			$ip_detection_list[$variable] = 'IP: ' . $ip_address . ' - status: ' . $status;
+			$status = ($method === $active_method) ? ' - ' . __('status', 'all-in-one-wp-security-and-firewall') . ': ' . __('On', 'all-in-one-wp-security-and-firewall') : '';
+			$ip_address = (!empty($_SERVER[$variable])) ? $_SERVER[$variable] : '';
+			$ip_detection_list[$variable] = __('IP', 'all-in-one-wp-security-and-firewall') . ': ' . $ip_address . $status;
 		}
 	
 		return $ip_detection_list;
@@ -505,8 +499,17 @@ class AIOWPSecurity_Debug {
 	 * @return string sender action button and email field
 	 */
 	public static function add_sender_report_actions() {
+		$report_sections = '';
+		foreach (self::$sections as $title => $method) {
+			$section_title = esc_html($title);
+			$section_content = self::$method();
+			$report_sections .= AIOWPSecurity_Reporting::generate_report_sections('table', $section_content, $section_title);
+		}
+		$encoded_report_sections = htmlentities($report_sections);
+
 		$data = '<div><form action="' . esc_url(admin_url('admin-post.php')) . '" method="POST"><br>';
 		$data .= '<input type="email" id="report_email" placeholder="' . esc_attr__('Enter your email address', 'all-in-one-wp-security-and-firewall') . '" value="' . esc_attr(self::get_current_user_email()) . '" required><br><br>';
+		$data .= '<input type="hidden" id="report_sections" value="'.$encoded_report_sections.'">';
 		$data .= '<button class="button" id="send-report">' . esc_html__('Send report', 'all-in-one-wp-security-and-firewall') . '</button>';
 		$data .= '</form><div id="report-response"></div></div>';
 
@@ -549,11 +552,14 @@ class AIOWPSecurity_Debug {
 	/**
 	 * Send the report email
 	 *
-	 * @param string $email The email address to send the report to
+	 * @global AIO_WP_Security $aio_wp_security
+	 *
+	 * @param string $email    The email address to send the report to.
+	 * @param string $sections The report sections html.
 	 *
 	 * @return boolean True if the email was sent successfully, false otherwise
 	 */
-	public static function send_report($email) {
+	public static function send_report($email, $sections) {
 		global $aio_wp_security;
 
 		$report = '<html><head><style>table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px}tr:nth-child(2n){background-color:#f2f2f2}tr:hover{background-color:#ddd}h3{margin-top:20px;}</style><head>';
@@ -568,11 +574,7 @@ class AIOWPSecurity_Debug {
 		$current_datetime = date_i18n(get_option('date_format') . ' ' . get_option('time_format'));
 		$report .= '<p>' . 'Date and time' . ': ' . $current_datetime . "</p>";
 
-		foreach (self::$sections as $title => $method) {
-			$section_title = esc_html($title);
-			$section_content = self::$method();
-			$report .= AIOWPSecurity_Reporting::generate_report_sections('table', $section_content, $section_title);
-		}
+		$report .= $sections;
 
 		$report .= self::get_debug_log(true);
 

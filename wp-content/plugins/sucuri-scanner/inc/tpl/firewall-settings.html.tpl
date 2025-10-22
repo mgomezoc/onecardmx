@@ -1,4 +1,3 @@
-
 <script type="text/javascript">
     /* global jQuery */
     /* jshint camelcase: false */
@@ -10,6 +9,10 @@
         }, function (data) {
             if (data.ok) {
                 var value;
+
+                var wafDomain = (data?.settings?.domain || '').toLowerCase().replace(/^www\./, '');
+                var domain  = window.location.hostname.toLowerCase().replace(/^www\./, '');
+
                 $('#firewall-settings-table tbody').html('');
                 for (var name in data.settings) {
                     if (data.settings.hasOwnProperty(name) &&
@@ -25,6 +28,25 @@
             } else {
                 $('#firewall-settings-table tbody')
                     .html('<tr><td colspan="2">' + data.error + '</td></tr>');
+            }
+
+            if (wafDomain && domain && wafDomain !== domain) {
+                const $alert = $('<div>', {
+                    id:    'sucuriscan-alert-domain-mismatch',
+                    class: 'updated sucuriscan-alert sucuriscan-alert-updated'
+                })
+                    .append($('<a>', { href:'#', class:'close', text:'×', click: e => { e.preventDefault(); $(e.currentTarget).parent().slideUp(); } }))
+                    .append($('<p>').html('<b>SUCURI:</b> Firewall returned domain <code>' + wafDomain + '</code> which differs from configured <code>' + domain + '</code>. Please verify your WAF settings.'));
+
+                const $target = $('#firewall-clear-cache-response');
+
+                if ($target.length) {
+                    $alert.insertBefore($target);
+                } else {
+                    const $container = $('.sucuriscan-container').first();
+
+                    $container.length ? $container.prepend($alert) : $alert.insertBefore($('.sucuriscan-panel').first());
+                }
             }
         });
     });
@@ -75,23 +97,28 @@
         </div>
 
         <div id="sucuriscan-waf-key-box" class="sucuriscan-hstatus sucuriscan-hstatus-2 sucuriscan-firewall-apikey sucuriscan-%%SUCURI.Firewall.APIKeyVisibility%%">
-            <strong>{{Firewall API Key:}}</strong>
-            <span id="sucuriscan_waf_key" class="sucuriscan-monospace" data-key="%%SUCURI.Firewall.APIKey%%">*******************************************************</span>
-            <button id="sucuriscan_toggle_wafkey" name="sucuriscan_toggle_wafkey" data-cy="sucuriscan-toggle-wafkey" class="button button-primary">{{Show}}</button>
-            <form action="%%SUCURI.URL.Firewall%%" method="post">
-                <input type="hidden" name="sucuriscan_page_nonce" value="%%SUCURI.PageNonce%%" />
-                <input type="hidden" name="sucuriscan_delete_wafkey" value="" />
+            <div class="sucuriscan-key-info">
+                <strong>{{Firewall API Key:}}</strong>
+                <span id="sucuriscan_waf_key" class="sucuriscan-monospace" data-key="%%SUCURI.Firewall.APIKey%%">*******************************************************</span>
+            </div>
 
-                <div class="sucuriscan-dropdown">
-                    <a target="_blank" rel="noopener" class="button button-secondary">Options</a>
+            <div class="sucuriscan-key-actions">
+                <button id="sucuriscan_toggle_wafkey" name="sucuriscan_toggle_wafkey" data-cy="sucuriscan-toggle-wafkey" class="button button-primary">{{Show}}</button>
+                <form action="%%SUCURI.URL.Firewall%%" method="post">
+                    <input type="hidden" name="sucuriscan_page_nonce" value="%%SUCURI.PageNonce%%" />
+                    <input type="hidden" name="sucuriscan_delete_wafkey" value="" />
 
-                    <div id="sucuriscan-waf-key-options" class="sucuriscan-dropdown-content sucuriscan-dropdown-content-sm">
-                        <i class="sucuriscan-pointer"></i>
-                        <option value="update">Update</option>
-                        <option value="delete">Delete</option>
+                    <div class="sucuriscan-dropdown">
+                        <a target="_blank" rel="noopener" class="button button-secondary">Options</a>
+
+                        <div id="sucuriscan-waf-key-options" class="sucuriscan-dropdown-content sucuriscan-dropdown-content-sm">
+                            <i class="sucuriscan-pointer"></i>
+                            <option value="update">Update</option>
+                            <option value="delete">Delete</option>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
 
         <form id="sucuriscan-waf-key-form" action="%%SUCURI.URL.Firewall%%" method="post" class="sucuriscan-%%SUCURI.Firewall.APIKeyFormVisibility%%">

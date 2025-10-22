@@ -125,11 +125,16 @@ class Loader {
 	}
 
 	/**
-	 * Populate Frontend related classes.
+	 * Populate Frontend-related classes.
 	 *
 	 * @since 1.8.1
 	 */
 	private function populate_frontend(): void {
+
+		$this->classes[] = [
+			'name' => 'Frontend\Address',
+			'id'   => 'address',
+		];
 
 		$this->classes[] = [
 			'name' => 'Frontend\Amp',
@@ -163,7 +168,7 @@ class Loader {
 	}
 
 	/**
-	 * Populate Admin related classes.
+	 * Populate Admin-related classes.
 	 *
 	 * @since 1.6.0
 	 */
@@ -275,6 +280,10 @@ class Loader {
 				'hook' => 'admin_init',
 			],
 			[
+				'name' => 'Admin\Pages\PrivacyCompliance',
+				'hook' => 'admin_init',
+			],
+			[
 				'name' => 'Forms\Fields\Richtext\EntryViewContent',
 			],
 			[
@@ -324,10 +333,6 @@ class Loader {
 			[
 				'name' => 'LicenseApi\PluginUpdateCache',
 				'id'   => 'license_api_plugin_update_cache',
-			],
-			[
-				'name' => 'LicenseApi\PluginInfoCache',
-				'id'   => 'license_api_plugin_info_cache',
 			],
 			[
 				'name' => 'LicenseApi\ValidateKeyCache',
@@ -440,6 +445,10 @@ class Loader {
 
 		$this->classes[] = [
 			'name' => 'Forms\Fields\Repeater\Field',
+		];
+
+		$this->classes[] = [
+			'name' => 'Forms\Fields\Camera\Field',
 			'hook' => 'init',
 		];
 
@@ -585,6 +594,8 @@ class Loader {
 			],
 			[
 				'name' => 'Admin\Entries\Export\Export',
+				'id'   => 'entries_export',
+				'hook' => 'init',
 			],
 			[
 				'name' => 'Admin\Entries\DefaultScreen',
@@ -643,6 +654,11 @@ class Loader {
 				'id'   => 'context_menu',
 			],
 			[
+				'name' => 'Admin\Builder\ImageUpload',
+				'hook' => 'wpforms_builder_init',
+				'id'   => 'image_upload',
+			],
+			[
 				'name' => 'Admin\Builder\Notifications\Advanced\Settings',
 			],
 			[
@@ -660,6 +676,11 @@ class Loader {
 			[
 				'name' => 'Admin\Builder\Ajax\SaveForm',
 				'id'   => 'builder_save_form',
+			],
+			[
+				'name' => 'Admin\Builder\Payments',
+				'hook' => 'wpforms_builder_init',
+				'id'   => 'builder_payments',
 			]
 		);
 	}
@@ -786,7 +807,7 @@ class Loader {
 	}
 
 	/**
-	 * Populate logger loaded classes.
+	 * Populate logger-loaded classes.
 	 *
 	 * @since 1.6.3
 	 */
@@ -801,7 +822,7 @@ class Loader {
 	}
 
 	/**
-	 * Populate education related classes.
+	 * Populate education-related classes.
 	 *
 	 * @since 1.6.6
 	 */
@@ -850,6 +871,10 @@ class Loader {
 				'hook' => 'load-post.php',
 			],
 			[
+				'name' => 'Admin\Education\Admin\EditPost',
+				'hook' => 'load-site-editor.php',
+			],
+			[
 				'name'     => 'Admin\Education\Pointers\Payment',
 				'hook'     => 'admin_init',
 				'priority' => 20,
@@ -869,6 +894,7 @@ class Loader {
 			'Builder\Geolocation',
 			'Builder\Confirmations',
 			'Builder\Notifications',
+			'Builder\PDF',
 			'Admin\DidYouKnow',
 			'Admin\Settings\Integrations',
 			'Admin\Settings\Geolocation',

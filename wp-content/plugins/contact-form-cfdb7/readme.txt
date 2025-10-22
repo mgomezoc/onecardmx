@@ -3,8 +3,8 @@ Contributors: arshidkv12
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=H5F3Z6S3MNTXA&lc=IN&item_name=wp%2dlogin%2dlimit&amount=5%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted
 Tags: cf7, contact form 7, contact form 7 db, cf7 database, wpcf7
 Requires at least: 4.8
-Tested up to: 6.8
-Stable tag: 1.3.0
+Tested up to: 6.8.3
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 7.0
@@ -33,9 +33,11 @@ By simply installing the plugin, it will automatically begin to capture form sub
 
 = Plugins =
 * [PostBox Email Log](https://wordpress.org/plugins/postbox-email-logs/)
-* [WP mail smtp](https://wordpress.org/plugins/wp-mail-smtp-mailer/)
+* [WP SMTP Mailer – SMTP7](https://wordpress.org/plugins/wp-mail-smtp-mailer/)
 
 = Pro Addons =
+* [Scheduled Export CSV](https://ciphercoin.com/downloads/public-export-csv/)
+Automatically export form entries to CSV on a schedule
 * [Advanced MYSQL DB](https://ciphercoin.com/downloads/contact-form-7-column-base-mysql-database-addon/)
 Separate MySQL column for each cf7 input field
 * [Excel Spreadsheet (XLSX) Extension](https://ciphercoin.com/downloads/excel-xlsx-spreadsheet/)
@@ -78,6 +80,15 @@ add_filter('cfdb7_csv_delimiter', function( $delimiter ){
 
 == Changelog ==
 
+= 1.3.3 =
+Security improvements
+
+= 1.3.2 =
+Added esc_html 
+
+= 1.3.1 =
+Changed the text 
+
 = 1.3.0 =
 Hooks are modified 
 
@@ -93,8 +104,6 @@ Changed csv delimiter to semicolon
 = 1.2.7 =
 Extra protection for files
 
-= 1.2.6.8 =
-Added cfdb7_admin_subpage_columns hook
 
 
 

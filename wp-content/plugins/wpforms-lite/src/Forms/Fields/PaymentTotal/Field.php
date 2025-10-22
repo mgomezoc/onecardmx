@@ -21,12 +21,13 @@ class Field extends WPForms_Field {
 	public function init() {
 
 		// Define field type information.
-		$this->name     = esc_html__( 'Total', 'wpforms-lite' );
-		$this->keywords = esc_html__( 'store, ecommerce, pay, payment, sum', 'wpforms-lite' );
-		$this->type     = 'payment-total';
-		$this->icon     = 'fa-money';
-		$this->order    = 110;
-		$this->group    = 'payment';
+		$this->name            = esc_html__( 'Total', 'wpforms-lite' );
+		$this->keywords        = esc_html__( 'store, ecommerce, pay, payment, sum', 'wpforms-lite' );
+		$this->type            = 'payment-total';
+		$this->icon            = 'fa-money';
+		$this->order           = 110;
+		$this->group           = 'payment';
+		$this->allow_read_only = false;
 
 		$this->hooks();
 	}
@@ -36,7 +37,7 @@ class Field extends WPForms_Field {
 	 *
 	 * @since 1.8.2
 	 */
-	private function hooks() {
+	private function hooks(): void {
 
 		// Define additional field properties.
 		add_filter( "wpforms_field_properties_{$this->type}", [ $this, 'field_properties' ], 5, 3 );
@@ -74,7 +75,7 @@ class Field extends WPForms_Field {
 		// Input Primary: add class for targeting calculations.
 		$properties['inputs']['primary']['class'][] = 'wpforms-payment-total';
 
-		// Input Primary: add data attribute if total is required.
+		// Input Primary: add a data attribute if total is required.
 		if ( ! empty( $field['required'] ) ) {
 			$properties['inputs']['primary']['data']['rule-required-payment'] = true;
 		}
@@ -298,7 +299,7 @@ class Field extends WPForms_Field {
 	 * @noinspection HtmlWrongAttributeValue
 	 * @noinspection HtmlUnknownAttribute
 	 */
-	public function field_display( $field, $deprecated, $form_data ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	public function field_display( $field, $deprecated, $form_data ) {
 
 		$primary = $field['properties']['inputs']['primary'];
 		$type    = ! empty( $field['required'] ) ? 'text' : 'hidden';
@@ -321,7 +322,7 @@ class Field extends WPForms_Field {
 
 		if ( $is_summary_enabled ) {
 			/**
-			 * Allow to filter form data before displaying the order summary table.
+			 * Allow filtering form data before displaying the order summary table.
 			 *
 			 * @since 1.9.3
 			 *
@@ -352,7 +353,7 @@ class Field extends WPForms_Field {
 			$amount    = $foot_item['amount'] ?? 0;
 		}
 
-		// Always print total to cover a case when field is embedded into Layout column with 25% width.
+		// Always print total to cover a case when a field is embedded into a Layout column with 25% width.
 		$hidden_style = $is_summary_enabled ? 'display:none' : '';
 
 		// This displays the total the user sees.
@@ -381,7 +382,7 @@ class Field extends WPForms_Field {
 	 */
 	public function validate( $field_id, $field_submit, $form_data ) {
 
-		// Basic required check - If field is marked as required, check for entry data.
+		// Basic required check - If a field is marked as required, check for entry data.
 		if ( ! empty( $form_data['fields'][ $field_id ]['required'] ) && ( empty( $field_submit ) || wpforms_sanitize_amount( $field_submit ) <= 0 ) ) {
 			wpforms()->obj( 'process' )->errors[ $form_data['id'] ][ $field_id ] = esc_html__( 'Payment is required.', 'wpforms-lite' );
 		}
@@ -420,7 +421,7 @@ class Field extends WPForms_Field {
 	 *
 	 * @param array $field Field data and settings.
 	 */
-	private function summary_option( array $field ) {
+	private function summary_option( array $field ): void {
 
 		$is_allowed = RequirementsAlerts::is_order_summary_allowed();
 
@@ -472,7 +473,7 @@ class Field extends WPForms_Field {
 	 *
 	 * @param array $field Field data and settings.
 	 */
-	private function summary_option_notice( array $field ) {
+	private function summary_option_notice( array $field ): void {
 
 		$notice           = __( 'Example data is shown in the form editor. Actual products and totals will be displayed when you preview or embed your form.', 'wpforms-lite' );
 		$is_notice_hidden = ! $this->is_summary_enabled( $field ) ? 'wpforms-hidden' : '';
@@ -631,17 +632,17 @@ class Field extends WPForms_Field {
 	 * @param array $fields Fields data.
 	 * @param float $total  Fields total.
 	 */
-	private function prepare_payment_field_single( array $field, array &$fields, float &$total ) {
+	private function prepare_payment_field_single( array $field, array &$fields, float &$total ): void {
 
 		if ( ! empty( $field['choices'] ) ) {
 			return;
 		}
 
-		$quantity     = $this->get_payment_field_min_quantity( $field );
-		$field_amount = ! empty( $field['price'] ) ? wpforms_sanitize_amount( $field['price'] ) * $quantity : 0;
-		$classes      = [ 'wpforms-order-summary-field' ];
-
-		$format = $field['format'] ?? '';
+		$quantity                = $this->get_payment_field_min_quantity( $field );
+		$field_amount            = $this->get_payment_field_single_amount( $field, $quantity );
+		$classes                 = [ 'wpforms-order-summary-field' ];
+		$format                  = $field['format'] ?? '';
+		$is_conditionally_hidden = $this->is_conditionally_hidden( $field );
 
 		if ( $format === 'hidden' ) {
 			$classes[] = 'wpforms-hidden';
@@ -649,16 +650,18 @@ class Field extends WPForms_Field {
 
 		$fields[] = [
 			'label'     => ! empty( $field['label_hide'] ) ? '' : $field['label'],
-			'quantity'  => $this->get_payment_field_min_quantity( $field ),
+			'quantity'  => $quantity,
 			'amount'    => wpforms_format_amount( $field_amount, true ),
-			'is_hidden' => ! $quantity,
+			'is_hidden' => ! $quantity || $is_conditionally_hidden,
 			'class'     => $classes,
 			'data'      => [
 				'field' => $field['id'],
 			],
 		];
 
-		$total += $field_amount;
+		if ( ! $is_conditionally_hidden ) {
+			$total += $field_amount;
+		}
 	}
 
 	/**
@@ -670,14 +673,15 @@ class Field extends WPForms_Field {
 	 * @param array $fields Fields data.
 	 * @param float $total  Fields total.
 	 */
-	private function prepare_payment_field_choices( array $field, array &$fields, float &$total ): void { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	private function prepare_payment_field_choices( array $field, array &$fields, float &$total ): void {
 
 		if ( empty( $field['choices'] ) ) {
 			return;
 		}
 
-		$quantity           = $this->get_payment_field_min_quantity( $field );
-		$default_choice_key = $this->get_classic_dropdown_default_choice_key( $field );
+		$quantity                = $this->get_payment_field_min_quantity( $field );
+		$default_choice_key      = $this->get_classic_dropdown_default_choice_key( $field );
+		$is_conditionally_hidden = $this->is_conditionally_hidden( $field );
 
 		foreach ( $field['choices'] as $key => $choice ) {
 
@@ -690,7 +694,7 @@ class Field extends WPForms_Field {
 				'label'     => ! empty( $field['label_hide'] ) ? $choice_label : $field['label'] . ' - ' . $choice_label,
 				'quantity'  => $quantity,
 				'amount'    => wpforms_format_amount( $choice_amount, true ),
-				'is_hidden' => ! $is_default || ! $quantity,
+				'is_hidden' => ! $is_default || ! $quantity || $is_conditionally_hidden,
 				'class'     => 'wpforms-order-summary-field',
 				'data'      => [
 					'field'  => $field['id'],
@@ -698,7 +702,7 @@ class Field extends WPForms_Field {
 				],
 			];
 
-			if ( $is_default ) {
+			if ( $is_default && ! $is_conditionally_hidden ) {
 				$total += $choice_amount;
 			}
 		}
@@ -721,7 +725,7 @@ class Field extends WPForms_Field {
 	}
 
 	/**
-	 * Get classic dropdown default choice key.
+	 * Get the classic dropdown default choice key.
 	 *
 	 * @since 1.8.7
 	 *
@@ -761,11 +765,12 @@ class Field extends WPForms_Field {
 			return 1;
 		}
 
-		return (int) $field['min_quantity'];
+		// Ensure non-negative quantity.
+		return max( 0, (int) $field['min_quantity'] );
 	}
 
 	/**
-	 * Add class to the builder field preview.
+	 * Add a class to the builder field preview.
 	 *
 	 * @since 1.8.7
 	 *
@@ -788,14 +793,14 @@ class Field extends WPForms_Field {
 	}
 
 	/**
-	 * Add order summary to the confirmation settings.
+	 * Add an order summary to the confirmation settings.
 	 *
 	 * @since 1.8.7
 	 *
 	 * @param WPForms_Builder_Panel_Settings $settings Settings.
 	 * @param int                            $field_id Field ID.
 	 */
-	public function add_confirmation_setting( $settings, int $field_id ) {
+	public function add_confirmation_setting( $settings, int $field_id ): void {
 
 		wpforms_panel_field(
 			'toggle',
@@ -813,7 +818,7 @@ class Field extends WPForms_Field {
 	}
 
 	/**
-	 * Show order summary on the confirmation page.
+	 * Show the order summary on the confirmation page.
 	 *
 	 * @since 1.8.7
 	 *
@@ -822,7 +827,7 @@ class Field extends WPForms_Field {
 	 * @param array $fields       Sanitized field data.
 	 * @param int   $entry_id     Entry id.
 	 */
-	public function order_summary_confirmation( array $confirmation, array $form_data, array $fields, int $entry_id ) {
+	public function order_summary_confirmation( array $confirmation, array $form_data, array $fields, int $entry_id ): void {
 
 		if ( empty( $confirmation['message_order_summary'] ) ) {
 			return;
@@ -847,7 +852,46 @@ class Field extends WPForms_Field {
 
 		echo '<div class="wpforms-confirmation-container-order-summary">';
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo wpforms_process_smart_tags( '{order_summary}', $form_data, $fields, $entry_id );
+		echo wpforms_process_smart_tags( '{order_summary}', $form_data, $fields, $entry_id, 'payment-total-order-summary-confirmation' );
 		echo '</div>';
+	}
+
+	/**
+	 * Calculates the total amount for a single payment field based on its price and quantity.
+	 *
+	 * @since 1.9.5
+	 *
+	 * @param array $field    The payment field data containing the price.
+	 * @param int   $quantity The quantity of the field specified.
+	 *
+	 * @return float|int The calculated total amount for the payment field.
+	 */
+	private function get_payment_field_single_amount( array $field, int $quantity ) {
+
+		if ( empty( $field['price'] ) ) {
+			return 0;
+		}
+
+		return wpforms_sanitize_amount( $field['price'] ) * $quantity;
+	}
+
+	/**
+	 * Determines if a field is conditionally hidden based on its settings and conditions.
+	 *
+	 * Note: This is a simplified implementation that assumes fields with 'show' conditional
+	 * logic are hidden by default, without evaluating the actual conditions. This approach
+	 * was chosen to avoid complex condition evaluation during form rendering.
+	 *
+	 * @since 1.9.5
+	 *
+	 * @param array $field Field data, including conditional logic settings.
+	 *
+	 * @return bool True if the field is conditionally hidden, false otherwise.
+	 */
+	private function is_conditionally_hidden( array $field ): bool {
+
+		return wpforms()->is_pro() &&
+				wpforms_conditional_logic_fields()->field_is_conditional( $field ) &&
+				( $field['conditional_type'] ?? '' ) === 'show';
 	}
 }

@@ -1,3 +1,44 @@
+<script type="text/javascript">
+    /* global jQuery */
+    /* jshint camelcase: false */
+
+    jQuery(document).ready(function ($) {
+        function setButtonState ($form) {
+            if (!$form.length) { return; }
+
+            var confirmed = $form.find('[name="sucuriscan_process_form"][type="checkbox"]').prop('checked');
+            var hasFiles  = $form.find('[name="sucuriscan_integrity[]"]:checked').length > 0;
+            var disabled  = !(confirmed && hasFiles);
+
+            $form.find('[data-cy="sucuriscan_integrity_incorrect_submit"]').prop('disabled', disabled);
+        }
+
+        function initIntegrityForms ($ctx) {
+            $ctx.find('[data-cy="sucuriscan_integrity_incorrect_submit"]').each(function () {
+                setButtonState($(this).closest('form'));
+            });
+        }
+
+        $(function () {
+            initIntegrityForms($(document));
+
+            $(document).on('change.integrityGuard',
+                '[name="sucuriscan_process_form"][type="checkbox"], [name="sucuriscan_integrity[]"]',
+                function () { setButtonState($(this).closest('form')); }
+            );
+
+            $(document).ajaxComplete(function (_e, _xhr, settings) {
+                if (!settings || !settings.data) { return; }
+
+                if (settings.data.indexOf('form_action=integrity') !== -1 ||
+                    settings.data.indexOf('integrity_scan')        !== -1) {
+                    initIntegrityForms($(document));
+                }
+            });
+        });
+    });
+</script>
+
 <div class="sucuriscan-panel sucuriscan-integrity sucuriscan-integrity-incorrect">
     <div class="sucuriscan-clearfix">
         <div class="sucuriscan-pull-left sucuriscan-integrity-left">
@@ -32,7 +73,7 @@
                           content="{{The Unix Diff Utility is enabled. You can click the files in the table to see the differences detected by the scanner. If you consider the differences to be harmless you can mark the file as fixed, otherwise it is advised to restore the original content immediately.}}">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  width="14" height="14">
-                                <path fill="#000000" d="m6.998315,0.033333c-3.846307,0 -6.964982,
+                                <path fill="#25BB9E" d="m6.998315,0.033333c-3.846307,0 -6.964982,
                                 3.118675 -6.964982,6.964982s3.118675,6.965574 6.964982,6.965574s6.965574,
                                 -3.119267 6.965574,-6.965574s-3.119267,-6.964982 -6.965574,-6.964982zm1.449957,
                                 10.794779c-0.358509,0.141517 -0.643901,0.248833 -0.857945,0.32313c-0.213455,
@@ -119,7 +160,7 @@
                   content="{{Marking one or more files as fixed will force the plugin to ignore them during the next scan, very useful when you find false positives. Additionally you can restore the original content of the core files that appear as modified or deleted, this will tell the plugin to download a copy of the original files from the official WordPress repository. Deleting a file is an irreversible action, be careful.}}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14"
                      height="14">
-                    <path fill="#000000" d="m6.998315,0.033333c-3.846307,0 -6.964982,
+                    <path fill="#25BB9E" d="m6.998315,0.033333c-3.846307,0 -6.964982,
                     3.118675 -6.964982,6.964982s3.118675,6.965574 6.964982,6.965574s6.965574,
                     -3.119267 6.965574,-6.965574s-3.119267,-6.964982 -6.965574,-6.964982zm1.449957,
                     10.794779c-0.358509,0.141517 -0.643901,0.248833 -0.857945,0.32313c-0.213455,

@@ -63,13 +63,31 @@ class SucuriScanInterface
      */
     public static function enqueueScripts()
     {
-        wp_register_style(
-            'sucuriscan',
-            SUCURISCAN_URL . '/inc/css/styles.css',
-            array(/* empty */),
-            SucuriScan::fileVersion('inc/css/styles.css')
-        );
+		if (self::getPreferredTheme() === 'dark') {
+			wp_register_style(
+				'sucuriscan',
+				SUCURISCAN_URL . '/inc/css/dark.css',
+				array(/* empty */),
+				SucuriScan::fileVersion('inc/css/dark.css')
+			);
+		} else {
+			wp_register_style(
+				'sucuriscan',
+				SUCURISCAN_URL . '/inc/css/light.css',
+				array(/* empty */),
+				SucuriScan::fileVersion('inc/css/light.css')
+			);
+		}
+
+	    wp_register_style(
+		    'sucuriscan_shared',
+		    SUCURISCAN_URL . '/inc/css/shared.css',
+		    array(/* empty */),
+		    SucuriScan::fileVersion('inc/css/shared.css')
+	    );
+
         wp_enqueue_style('sucuriscan');
+        wp_enqueue_style('sucuriscan_shared');
 
         wp_register_script(
             'sucuriscan',
@@ -349,5 +367,32 @@ class SucuriScanInterface
     {
         self::adminNotice('updated', $msg);
         return true; /* assume success */
+    }
+
+
+	public static function isPremium() {
+		$api_key = SucuriScanFirewall::getOption(':cloudproxy_apikey');
+
+		return SucuriScanFirewall::isValidKey($api_key);
+	}
+
+    public static function getPreferredTheme() {
+        if (!self::isPremium()) {
+            return 'light';
+        }
+
+        $user_id = get_current_user_id();
+
+        if (!$user_id) {
+            return 'dark';
+        }
+
+        $current_theme = get_user_meta($user_id, 'sucuriscan_preferred_theme', true);
+
+        if (in_array($current_theme, array('light', 'dark'), true)) {
+            return $current_theme;
+        }
+
+        return 'dark';
     }
 }
