@@ -50,7 +50,7 @@ wp-content/object-cache.php
 
 # Ignorar plugins y temas (si se usan plugins y temas gestionados por Composer, no se versionan)
 wp-content/plugins/
-
+wp-content/themes/adfactory/descargas_estados
 
 # Ignorar archivos de idiomas
 wp-content/languages/
